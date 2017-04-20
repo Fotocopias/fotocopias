@@ -1,0 +1,46 @@
+{
+  "name": "MateriaImpartida",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "materia": {
+      "type": "string"
+    },
+    "profesor": {
+      "type": "string"
+    },
+    "grupo": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "materiasid": {
+      "type": "belongsTo",
+      "model": "Materia",
+      "foreignKey": "codigo"
+    },
+    "grupos": {
+      "type": "belongsTo",
+      "model": "Grupo",
+      "foreignKey": "id"
+    },
+    "profesoresid": {
+      "type": "belongsTo",
+      "model": "Profesor",
+      "foreignKey": "id"
+    }
+  },
+  "acls": [
+  {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+  }
+  ],
+  "methods": {}
+}

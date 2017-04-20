@@ -1,0 +1,55 @@
+{
+  "name": "Usuario",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "tipoUsuario": {
+      "type": "string"
+    },
+    "apellidos": {
+      "type": "string",
+      "required": true
+    },
+    "username": {
+      "type": "string",
+      "required": true
+    },
+    "password": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "string",
+      "required": true
+    },
+    "enabled": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "profesoresids": {
+      "type": "hasMany",
+      "model": "Profesor",
+      "foreignKey": "id"
+    },
+    "alumnoides": {
+      "type": "hasMany",
+      "model": "Alumno",
+      "foreignKey": "id"
+    }
+  },
+  "acls": [
+  {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+  } 
+  ],
+  "methods": {}
+}

@@ -1,0 +1,50 @@
+{
+  "name": "MateriaMatriculada",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "expediente": {
+      "type": "number"
+    },
+    "materia": {
+      "type": "string"
+    },
+    "profesor": {
+      "type": "string"
+    },
+    "anyo": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "materi": {
+      "type": "belongsTo",
+      "model": "Materia",
+      "foreignKey": "codigo"
+    },
+    "profeid": {
+      "type": "belongsTo",
+      "model": "Profesor",
+      "foreignKey": "id"
+    },
+    "alumnosid": {
+      "type": "belongsTo",
+      "model": "Alumno",
+      "foreignKey": "id"
+    }
+  },
+  "acls": [
+  {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+  }
+  ],
+  "methods": {}
+}

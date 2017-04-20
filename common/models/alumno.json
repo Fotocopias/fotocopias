@@ -1,0 +1,87 @@
+{
+  "name": "Alumno",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "dni": {
+      "type": "string"
+    },
+    "apellido1": {
+      "type": "string",
+      "required": true
+    },
+    "apellido2": {
+      "type": "string"
+    },
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "fechaNac": {
+      "type": "date"
+    },
+    "movil": {
+      "type": "string"
+    },
+    "padre": {
+      "type": "string"
+    },
+    "madre": {
+      "type": "string"
+    },
+    "telCasa": {
+      "type": "string"
+    },
+    "movilPadre": {
+      "type": "string"
+    },
+    "movilMadre": {
+      "type": "string"
+    },
+    "domicilio": {
+      "type": "string"
+    },
+    "cp": {
+      "type": "string"
+    },
+    "localidad": {
+      "type": "string"
+    },
+    "provincia": {
+      "type": "string"
+    },
+    "idUsuario": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "userid": {
+      "type": "belongsTo",
+      "model": "Usuario",
+      "foreignKey": "id"
+    },
+    "matriculas": {
+      "type": "hasMany",
+      "model": "Matricula",
+      "foreignKey": "id"
+    },
+    "materiamatriculadas": {
+      "type": "hasMany",
+      "model": "MateriaMatriculada",
+      "foreignKey": "id"
+    }
+  },
+  "acls": [
+  {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+  }
+  ],
+  "methods": {}
+}

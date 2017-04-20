@@ -1,0 +1,45 @@
+{
+  "name": "Materia",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "materia": {
+      "type": "string"
+    },
+    "ensenanza": {
+      "type": "string"
+    },
+    "curso": {
+      "type": "string"
+    },
+    "codigo": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "materiamatriculad": {
+      "type": "hasMany",
+      "model": "MateriaMatriculada",
+      "foreignKey": "id"
+    },
+    "materiaImpartid": {
+      "type": "belongsTo",
+      "model": "MateriaImpartida",
+      "foreignKey": "id"
+    }
+  },
+  "acls": [
+  {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+  }
+  ],
+  "methods": {}
+}

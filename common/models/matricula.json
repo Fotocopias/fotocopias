@@ -1,0 +1,38 @@
+{
+  "name": "Matricula",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "expediente": {
+      "type": "number"
+    },
+    "grupo": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "grupos": {
+      "type": "belongsTo",
+      "model": "Grupo",
+      "foreignKey": "id"
+    },
+    "alumnos": {
+      "type": "belongsTo",
+      "model": "Alumno",
+      "foreignKey": "id"
+    }
+  },
+  "acls": [
+  {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+  }
+  ],
+  "methods": {}
+}

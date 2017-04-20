@@ -1,0 +1,67 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "db"
+  },
+  "AccessToken": {
+    "dataSource": "db",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "db",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "db",
+    "public": false
+  },
+  "Role": {
+    "dataSource": "db",
+    "public": false
+  },
+  "Materia": {
+    "dataSource": "db",
+    "public": true
+  },
+  "MateriaImpartida": {
+    "dataSource": "db",
+    "public": true
+  },
+  "MateriaMatriculada": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Grupo": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Profesor": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Usuario": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Alumno": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Matricula": {
+    "dataSource": "db",
+    "public": true
+  }
+}

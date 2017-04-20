@@ -1,0 +1,65 @@
+{
+  "name": "Profesor",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "apellidos": {
+      "type": "string",
+      "required": true
+    },
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "string"
+    },
+    "dni": {
+      "type": "string"
+    },
+    "movil": {
+      "type": "string"
+    },
+    "departamento": {
+      "type": "string"
+    },
+    "idUsuario": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "usuarios": {
+      "type": "belongsTo",
+      "model": "Usuario",
+      "foreignKey": "id"
+    },
+    "materiaimpartidaid": {
+      "type": "hasMany",
+      "model": "MateriaImpartida",
+      "foreignKey": "id"
+    },
+    "materiamatriculadaid": {
+      "type": "hasMany",
+      "model": "MateriaMatriculada",
+      "foreignKey": "id"
+    },
+    "grupoid": {
+      "type": "hasMany",
+      "model": "Grupo",
+      "foreignKey": "id"
+    }
+  },
+  "acls": [
+  {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+  }
+  ],
+  "methods": {}
+}
