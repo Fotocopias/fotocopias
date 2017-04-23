@@ -30,6 +30,9 @@
     },
     "horarioVisita": {
       "type": "string"
+    },
+    "archivo": {
+      "type": "string"
     }
   },
   "validations": [],
