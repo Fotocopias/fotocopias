@@ -40,9 +40,6 @@ $(document).ready(function(){
 				alert('exito');
 			}
 	     });
-
-		
-
 	});
 	$('#archivo').change(function(event){
 		tmppath = URL.createObjectURL(event.target.files[0]);
@@ -50,3 +47,19 @@ $(document).ready(function(){
 
 	});
 }); 
+
+//Select para mostrar los tipos de usuarios segun su acceso.
+
+$(document).ready(function(){
+	var route = "api/Usuarios";
+	var users = "";
+	    $.ajax(route, {
+        success: function (data) {
+			for (y in data) {
+				var tipoUsuario = data[y]["tipoUsuario"];
+        		users = users + '<option value="'+tipoUsuario+'">'+tipoUsuario+'</option>';
+        	}
+        	$('#tipoUser').html(users);
+        }
+      	});
+});

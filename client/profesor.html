@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Profesor</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<!-- Referencia e inspiracion 
+		https://github.com/pragysha/LoopbackWebAppsharma
+		-->
+
+	</head>
+	<body>
+		<h1>Vista del Profesor</h1>
+		
+		<form id="form-ajax" method="post" enctype="multipart/form-data"> 
+			<div class="form-group">            
+				<label>Curso:</label>
+				<select id="curso"></select>
+				<label>Grupo:</label>
+				<select id="grupo" ></select>
+				<input name="archivo" id="archivo" type="file"/>
+			</div>
+
+		    <button id="btn-subir" class="btn btn-primary">Subir</button>
+		</form>
+	
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+	</body>
+</html>
