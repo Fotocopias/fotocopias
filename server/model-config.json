@@ -63,5 +63,13 @@
   "Matricula": {
     "dataSource": "db",
     "public": true
+  },
+  "Conserje": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Administrador": {
+    "dataSource": "db",
+    "public": true
   }
 }

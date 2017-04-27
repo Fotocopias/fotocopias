@@ -1,36 +1,27 @@
 {
-  "name": "MateriaImpartida",
+  "name": "Administrador",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "materia": {
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "apellidos": {
       "type": "string"
     },
-    "profesor": {
+    "idUsuario": {
       "type": "string"
-    },
-    "grupo": {
-      "type": "number"
     }
   },
   "validations": [],
   "relations": {
-    "materiasid": {
+    "usuarioAdmin": {
       "type": "belongsTo",
-      "model": "Materia",
-      "foreignKey": "codigo"
-    },
-    "grupos": {
-      "type": "belongsTo",
-      "model": "Grupo",
-      "foreignKey": "id"
-    },
-    "profesoresid": {
-      "type": "belongsTo",
-      "model": "Profesor",
+      "model": "Usuario",
       "foreignKey": "id"
     }
   },
