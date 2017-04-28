@@ -1,5 +1,5 @@
 'use strict';
 
-module.exports = function(Materiaimpartida) {
+module.exports = function(MateriaImpartida) {
 
 };

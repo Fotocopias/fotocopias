@@ -1,7 +1,7 @@
 var baseurl = "http://localhost:3000/";//baseurl
  
 //en ie8 no funciona preventDefault
-function ie8SafePreventEvent(event) 
+function prevencionDefecto(event) 
 {
     (event.preventDefault) ? event.preventDefault() : event.returnValue = false;
 }
@@ -12,11 +12,11 @@ $(document).ready(function()
     $("#loginSubmit").on("submit", function(e) 
     {
         //prevenimos el comportamiento por defecto
-        ie8SafePreventEvent(e);
+        prevencionDefecto(e);
  
         //obtenemos los valores que necesitamos para procesar el formulario
-        var username = $(".username").val(),
-        password = $(".password").val();
+        var username = $("#username").val(),
+        password = $("#password").val();
  
         //sencilla comprobacion para que venga algo de información
         if(username.length < 4 || password.length < 6)

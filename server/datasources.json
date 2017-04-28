@@ -1,6 +1,12 @@
 {
   "db": {
+    "host": "localhost",
+    "port": 3306,
+    "url": "",
+    "database": "fotocopias",
+    "password": "alumno",
     "name": "db",
-    "connector": "memory"
+    "user": "root",
+    "connector": "mysql"
   }
 }

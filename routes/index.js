@@ -4,7 +4,6 @@ var UserModel = require('../common/models/user');
 //aquí tenemos el objeto app que hemos traído de app.js
 module.exports = function(app)
 {
- 
     //para acceder aquí escribiremos http://localhost:3000/
     //req es un objeto que contiene información sobre la solicitud HTTP que provocó el evento. 
     //En respuesta a req, res se utiliza para devolver la respuesta HTTP que necesitemos.
