@@ -1,15 +1,23 @@
 'use strict';
 
 module.exports = function(Grupo) {
-   /*Grupo.movefile = function(url, cb) {
-    	var result = true;
+  /*
+   http://stackoverflow.com/questions/28885282/how-to-store-files-with-meta-data-in-loopback
+   https://github.com/strongloop/loopback-component-storage/issues/66
+  
+    Grupo.movefile = function(files, cb) {
 
-		cb(null, result);
+
+
+ Grupo.save('../filepath.jpg', 'container1' , function (err, data) {});
+
+
+      cb(null, 'Resultado...' + files);
     }
 
     Grupo.remoteMethod('movefile', {
-		accepts: {arg: 'url', type: 'string'},
-		returns: {arg: 'result', type: 'boolean'}
-    });
-*/
+          accepts: {arg: 'msg', type: 'array'},
+          returns: {arg: 'greeting', type: 'string'}
+    });*/
 };
+

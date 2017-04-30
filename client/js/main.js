@@ -7,7 +7,8 @@ $(document).ready(function(){
 	var route = "api/Grupos";
 	var cadena = "";
 	var cadenaGrupo = "";
-	var tmppath = "";
+	var tmppath = [];
+	var archivos = [];
 	    $.ajax(route, {
         success: function (data) {
         	
@@ -31,22 +32,38 @@ $(document).ready(function(){
 		var archivo = $('#archivo').val();
 		var curso = $('#curso').val();
 		var grupo = $('#grupo').val();
-/*  *****************NO ME FUNCIONA ESTA FUNCION ********** */
-		$.ajax({
-			url: "api/Grupos/update",
-			type: "POST",
-		    data: { "where":{"curso": curso, "grupo":grupo}, "data":{"archivo": archivo} },
-			success: function(data) {
-				alert('exito');
-			}
-	     });
-	});
-	$('#archivo').change(function(event){
-		tmppath = URL.createObjectURL(event.target.files[0]);
-		// Esta es la ruta actal del archivo deleccionado
 
+
+		$.ajax({
+			url: "api/Grupos/update?where=%7B%22curso%22%3A"+curso+"%2C%20%22grupo%22%3A%22"+grupo+"%22%20%7D",
+			type: "POST",
+		    data: { "archivos": archivos },
+			success: function(data) {
+				if (data != 0) {
+					$('#messageAlert').html('<h3>Exito!!!</h3>');
+				}else{
+					$('#messageAlert').html('Error');
+				}
+			}
+	    });
+
+    });
+
+	/*
+	 * EN el siguiente evento, cuando eligo los archivo que subir 
+	 * se introducen sus nombre en un array.
+	 */
+	$('#archivo').on('change', function (){
+	    for (var i = 0; i < this.files.length; i++){
+	    	// Este es la nombre del archivo seleccionado
+			archivos[i] = this.files[i].name;
+			
+
+	    }
 	});
-}); 
+
+
+});
 
 //Select para mostrar los tipos de usuarios segun su acceso.
 

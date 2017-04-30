@@ -7,6 +7,6 @@
     "password": "alumno",
     "name": "db",
     "user": "root",
-    "connector": "mysql"
+    "connector": "memory"
   }
 }

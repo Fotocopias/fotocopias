@@ -31,8 +31,9 @@
     "horarioVisita": {
       "type": "string"
     },
-    "archivo": {
-      "type": "string"
+    "archivos": {
+      "type": "array",
+      "default":[]
     }
   },
   "validations": [],
