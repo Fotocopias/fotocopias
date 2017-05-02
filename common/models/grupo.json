@@ -33,7 +33,7 @@
     },
     "archivos": {
       "type": "array",
-      "default":[]
+      "default": []
     }
   },
   "validations": [],
