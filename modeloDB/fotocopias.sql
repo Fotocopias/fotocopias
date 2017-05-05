@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `fotocopias`.`usuario` ;
 
 CREATE TABLE IF NOT EXISTS `fotocopias`.`usuario` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `tipoUsuario` VARCHAR(1) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `tipoUsuario` VARCHAR(50) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `apellidos` VARCHAR(50) CHARACTER SET 'utf8' NOT NULL,
   `nombre` VARCHAR(30) CHARACTER SET 'utf8' NOT NULL,
   `username` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
@@ -218,6 +218,52 @@ CREATE TABLE IF NOT EXISTS `fotocopias`.`matricula` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
+
+
+-- -----------------------------------------------------
+-- Table `fotocopias`.`conserje`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `fotocopias`.`conserje` ;
+
+CREATE TABLE IF NOT EXISTS `fotocopias`.`conserje` (
+  `id` VARCHAR(6) CHARACTER SET 'utf8' NOT NULL,
+  `apellidos` VARCHAR(19) CHARACTER SET 'utf8' NOT NULL,
+  `nombre` VARCHAR(19) CHARACTER SET 'utf8' NOT NULL,
+  `email` VARCHAR(100) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `dni` VARCHAR(10) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `idUsuario` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `UNIQ_5B7406D952DCDBAF` (`idUsuario` ASC),
+  INDEX `fk_conserje_usuario1_idx` (`idUsuario` ASC),
+  CONSTRAINT `FK_5B7406D952DCDBAF`
+    FOREIGN KEY (`idUsuario`)
+    REFERENCES `fotocopias`.`usuario` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+-- -----------------------------------------------------
+-- Table `fotocopias`.`administrador`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `fotocopias`.`administrador` ;
+
+CREATE TABLE IF NOT EXISTS `fotocopias`.`administrador` (
+  `id` VARCHAR(6) CHARACTER SET 'utf8' NOT NULL,
+  `apellidos` VARCHAR(19) CHARACTER SET 'utf8' NOT NULL,
+  `nombre` VARCHAR(19) CHARACTER SET 'utf8' NOT NULL,
+  `email` VARCHAR(100) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `dni` VARCHAR(10) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `idUsuario` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `UNIQ_5B7406D132DCDBAF` (`idUsuario` ASC),
+  INDEX `fk_administrador_usuario1_idx` (`idUsuario` ASC),
+  CONSTRAINT `FK_5B7406D132DCDBAF`
+    FOREIGN KEY (`idUsuario`)
+    REFERENCES `fotocopias`.`administrador` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
