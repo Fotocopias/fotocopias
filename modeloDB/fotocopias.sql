@@ -257,9 +257,9 @@ CREATE TABLE IF NOT EXISTS `fotocopias`.`administrador` (
   PRIMARY KEY (`id`),
   UNIQUE INDEX `UNIQ_5B7406D132DCDBAF` (`idUsuario` ASC),
   INDEX `fk_administrador_usuario1_idx` (`idUsuario` ASC),
-  CONSTRAINT `FK_5B7406D132DCDBAF`
+  CONSTRAINT `FK_5D7406D132DCDBAF`
     FOREIGN KEY (`idUsuario`)
-    REFERENCES `fotocopias`.`administrador` (`id`))
+    REFERENCES `fotocopias`.`usuario` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
