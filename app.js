@@ -1,4 +1,4 @@
- var express = require('express');
+var express = require('express');
  
 var user = require('./routes/user');
 var http = require('http');
@@ -31,4 +31,3 @@ require('./routes')(app);
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
-module.exports = app;

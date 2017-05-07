@@ -38,7 +38,7 @@ $(document).ready(function()
                 }
                 else
                 {
-                    window.location.href = baseurl + "home";
+                    window.location.href = baseurl + "profesor";
                 }
             },
             error: function(jqXHR, exception){
