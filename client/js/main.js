@@ -41,8 +41,43 @@ $(document).ready(function(){
 			success: function(data) {
 				if (data != 0) {
 					$('#messageAlert').html('<h3>Exito!!!</h3>');
+					var form = $('#fileUploadForm')[0];
+					var ficheros = new FormData(form);
+					/* SI se actualizar el campo array con el nombre de los archivos selecionado
+					 * ejecutamos el siguiente boton submit para mover los archivos al CONTAINER1 
+					 * que esta dentro de la carpeta STORAGE
+
+					 Falta devolver una respuesta mas amigable OK.
+					 */
+					$( "#uploadFiles" ).trigger( "click" );
+
+					/* Esta funcion de ajax era para poder subir los archivo mediante
+					 * ajax pero NO SE porque no va asique lo he dejado para subir los 
+					 * archivor mediante un formularo por metodo POST, hasta que vea si
+					 * es posible hacerlo por ajax
+
+					$.ajax({
+			            type: "POST",
+			            enctype: 'multipart/form-data',
+			            url: "/api/containers/container1/upload",
+			            data: ficheros,
+			            processData: false,
+			            contentType: false,
+			            cache: false,
+			            timeout: 600000,
+			            success: function (data) {
+							$('#messageAlert').html(data);
+			     
+
+			            },
+			            error: function (e) {
+							$('#messageAlert').html(e.responseText);
+			             }
+        			});
+        			*/
+
 				}else{
-					$('#messageAlert').html('Error');
+					$('#messageAlert').html('Error al actualizar datos.');
 				}
 			}
 	    });
