@@ -44,7 +44,7 @@ COLLATE = utf8_unicode_ci;
 DROP TABLE IF EXISTS `fotocopias`.`Alumno` ;
 
 CREATE TABLE IF NOT EXISTS `fotocopias`.`Alumno` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `dni` VARCHAR(10) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `apellido1` VARCHAR(30) CHARACTER SET 'utf8' NOT NULL,
   `apellido2` VARCHAR(30) CHARACTER SET 'utf8' NULL DEFAULT NULL,
@@ -61,13 +61,7 @@ CREATE TABLE IF NOT EXISTS `fotocopias`.`Alumno` (
   `localidad` VARCHAR(21) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `provincia` VARCHAR(8) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `idUsuario` INT(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `UNIQ_1435D52D32DCDBAF` (`idUsuario` ASC),
-  INDEX `NOMBRE` (`apellido1` ASC, `apellido2` ASC, `nombre` ASC),
-  INDEX `fk_Alumno_Usuario1_idx` (`idUsuario` ASC),
-  CONSTRAINT `FK_1435D52D32DCDBAF`
-    FOREIGN KEY (`idUsuario`)
-    REFERENCES `fotocopias`.`Usuario` (`id`))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
@@ -79,7 +73,7 @@ COLLATE = utf8_unicode_ci;
 DROP TABLE IF EXISTS `fotocopias`.`Profesor` ;
 
 CREATE TABLE IF NOT EXISTS `fotocopias`.`Profesor` (
-  `id` VARCHAR(6) CHARACTER SET 'utf8' NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `apellidos` VARCHAR(19) CHARACTER SET 'utf8' NOT NULL,
   `nombre` VARCHAR(19) CHARACTER SET 'utf8' NOT NULL,
   `email` VARCHAR(100) CHARACTER SET 'utf8' NULL DEFAULT NULL,
@@ -87,12 +81,7 @@ CREATE TABLE IF NOT EXISTS `fotocopias`.`Profesor` (
   `movil` VARCHAR(9) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `departamento` VARCHAR(4) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `idUsuario` INT(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `UNIQ_5B7406D932DCDBAF` (`idUsuario` ASC),
-  INDEX `fk_Profesor_Usuario1_idx` (`idUsuario` ASC),
-  CONSTRAINT `FK_5B7406D932DCDBAF`
-    FOREIGN KEY (`idUsuario`)
-    REFERENCES `fotocopias`.`Usuario` (`id`))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
@@ -108,15 +97,12 @@ CREATE TABLE IF NOT EXISTS `fotocopias`.`Grupo` (
   `tutor` VARCHAR(6) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `anyo` VARCHAR(7) CHARACTER SET 'utf8' NOT NULL,
   `Grupo` VARCHAR(5) CHARACTER SET 'utf8' NOT NULL,
-  `subGrupo` VARCHAR(5) CHARACTER SET 'utf8' NOT NULL,
+  `subGrupo` VARCHAR(10) CHARACTER SET 'utf8' NOT NULL,
   `ensenanza` VARCHAR(80) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `archivos` VARCHAR(300) CHARACTER SET 'utf8' NOT NULL,
   `curso` INT(11) NULL DEFAULT NULL,
   `horarioVisita` VARCHAR(10) CHARACTER SET 'utf8' NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `tutor` (`tutor` ASC),
-  CONSTRAINT `FK_8C0E9BD399074648`
-    FOREIGN KEY (`tutor`)
-    REFERENCES `fotocopias`.`Profesor` (`id`))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
@@ -206,15 +192,7 @@ CREATE TABLE IF NOT EXISTS `fotocopias`.`Matricula` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `expediente` INT(11) NULL DEFAULT NULL,
   `Grupo` INT(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `index4` (`expediente` ASC, `Grupo` ASC),
-  INDEX `fk_Matricula_Grupo1_idx` (`Grupo` ASC),
-  CONSTRAINT `FK_15DF18858C0E9BD3`
-    FOREIGN KEY (`Grupo`)
-    REFERENCES `fotocopias`.`Grupo` (`id`),
-  CONSTRAINT `FK_15DF1885D59CA413`
-    FOREIGN KEY (`expediente`)
-    REFERENCES `fotocopias`.`Alumno` (`id`))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
@@ -226,18 +204,13 @@ COLLATE = utf8_unicode_ci;
 DROP TABLE IF EXISTS `fotocopias`.`Conserje` ;
 
 CREATE TABLE IF NOT EXISTS `fotocopias`.`Conserje` (
-  `id` VARCHAR(6) CHARACTER SET 'utf8' NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `apellidos` VARCHAR(19) CHARACTER SET 'utf8' NOT NULL,
   `nombre` VARCHAR(19) CHARACTER SET 'utf8' NOT NULL,
   `email` VARCHAR(100) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `dni` VARCHAR(10) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `idUsuario` INT(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `UNIQ_5B7406D952DCDBAF` (`idUsuario` ASC),
-  INDEX `fk_Conserje_Usuario1_idx` (`idUsuario` ASC),
-  CONSTRAINT `FK_5B7406D952DCDBAF`
-    FOREIGN KEY (`idUsuario`)
-    REFERENCES `fotocopias`.`Usuario` (`id`))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
@@ -248,18 +221,13 @@ COLLATE = utf8_unicode_ci;
 DROP TABLE IF EXISTS `fotocopias`.`Administrador` ;
 
 CREATE TABLE IF NOT EXISTS `fotocopias`.`Administrador` (
-  `id` VARCHAR(6) CHARACTER SET 'utf8' NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `apellidos` VARCHAR(19) CHARACTER SET 'utf8' NOT NULL,
   `nombre` VARCHAR(19) CHARACTER SET 'utf8' NOT NULL,
   `email` VARCHAR(100) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `dni` VARCHAR(10) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `idUsuario` INT(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `UNIQ_5B7406D132DCDBAF` (`idUsuario` ASC),
-  INDEX `fk_Administrador_Usuario1_idx` (`idUsuario` ASC),
-  CONSTRAINT `FK_5D7406D132DCDBAF`
-    FOREIGN KEY (`idUsuario`)
-    REFERENCES `fotocopias`.`Usuario` (`id`))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
