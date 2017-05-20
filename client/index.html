@@ -8,10 +8,10 @@
 	<body>
 		<h2>Acceso</h2>
 
-		<form method="POST" action="/login">
+		<form enctype="multipart/form-data" name="UsrLogin" id="UsrLogin">
 			<div class="field">
 				<label for="login">Nombre:</label><br>
-				<input type="text" id="username" name="username" size="30" />
+				<input type="text" id="username" name="username" size="30" maxlength="20" />
 			</div>
 
 			<div class="field">
@@ -19,19 +19,19 @@
 				<input type="password" id="password" name="password" size="30" />
 			</div>
 
-			<div class="form-group">            
+			<!-- <div class="form-group">
 						<label>Tipo de Usuario:</label>
 						<select id="tipoUser">
 						</select>
-			</div>
+			</div> -->
 
 			<div class="actions">
 				<input type="submit" name="commit" value="Login" id="loginSubmit" />
 			</div>
 
-			<br><a href="profesor.html">Vista profesor</a>
+			<!-- <br><a href="profesor.html">Vista profesor</a> -->
 
-		</form>
+		</form>	
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>

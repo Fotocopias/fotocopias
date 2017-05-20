@@ -88,7 +88,8 @@ $(document).ready(function(){
 	 * EN el siguiente evento, cuando eligo los archivo que subir 
 	 * se introducen sus nombre en un array.
 	 */
-	$('#archivo').on('change', function (){
+	$('#archivo').on('change', function (e){
+		e.preventDefault();
 	    for (var i = 0; i < this.files.length; i++){
 	    	// Este es la nombre del archivo seleccionado
 			archivos[i] = this.files[i].name;

@@ -1,58 +1,45 @@
-var baseurl = "http://localhost:3000/";//baseurl
- 
-//en ie8 no funciona preventDefault
-function prevencionDefecto(event) 
-{
-    (event.preventDefault) ? event.preventDefault() : event.returnValue = false;
-}
- 
-$(document).ready(function()
-{
-    //al hacer submit al formulario de login
-    $("#loginSubmit").on("submit", function(e) 
-    {
-        //prevenimos el comportamiento por defecto
-        prevencionDefecto(e);
- 
-        //obtenemos los valores que necesitamos para procesar el formulario
-        var username = $("#username").val(),
-        password = $("#password").val();
- 
-        //sencilla comprobacion para que venga algo de información
-        if(username.length < 4 || password.length < 6)
-        {
-            showModal("Error formulario","Los campos no pueden estar vacios.");
-            return false;
-        }
- 
-        //si todo ha ido bien procesamos la petición con node
-        $.ajax({
-            method: "POST",//metodo|verbo con el que procesamos la peticion
-            url: baseurl + "login",//url a la que hacemos la petición
-            data: $(this).serialize(),//datos del formulario
-            success: function(data){  
-                //si los datos de acceso no son correctos
-                if(data === "error")
-                {
-                    showModal("Datos incorrectos","Los datos de acceso son incorrectos.");
-                }
-                else
-                {
-                    window.location.href = baseurl + "profesor";
-                }
-            },
-            error: function(jqXHR, exception){
-                showModal("Error","Error procesando la petición.");
-            }
-        });  
-    }); 
+$(document).ready(function(){
+
+$('#loginSubmit').click(function(){
+        var username = $('#username').val();
+        var password = $('#password').val();
+
+
+    $.ajax({  
+        type: "POST",
+        url: "api/Usuarios/login",  // Envia el login
+        data: { "username":username, "password":password },  
+       // success: function(msg){  
+       
+      }).done(function(res){
+            if(typeof(res.id) !== undefined){
+                window.location.href = "profesor.html";
+                console.log("Logeo exitoso");
+            } else {
+                console.log("Error");
+      })
+    .fail(function(evt){
+        var msgError = "ERROR: "+evt.status+" "+evt.statusText;
+    });  
+  
+// -- Fin AJAX --
+
+//return false;
+
+      });
 });
- 
-//funcion que recibe como parametros el titulo y el mensaje de la ventana modal
-//reaprovechar codigo siempre que se pueda
-function showModal(title,message)
-{
-    $("h2.title-modal").text(title);
-    $("p.messageModal").text(message);
-    $("#myModal").modal('show');
-}
+};
+/*
+$.ajax({  
+        type: "POST",
+        url: "api/Usuarios/login",  // Envia el login
+        data: $("#UsrLogin").serialize(),  
+        success: function(msg){  
+       
+      }).done(function(res){
+
+      })
+    .fail(function(evt){
+        var msgError = "ERROR: "+evt.status+" "+evt.statusText;
+    }); 
+    */
