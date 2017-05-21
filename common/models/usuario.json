@@ -53,12 +53,6 @@
       "principalType": "ROLE",
       "principalId": "$everyone",
       "permission": "ALLOW"
-    },
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$authenticate",
-      "permission": "ALLOW"
     }
   ],
   "methods": {}
