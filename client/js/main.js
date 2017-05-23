@@ -1,29 +1,43 @@
+var route = "api/Grupos";
+	var cadena = "";
+	var cadenaGrupo = "";
+	var tmppath = [];
+	var archivos = [];
+	var cursos = [];
+	var grupos = [];
+	var cursosSinRepetir = [];
+	var gruposSinRepetir = [];
+
 $(document).ready(function(){
 
 	/*
 	 * En el sigiente codigo hace una llamada por ajax a la ruta api/Grupos
 	 *  y devuelve todos los datos de los grupos que hay
 	 */
-	var route = "api/Grupos";
-	var cadena = "";
-	var cadenaGrupo = "";
-	var tmppath = [];
-	var archivos = [];
-	    $.ajax(route, {
-        success: function (data) {
-        	
-			for (x in data) {
-				var curso = data[x]["curso"];
-        		cadena = cadena + '<option value="'+curso+'">'+curso+'º</option>';
 
-        		var grupo = data[x]["grupo"];
-        		cadenaGrupo = cadenaGrupo + '<option value="'+grupo+'">'+grupo+'</option>';
-        	}
-        	$('#curso').html(cadena);
-        	$('#grupo').html(cadenaGrupo);
-        }
+	    $.ajax(route, {
+			        success: function (data) {
+			        	
+						for (x in data) {
+
+							for(var i = 0; i < data[0]['archivos'].length; i++){
+								archivos.push(data[0]['archivos'][i]);
+							}
+							cursos[x] = data[x]["curso"];
+							//var curso = data[x]["curso"];
+			        		//cadena = cadena + '<option value="'+curso+'">'+curso+'º</option>';
+
+			        		grupos[x] = data[x]["grupo"];
+			        		//var grupo = data[x]["grupo"];
+			        		//cadenaGrupo = cadenaGrupo + '<option value="'+grupo+'">'+grupo+'</option>';
+			        	}
+			        	//$('#curso').html(cadena);
+			        	//$('#grupo').html(cadenaGrupo);
+			        	Cgrupos();
+			        	Ccursos();
+			        }
       	});
-	 
+
 	$('#btn-subir').click(function(){
 		/*
 		 * AL hacer click en el boton de subir se envian por ajax el nombre del archivo seleccionado
@@ -32,7 +46,6 @@ $(document).ready(function(){
 		var archivo = $('#archivo').val();
 		var curso = $('#curso').val();
 		var grupo = $('#grupo').val();
-
 
 		$.ajax({
 			url: "api/Grupos/update?where=%7B%22curso%22%3A"+curso+"%2C%20%22grupo%22%3A%22"+grupo+"%22%20%7D",
@@ -73,8 +86,8 @@ $(document).ready(function(){
 			            error: function (e) {
 							$('#messageAlert').html(e.responseText);
 			             }
-        			});
-        			*/
+        			});*/
+        			
 
 				}else{
 					$('#messageAlert').html('Error al actualizar datos.');
@@ -92,8 +105,13 @@ $(document).ready(function(){
 		e.preventDefault();
 	    for (var i = 0; i < this.files.length; i++){
 	    	// Este es la nombre del archivo seleccionado
-			archivos[i] = this.files[i].name;
-			
+			archivos.push(this.files[i].name);
+
+	    }
+
+	    for (var i = 0; i < archivos.length; i++){
+	   alert(archivos[i]);
+
 
 	    }
 	});
@@ -116,3 +134,54 @@ $(document).ready(function(){
         }
       	});
 });
+
+
+function Ccursos (){
+	for(var i = 0; i < cursos.length; i++){
+		if(i == 0)
+			cursosSinRepetir[i] = cursos[i];
+		var cont = 0;
+		for(var x = 0; x < cursosSinRepetir.length; x++){
+			if(cursosSinRepetir[x] != cursos[i])
+				cont++;
+		}
+		if(cont == cursosSinRepetir.length)
+			cursosSinRepetir.push(cursos[i]);
+
+	}
+	mostrarCursos();
+}
+
+function mostrarCursos(){
+	var cadena = "";
+		for(var x = 0; x < cursosSinRepetir.length; x++){
+			cadena = cadena + '<option value="'+cursosSinRepetir[x]+'">'+cursosSinRepetir[x]+'º</option>';
+			
+		}
+	$('#curso').html(cadena);
+}
+
+function Cgrupos (){
+	for(var i = 0; i < grupos.length; i++){
+		if(i == 0)
+			gruposSinRepetir[i] = grupos[i];
+		var cont = 0;
+		for(var x = 0; x < gruposSinRepetir.length; x++){
+			if(gruposSinRepetir[x] != grupos[i])
+				cont++;
+		}
+		if(cont == gruposSinRepetir.length)
+			gruposSinRepetir.push(grupos[i]);
+
+	}
+	mostrarGrupos();
+}
+
+function mostrarGrupos(){
+	var cadena = "";
+		for(var x = 0; x < gruposSinRepetir.length; x++){
+			cadena = cadena + '<option value="'+gruposSinRepetir[x]+'">'+gruposSinRepetir[x]+'º</option>';
+			
+		}
+	$('#grupo').html(cadena);
+}
