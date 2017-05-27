@@ -36,12 +36,25 @@ $(document).ready(function(){
                       url: "api/Usuarios/"+ sessionStorage.userId + '?access_token=' + sessionStorage.userToken,
                       }).done(function (res){
                         sessionStorage.tipoUser=res.tipoUsuario;
-
-                        if (sessionStorage.tipoUser == "Alumno") {
+                        switch(sessionStorage.tipoUser) {
+                            case "Profesor" :
+                                window.location.href = "profesor.html";
+                                break;
+                            case "Alumno" :
+                                window.location.href = "alumno.html";
+                                break;
+                            case "Conserje" :
+                                window.location.href = "conserje.html";
+                                break;
+                            case "Administrador" :
+                                window.location.href = "admin.html";
+                                break;
+                        }
+                        /*if (sessionStorage.tipoUser == "Alumno") {
                             window.location.href = "alumno.html";  
                         }else if (sessionStorage.tipoUser == "Profesor") {
                             window.location.href = "profesor.html"; 
-                         }
+                         }*/
                       }).fail(function(evt){
                           var msgError = "ERROR: "+evt.status+" "+evt.statusText;
                       });   
