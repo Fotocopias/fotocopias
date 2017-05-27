@@ -11,20 +11,7 @@ $(document).ready(function(){
       $.ajax({  
           method: "POST",
           url: "api/Usuarios/login",  // Envia el login
-          data: $("#UsrLogin").serialize(),  
-        /*  success: function(data){  
-            for (y in data) {
-                if(data[y]["tipoUsuario"] == "Alumno"){
-                    window.location.href = "alumno.html"
-                } else {
-                    window.location.href = "profesor.html"
-                }
-
-            }
-
-          }
-        */
-         
+          data: $("#UsrLogin").serialize(),           
       }).done(function(res){
               if(typeof(res.id) !== undefined){
                   sessionStorage.userId=res.userId;
@@ -72,18 +59,3 @@ $(document).ready(function(){
 
   });
 });
-
-/*
-$.ajax({  
-        type: "POST",
-        url: "api/Usuarios/login",  // Envia el login
-        data: $("#UsrLogin").serialize(),  
-        success: function(msg){  
-       
-      }).done(function(res){
-
-      })
-    .fail(function(evt){
-        var msgError = "ERROR: "+evt.status+" "+evt.statusText;
-    }); 
-    */
