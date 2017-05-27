@@ -1,26 +1,57 @@
 $(document).ready(function(){
 
-  $('#loginSubmit').click(function(){
-          var username = $('#username').val();
-          var password = $('#password').val();
+    sessionStorage.removeItem("userId");
+    sessionStorage.removeItem("userToken");
+    sessionStorage.removeItem("userTtl");
+    sessionStorage.removeItem("userCreated");
+    sessionStorage.removeItem("username");
 
+  $('#loginSubmit').click(function(){
 
       $.ajax({  
           method: "POST",
           url: "api/Usuarios/login",  // Envia el login
           data: $("#UsrLogin").serialize(),  
-         // success: function(msg){  
+        /*  success: function(data){  
+            for (y in data) {
+                if(data[y]["tipoUsuario"] == "Alumno"){
+                    window.location.href = "alumno.html"
+                } else {
+                    window.location.href = "profesor.html"
+                }
+
+            }
+
+          }
+        */
          
       }).done(function(res){
               if(typeof(res.id) !== undefined){
-                  window.location.href = "profesor.html";
-                  console.log("Logeo exitoso");
+                  sessionStorage.userId=res.userId;
+                  sessionStorage.userToken=res.id;
+                  sessionStorage.userTtl=res.ttl;
+                  sessionStorage.userCreated=res.created;
+                    $.ajax({  
+                      method: "GET",
+                      url: "api/Usuarios/"+ sessionStorage.userId + '?access_token=' + sessionStorage.userToken,
+                      }).done(function (res){
+                        sessionStorage.tipoUser=res.tipoUsuario;
+
+                        if (sessionStorage.tipoUser == "Alumno") {
+                            window.location.href = "alumno.html";  
+                        }else if (sessionStorage.tipoUser == "Profesor") {
+                            window.location.href = "profesor.html"; 
+                         }
+                      }).fail(function(evt){
+                          var msgError = "ERROR: "+evt.status+" "+evt.statusText;
+                      });   
               } else {
                   console.log("Error");
               }
         }).fail(function(evt){
           var msgError = "ERROR: "+evt.status+" "+evt.statusText;
-          });  
+          $('#messageAlerta').html('Error al actualizar datos.');
+        });  
     
   // -- Fin AJAX --
 
