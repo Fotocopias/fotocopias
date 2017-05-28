@@ -9,6 +9,10 @@
     "tipoUsuario": {
       "type": "string"
     },
+    "dinero": {
+      "type": "number",
+      "required": true
+    },
     "apellidos": {
       "type": "string",
       "required": true
