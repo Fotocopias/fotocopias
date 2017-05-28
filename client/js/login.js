@@ -1,10 +1,10 @@
 $(document).ready(function(){
 
-    sessionStorage.removeItem("userId");
+    /*sessionStorage.removeItem("userId");
     sessionStorage.removeItem("userToken");
     sessionStorage.removeItem("userTtl");
     sessionStorage.removeItem("userCreated");
-    sessionStorage.removeItem("username");
+    sessionStorage.removeItem("username");*/
 
   $('#loginSubmit').click(function(){
 
@@ -50,7 +50,7 @@ $(document).ready(function(){
               }
         }).fail(function(evt){
           var msgError = "ERROR: "+evt.status+" "+evt.statusText;
-          $('#messageAlerta').html('Error al actualizar datos.');
+          $('#messageAlerta').html('El usuario o contraseña son incorrectos.');
         });  
     
   // -- Fin AJAX --

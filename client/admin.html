@@ -5,17 +5,21 @@
 		<title>Administrador</title>
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 	</head>
-	<body onload="getData()">
+	<body>
 		<div>
 				<span id="nombreUsuario"></span>
 				<button id="logout">Logout</button>
 		</div>
 
 			<h2>Monedero Virtual</h2>
+			<label>Intruduzca el username:</label><input type="text" id="nombre" name="nombre"/><br>
+			<label>Cantidad:</label><input type="number" id="cantidad" name="cantidad" />
+			<span id="alumnoIndicado"></span>
+			<!--
 			<select id="Select"></select><br>
-			<!-- <select id="saldo"></select> -->
+			<select id="saldo"></select>
 				<label>Cantidad:</label>
-				 <input type="number" id="saldo" name="saldo" />
+				 <input type="number" id="cantidad" name="cantidad" /> -->
 				<button id="meterDinero">Incrementar</button>
 
 		<script type="text/javascript" src="js/jquery.min.js"></script>
