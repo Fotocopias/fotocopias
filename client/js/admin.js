@@ -12,12 +12,10 @@ $(document).ready(function(){
 				var tipo = data[y]["tipoUsuario"];
 				var dinero = data[y]["dinero"];
 				if(tipo == "Alumno") {
-        			users = users + '<option value="'+nombre+'">'+nombre+'</option>';
-        			saldo = saldo + '<option value="'+dinero+'">'+dinero+"€"+'</option>';
+        			users = users + '<option value="'+nombre+'">'+nombre+"      "+dinero+"€"+'</option>';
 				}
         	}
         	$('#Select').html(users);
-        	$('#saldo').html(saldo);
 
         }
       	});
@@ -29,7 +27,7 @@ $(document).ready(function(){
             var valor = $('#saldo').val();
 
 	        $.ajax({
-	          url: "api/Usuarios/update?where=%7B%22username%22%3A"+nombre,
+	          url: "api/Usuarios/update?where=%7B%22username%22%3A%22"+nombre+"%22%7D&access_token="+ sessionStorage.userToken,
 	          method: "POST",
 	          data: { "dinero": valor },
 		          success: function(data) {
