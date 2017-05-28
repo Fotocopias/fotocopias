@@ -109,11 +109,11 @@ $(document).ready(function(){
 
 	    }
 
-	    for (var i = 0; i < archivos.length; i++){
+	  /*  for (var i = 0; i < archivos.length; i++){
 	   alert(archivos[i]);
 
 
-	    }
+	    }*/
 	});
 
 
