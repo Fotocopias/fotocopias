@@ -26,6 +26,7 @@ DROP TABLE IF EXISTS `fotocopias`.`Usuario` ;
 CREATE TABLE IF NOT EXISTS `fotocopias`.`Usuario` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `tipoUsuario` VARCHAR(50) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `dinero` DECIMAL(5,2) NOT NULL,
   `apellidos` VARCHAR(50) CHARACTER SET 'utf8' NOT NULL,
   `nombre` VARCHAR(30) CHARACTER SET 'utf8' NOT NULL,
   `username` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
