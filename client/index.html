@@ -6,36 +6,39 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 	</head>
 	<body>
-		<h2>Acceso</h2>
-
-		<form name="UsrLogin" id="UsrLogin">
-			<div class="field">
-				<label for="login">Nombre:</label><br>
-				<input type="text" id="username" name="username" size="30" maxlength="25" />
+		<div class="container-fluid">
+			<div class="row" id="alturaFormulario">
 			</div>
+			<div class="row">
+				<div class="col-md-4">
+				</div>
 
-			<div class="field">
-				<label for="login">Password:</label><br>
-				<input type="password" id="password" name="password" size="30" />
-			</div>
+				<div class="col-md-4" id="formulario">
+					<form name="UsrLogin" id="UsrLogin">
+						<div class="field" id="campoNombre">
+							<label for="login">Nombre:</label><br>
+							<input type="text" id="username" name="username" autofocus size="30" maxlength="25" class="col-md-12"/>
+						</div>
+						<div class="field" id="campoContraseña">
+							<label for="login">Contraseña:</label><br>
+							<input type="password" id="password" name="password" size="30" class="col-md-12" />
+						</div>
 
-			<!--<div class="form-group">
-						<label>Tipo de Usuario:</label>
-						<select id="tipoUser">
-						</select>
-			</div> -->
+						<div class="actions">
+							<input type="submit" class="btn btn-success col-md-12" name="commit" value="Login" id="loginSubmit" />
+						</div>
+					</form>	
+				<div id="messageAlerta"></div>
+				</div>
 
-			<div class="actions">
-				<input type="submit" name="commit" value="Login" id="loginSubmit" />
-			</div>
-			<div id="messageAlerta" style="color: red"></div>
-
-			<!-- <br><a href="profesor.html">Vista profesor</a> -->
-
-		</form>	
+				<div class="col-md-4">
+				</div>
+			</div>	
+		</div>
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 		<script type="text/javascript" src="js/login.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/index.css">
 	</body>
 </html>

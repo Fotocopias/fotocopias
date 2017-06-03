@@ -1,13 +1,8 @@
 $(document).ready(function(){
 
-    /*sessionStorage.removeItem("userId");
-    sessionStorage.removeItem("userToken");
-    sessionStorage.removeItem("userTtl");
-    sessionStorage.removeItem("userCreated");
-    sessionStorage.removeItem("username");*/
-
   $('#loginSubmit').click(function(){
-
+    var campoNombre = $('#username').val();
+    var campoContraseña = $('#password').val();
       $.ajax({  
           method: "POST",
           url: "api/Usuarios/login",  // Envia el login
@@ -49,8 +44,14 @@ $(document).ready(function(){
                   console.log("Error");
               }
         }).fail(function(evt){
+          if( campoContraseña == "" || campoNombre == ""){
+             $('#messageAlerta').addClass('alert alert-danger');
+             $('#messageAlerta').text("Rellene todos los campos del formulario");
+          } else {
           var msgError = "ERROR: "+evt.status+" "+evt.statusText;
-          $('#messageAlerta').html('El usuario o contraseña son incorrectos.');
+             $('#messageAlerta').addClass('alert alert-danger');
+             $('#messageAlerta').text("El usuario o contraseña no son correctos");
+          }
         });  
     
   // -- Fin AJAX --

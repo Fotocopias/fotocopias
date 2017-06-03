@@ -2,9 +2,10 @@ $(document).ready(function(){
 
 	$('#meterDinero').click(function(){
 	var nombres = $('#nombre').val();
+  var rutaUrl = '/api/Usuarios?filter={"where":{"username":"' + nombres + '"}}&access_token=' + sessionStorage.userToken;
       $.ajax({  
           method: "GET",
-          url: "api/Usuarios/"+ nombres + '?access_token=' + sessionStorage.userToken,
+          url: rutaUrl,
       }).done(function(res){
               if(typeof(res.id) !== undefined){
                   sessionStorage.username=res.username;
@@ -13,6 +14,7 @@ $(document).ready(function(){
                   sessionStorage.dinero=res.dinero;
                   sessionStorage.tipo=res.tipoUsuario;
                   	$('#alumnoIndicado').html(sessionStorage.username+" "+sessionStorage.nombre+" "+sessionStorage.apellidos+" "+sessionStorage.dinero);
+                  alert(rutaUrl);
                   }
                   if (sessionStorage.tipo == "Alumno"){
                    var cuantia = $('#cantidad').val();
