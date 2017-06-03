@@ -32,11 +32,6 @@ $(document).ready(function(){
                                 window.location.href = "admin.html";
                                 break;
                         }
-                        /*if (sessionStorage.tipoUser == "Alumno") {
-                            window.location.href = "alumno.html";  
-                        }else if (sessionStorage.tipoUser == "Profesor") {
-                            window.location.href = "profesor.html"; 
-                         }*/
                       }).fail(function(evt){
                           var msgError = "ERROR: "+evt.status+" "+evt.statusText;
                       });   
@@ -50,7 +45,7 @@ $(document).ready(function(){
           } else {
           var msgError = "ERROR: "+evt.status+" "+evt.statusText;
              $('#messageAlerta').addClass('alert alert-danger');
-             $('#messageAlerta').text("El usuario o contraseña no son correctos");
+             $('#messageAlerta').text("Usuario o Contraseña incorrectos");
           }
         });  
     

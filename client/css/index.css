@@ -24,3 +24,7 @@
 	position: relative;
 	margin-top: 90px;
 }
+
+#alumnoIndicado {
+	font-size: 1.2em;
+}

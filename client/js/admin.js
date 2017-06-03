@@ -1,8 +1,23 @@
 $(document).ready(function(){
+  $('#mostrarUsuario').click(function(){
+      $.ajax({  
+          method: "GET",
+          url: 'api/Usuarios/'+$('#nombre').val()+'?access_token='+sessionStorage.userToken,
+      }).done(function(res){
+              if(typeof(res.id) !== undefined){
+                    $('#alumnoIndicado').html("Nombre: "+res.nombre+" "+res.apellidos+"\n"+"Usuario: "+res.username+"\n"+"Tipo: "+res.tipoUsuario+"\n"+"Saldo: "+res.dinero+"€");
+                  }
+              
+        }).fail(function(evt){
+          var msgError = "ERROR: "+evt.status+" "+evt.statusText;
+          $('#messageAlerta').html('Error al actualizar datos.');
+          });
 
-	$('#meterDinero').click(function(){
-	var nombres = $('#nombre').val();
-  var rutaUrl = '/api/Usuarios?filter={"where":{"username":"' + nombres + '"}}&access_token=' + sessionStorage.userToken;
+   });
+
+  $('#meterDinero').click(function(){
+  var nombres = $('#nombre').val();
+  var rutaUrl = 'api/Usuarios/'+nombres+'?access_token='+sessionStorage.userToken;
       $.ajax({  
           method: "GET",
           url: rutaUrl,
@@ -13,8 +28,7 @@ $(document).ready(function(){
                   sessionStorage.apellidos=res.apellidos;
                   sessionStorage.dinero=res.dinero;
                   sessionStorage.tipo=res.tipoUsuario;
-                  	$('#alumnoIndicado').html(sessionStorage.username+" "+sessionStorage.nombre+" "+sessionStorage.apellidos+" "+sessionStorage.dinero);
-                  alert(rutaUrl);
+                  	
                   }
                   if (sessionStorage.tipo == "Alumno"){
                    var cuantia = $('#cantidad').val();
@@ -24,7 +38,7 @@ $(document).ready(function(){
                   method: "POST",
                   data: { "dinero": suma },
                     success: function(data) {
-                      location.reload();
+                      $( "#mostrarUsuario" ).trigger( "click" );
                     }
                   });
                   } else {
