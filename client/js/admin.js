@@ -6,7 +6,7 @@ $(document).ready(function(){
       }).done(function(res){
               if(typeof(res.id) !== undefined){
                     $('#alumnoIndicado').html("Nombre: "+res.nombre+" "+res.apellidos+"\n"+"Usuario: "+res.username+"\n"+"Tipo: "+res.tipoUsuario+"\n"+"Saldo: "+res.dinero+"€");
-                  }
+              }
               
         }).fail(function(evt){
           var msgError = "ERROR: "+evt.status+" "+evt.statusText;
@@ -33,14 +33,18 @@ $(document).ready(function(){
                   if (sessionStorage.tipo == "Alumno"){
                    var cuantia = $('#cantidad').val();
                    var suma = parseInt(cuantia) + parseInt(sessionStorage.dinero);
-                   $.ajax({
-                  url: "api/Usuarios/update?where=%7B%22username%22%3A%22"+sessionStorage.username+"%22%7D&access_token="+ sessionStorage.userToken,
-                  method: "POST",
-                  data: { "dinero": suma },
-                    success: function(data) {
-                      $( "#mostrarUsuario" ).trigger( "click" );
-                    }
-                  });
+                     if(sessionStorage.dinero <= 0 && cuantia < 0) {
+                        alert("Este alumno no puede tener menos dinero");
+                       } else if(sessionStorage.dinero <= 0 && cuantia > 0 || sessionStorage.dinero > 0 && cuantia > 0){
+                       $.ajax({
+                      url: "api/Usuarios/update?where=%7B%22username%22%3A%22"+sessionStorage.username+"%22%7D&access_token="+ sessionStorage.userToken,
+                      method: "POST",
+                      data: { "dinero": suma },
+                        success: function(data) {
+                          $( "#mostrarUsuario" ).trigger( "click" );
+                        }
+                      });
+                     }
                   } else {
                     alert("Debe ser Alumno del centro");
                   }

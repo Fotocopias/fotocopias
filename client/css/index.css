@@ -3,12 +3,12 @@
 }
 
 #alturaFormulario {
-	height: 15vh;
+	height: 7vh;
 }
 
 #loginSubmit {
-	margin-top: 5px;
-	font-size: 1.05em;
+	margin-top: 20px;
+	font-size: 1.2em;
 }
 
 #formulario {
@@ -16,8 +16,9 @@
 	border-radius: 5px;
 	padding-left: 6.5%;
 	padding-right: 6.5%;
-	padding-top: 9%;
-	padding-bottom: 9%;
+	padding-top: 2%;
+	padding-bottom: 0.5%;
+	margin-bottom: 50px;
 }
 
 #messageAlerta {
@@ -27,4 +28,23 @@
 
 #alumnoIndicado {
 	font-size: 1.2em;
+	margin-top: 10px;
+}
+
+img {
+	width: 100%;
+}
+
+#tituloLogin {
+	margin-top: 20px;
+	margin-bottom: 40px;
+	text-align: center;
+}
+
+#campoContraseña {
+	margin-top: 20px;
+}
+
+#campoNombre {
+	margin-top: 20px;
 }
