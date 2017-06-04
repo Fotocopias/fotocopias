@@ -8,9 +8,10 @@ var route = "api/Grupos";
 	var cursosSinRepetir = [];
 	var gruposSinRepetir = [];
 	var archivosAdjuntados = [];
+	var archivosSinRepetir = [];
 
 $(document).ready(function(){
-
+	$('#archivo').html('');
 	/*
 	 * En el sigiente codigo hace una llamada por ajax a la ruta api/Grupos
 	 *  y devuelve todos los datos de los grupos que hay
@@ -87,10 +88,10 @@ $(document).ready(function(){
 		$.ajax({
 			url: "api/Grupos/update?where=%7B%22curso%22%3A"+curso+"%2C%20%22grupo%22%3A%22"+grupo+"%22%20%7D",
 			type: "POST",
-		    data: { "archivos": archivos },
+		    data: { "archivos": archivosSinRepetir },
 			success: function(data) {
 				if (data != 0) {
-					var r = confirm("Adjuntar "+archivos+" a "+curso+grupo);
+					var r = confirm("Adjuntar "+archivosSinRepetir+" a "+curso+grupo);
                       if (r == true) { 
 					$('#messageAlert').html('<h3>Exito!!!</h3>');
 					var form = $('#fileUploadForm')[0];
@@ -101,8 +102,8 @@ $(document).ready(function(){
 
 					 Falta devolver una respuesta mas amigable OK.
 					 */
-					$( "#uploadFiles" ).trigger( "click" );
-
+					$( "#uploadFiles" ).trigger( "click");
+			
 					/* Esta funcion de ajax era para poder subir los archivo mediante
 					 * ajax pero NO SE porque no va asique lo he dejado para subir los 
 					 * archivor mediante un formularo por metodo POST, hasta que vea si
@@ -139,7 +140,7 @@ $(document).ready(function(){
     });
 
 	/*
-	 * EN el siguiente evento, cuando eligo los archivo que subir 
+	 * En el siguiente evento, cuando eligo los archivo que subir 
 	 * se introducen sus nombre en un array.
 	 */
 	$('#archivo').on('change', function (e){
@@ -147,18 +148,28 @@ $(document).ready(function(){
 	    for (var i = 0; i < this.files.length; i++){
 	    	// Este es la nombre del archivo seleccionado
 			archivos.push(this.files[i].name);
+		}
+
+	   for (var i = 0; i < archivos.length; i++){
+	   		
+	   		var cont = 0;
+	   		for (var y = 0; y < archivosSinRepetir.length; y++){
+	   			if(archivosSinRepetir[y] != archivos[i])
+	   				cont++;
+			}
+	   		if( cont == archivosSinRepetir.length )
+	   			archivosSinRepetir.push(archivos[i]);
 
 	    }
-
-	  /*  for (var i = 0; i < archivos.length; i++){
-	   alert(archivos[i]);
-
-
-	    }*/
 	});
 
 
 });
+
+function formaction(e){
+	e.preventDefault();
+	e.stopPropagation();
+}
 
 //Select para mostrar los tipos de usuarios segun su acceso.
 

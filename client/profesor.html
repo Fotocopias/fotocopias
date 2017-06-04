@@ -23,7 +23,7 @@
 				<label>Grupo:</label>
 				<select id="grupo" ></select>
 			</div>
-			<form id="form-ajax" method="POST" action="/api/containers/container1/upload" enctype="multipart/form-data" id="fileUploadForm" name="fileUploadForm" role="form">
+			<form id="form-ajax" method="POST" onsubmit="formaction(e)" action="/api/containers/container1/upload" enctype="multipart/form-data" id="fileUploadForm" name="fileUploadForm" role="form">
 				<input name="files[]" id="archivo" type="file" multiple="multiple" />
 			
   				<button id="uploadFiles" class="btn btn-primary" hidden type="submit" style="display: none;">
