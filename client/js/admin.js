@@ -32,6 +32,8 @@ $(document).ready(function(){
                   }
                   if (sessionStorage.tipo == "Alumno"){
                    var cuantia = $('#cantidad').val();
+                    var r = confirm("Incrementar en " +cuantia+"€ el saldo de "+sessionStorage.username);
+                      if (r == true) {                      
                    var suma = parseInt(cuantia) + parseInt(sessionStorage.dinero);
                      if(sessionStorage.dinero <= 0 && cuantia < 0) {
                         alert("Este alumno no puede tener menos dinero");
@@ -45,6 +47,9 @@ $(document).ready(function(){
                         }
                       });
                      }
+                     } else {
+                          window.load();
+                      }
                   } else {
                     alert("Debe ser Alumno del centro");
                   }
@@ -54,5 +59,8 @@ $(document).ready(function(){
           var msgError = "ERROR: "+evt.status+" "+evt.statusText;
           $('#messageAlerta').html('Error al actualizar datos.');
           });  
-  });
-  });
+    });
+
+    
+
+});

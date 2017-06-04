@@ -16,6 +16,41 @@ $(document).ready(function(){
 	 *  y devuelve todos los datos de los grupos que hay
 	 */
 
+	 /*
+	 $.ajax({  
+          method: "GET",
+          url: "api/Grupos/"+ sessionStorage.userId + '?access_token=' + sessionStorage.userToken,
+         
+      }).done(function(res){
+              if(typeof(res.id) !== undefined){
+                  sessionStorage.username=res.username;
+              } else {
+                  console.log("Error");
+              }
+        }).fail(function(evt){
+          var msgError = "ERROR: "+evt.status+" "+evt.statusText;
+          $('#messageAlerta').html('Error al actualizar datos.');
+          });  
+        var urlEsa = "/api/Grupos?filter=%7B%22where%22%3A%7B%22tutor%22%3A%22"+sessionStorage.username+"%22%7D%7D&access_token="+sessionStorage.userToken;
+	 $.ajax({  
+          method: "GET",
+          url: urlEsa,
+         
+      }).done(function(res){
+              if(typeof(res.id) !== undefined){
+                  
+                  $('#messageAlert').html(res.tutor+" "+res.grupo);
+                  alert(urlEsa);
+              } else {
+                  console.log("Error");
+              }
+        }).fail(function(evt){
+          var msgError = "ERROR: "+evt.status+" "+evt.statusText;
+          $('#messageAlerta').html('Error al actualizar datos.');
+          });  
+          */
+
+
 	    $.ajax(route, {
 			        success: function (data) {
 			        	
@@ -55,6 +90,8 @@ $(document).ready(function(){
 		    data: { "archivos": archivos },
 			success: function(data) {
 				if (data != 0) {
+					var r = confirm("Adjuntar "+archivos+" a "+curso+grupo);
+                      if (r == true) { 
 					$('#messageAlert').html('<h3>Exito!!!</h3>');
 					var form = $('#fileUploadForm')[0];
 					var ficheros = new FormData(form);
@@ -89,7 +126,9 @@ $(document).ready(function(){
 							$('#messageAlert').html(e.responseText);
 			             }
         			});*/
-        			
+        			} else {
+        				location.reload();
+        			}
 
 				}else{
 					$('#messageAlert').html('Error al actualizar datos.');
@@ -122,20 +161,6 @@ $(document).ready(function(){
 });
 
 //Select para mostrar los tipos de usuarios segun su acceso.
-
-$(document).ready(function(){
-	var route = "api/Usuarios";
-	var users = "";
-	    $.ajax(route, {
-        success: function (data) {
-			for (y in data) {
-				var tipoUsuario = data[y]["tipoUsuario"];
-        		users = users + '<option value="'+tipoUsuario+'">'+tipoUsuario+'</option>';
-        	}
-        	$('#tipoUser').html(users);
-        }
-      	});
-});
 
 
 function Ccursos (){
@@ -190,7 +215,7 @@ function mostrarGrupos(){
 
 function mostrarArchivos(){
 	var cadena = "";
-		for(var x = 0; x < archivosAdjuntados.length; x++){
+		for(var x = archivosAdjuntados.length-1; x >= 0 ; x = x -1){
 			cadena = cadena + archivosAdjuntados[x] + "\n";
 			
 		}

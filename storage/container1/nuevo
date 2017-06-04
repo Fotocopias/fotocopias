@@ -1,7 +1,7 @@
 {
-      "accessType": "EXECUTE",
+      "accessType": "EXECUTE", //siempre para metodos remotos
       "principalType": "ROLE",
-      "principalId": "creadorGrupo",coordinador
+      "principalId": "creadorGrupo"// Id (coordinador)
       "permission": "ALLOW",
-      "property": "create" update_verificado
+      "property": "create" //validar_grupo //como se llama la funcion a la izquierda del =
     }
