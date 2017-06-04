@@ -15,8 +15,10 @@ $(document).ready(function(){
 						for (idalumno in data[x]["archivosDescargar"][y]) {
 							var listaArchivos= "<ul>";
 							for(z in data[x]["archivosDescargar"][y][idalumno]){
+								var file = data[x]["archivosDescargar"][y][idalumno][z];
 								listaArchivos = listaArchivos + 
-								'<li><a data-action="file" id="'+idalumno+'" onclick="dowload()">'+data[x]["archivosDescargar"][y][idalumno][z]+'</a></li>';
+								'<li><a data-action="file" style="cursor: pointer;" id="'+idalumno+'" onclick="dowload(this)" data-id="'+file+'">'+data[x]["archivosDescargar"][y][idalumno][z]+'</a></li>';
+							
 							}
 							listaArchivos = listaArchivos + '</ul>';
 							alumnos = alumnos+'<li>'+
@@ -37,22 +39,9 @@ $(document).ready(function(){
 			}
 
       	});
+	
 
-/*	    $('[data-action="file"]').on('click', function(){
-	    	alert('entra');
-	    	var file = $(this).html();
-	    	
-		    var rute = "/api/container/:container1/download/:"+file;
-
-			$.ajax(rute, {
-				success: function (data) {
-alert('exito');
-				}
-			});
-		});
-      	
-
-
+/* EJEMPLO DE COMO HAY QUE ACTUALIZAR EL CAMPO DE GRUPO: archivosDescargar
  {
   "tutor": "Alb3",
   "anyo": "string",
@@ -62,22 +51,31 @@ alert('exito');
   "curso": 1,
   "horarioVisita": "string",
   "archivos": [],
-  "archivosDescargar": [{ "2433566": ["nuevo", "comandos.txt"] }]
-
+  "archivosDescargar": [{ "2433566": ["nuevo", "comandos.txt"] }]   ****IMPORTANTE******
 }
- */
+*/
 
 });
 
-function dowload(){
-
-	    	var file = $(this).html();
-	    	
-		    var rute = "/api/containers/container1/download/"+file;
+function dowload(element){
+			var file = $(element).html()
+	 		var rute =  "/api/containers/container1/download/"+file;
 
 			$.ajax(rute, {
 				success: function (data) {
-alert('exito');
+					// Data es el texto del documento seleccionado para imprimir
+					// alert(data);
+					document.write (data);
+					 window.print();
+
+					/*
+				  	var win = window.open("about:blank", file);       
+			        setTimeout(function() {
+			        	win.write(data)
+			            win.print();
+
+			        }, 5000);
+                	*/
 				}
 			});
 }
