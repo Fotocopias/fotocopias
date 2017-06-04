@@ -41,7 +41,7 @@ $(document).ready(function(){
         }).fail(function(evt){
           if( campoContraseña == "" || campoNombre == ""){
              $('#messageAlerta').addClass('alert alert-danger');
-             $('#messageAlerta').text("Rellene todos los campos del formulario");
+             $('#messageAlerta').text("Debe rellenar todos los campos del formulario");
           } else {
           var msgError = "ERROR: "+evt.status+" "+evt.statusText;
              $('#messageAlerta').addClass('alert alert-danger');

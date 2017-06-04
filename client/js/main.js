@@ -7,6 +7,7 @@ var route = "api/Grupos";
 	var grupos = [];
 	var cursosSinRepetir = [];
 	var gruposSinRepetir = [];
+	var archivosAdjuntados = [];
 
 $(document).ready(function(){
 
@@ -35,6 +36,7 @@ $(document).ready(function(){
 			        	//$('#grupo').html(cadenaGrupo);
 			        	Cgrupos();
 			        	Ccursos();
+			        	Carchivos();
 			        }
       	});
 
@@ -184,4 +186,29 @@ function mostrarGrupos(){
 			
 		}
 	$('#grupo').html(cadena);
+}
+
+function mostrarArchivos(){
+	var cadena = "";
+		for(var x = 0; x < archivosAdjuntados.length; x++){
+			cadena = cadena + archivosAdjuntados[x] + "\n";
+			
+		}
+	$('#historico').html(cadena);
+}
+
+function Carchivos (){
+	for(var i = 0; i < archivos.length; i++){
+		if(i == 0)
+			archivosAdjuntados[i] = archivos[i];
+		var cont = 0;
+		for(var x = 0; x < archivosAdjuntados.length; x++){
+			if(archivosAdjuntados[x] != archivos[i])
+				cont++;
+		}
+		if(cont == archivosAdjuntados.length)
+			archivosAdjuntados.push(archivos[i]);
+
+	}
+	mostrarArchivos();
 }

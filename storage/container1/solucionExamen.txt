@@ -1,0 +1,364 @@
+diff --git a/common/models/actividad.js b/common/models/actividad.js
+deleted file mode 100644
+index 4b0a786..0000000
+--- a/common/models/actividad.js
++++ /dev/null
+@@ -1,65 +0,0 @@
+-'use strict';
+-
+-module.exports = function(Actividad) {
+-
+-	Actividad.observe('before save', function (ctx, next) {console.log(ctx);
+-		if (ctx.data && ctx.data.maxalumnos) {
+-			if (ctx.data.maxalumnos  > 100) {
+-				ctx.data.maxalumnos = 100;
+-			}
+-		}
+-		next();
+-	});
+-
+-	Actividad.afterRemote('create', function(context, actividad, next) {
+-
+-		console.log(actividad);
+-
+-		Actividad.findById(id, function(err, actividad) {
+-	    	actividad.creador = context.args.access_Token.usuarioId;
+-	    });
+-	     
+-	});
+-
+-	Actividad.mostrar = function(id,  cb) {
+-		Actividad.findById(id, function(err, actividad) {
+-			if (err) {
+-				var err = new Error('No existe ninguna actividad con ese id');
+-				err.statusCode = 404;
+-				return cb(err);
+-			}
+-
+-			var string="<ol>";
+-			var repetir="<li>&nbsp;</li>\n";
+-			
+-			for(var cont=0; cont<actividad.maxalumnos; cont++){
+-				string = string + repetir;
+-			}
+-
+-			string = string + "</ol>";
+-
+-				console.log('> Conseguido');
+-				return cb(null, string)
+-		});
+-	};
+-
+-	Actividad.remoteMethod(
+-		'mostrar', {
+-			description: 'muestre una lista numerada de una actividad ',
+-			accepts: [{
+-				arg: 'id',
+-				type: 'integer',
+-				required: true
+-			}],
+-			returns: {
+-				arg: 'msg',
+-				type: 'string'
+-			},
+-			http: {
+-				path: '/:id/actividad',
+-				verb: 'get'
+-			},
+-		}
+-	);
+-
+-};
+diff --git a/common/models/actividad.json b/common/models/actividad.json
+deleted file mode 100644
+index fd854dc..0000000
+--- a/common/models/actividad.json
++++ /dev/null
+@@ -1,46 +0,0 @@
+-{
+-  "name": "Actividad",
+-  "base": "PersistedModel",
+-  "idInjection": true,
+-  "options": {
+-    "validateUpsert": true
+-  },
+-  "properties": {
+-    "nombre": {
+-      "type": "string",
+-      "required": true
+-    },
+-    "fecha": {
+-      "type": "date",
+-      "required": true
+-    },
+-    "maxalumnos": {
+-      "type": "number",
+-      "required": true
+-    }
+-  },
+-  "validations": [],
+-  "relations": {
+-    "creador": {
+-      "type": "belongsTo",
+-      "model": "Usuario",
+-      "foreignKey": ""
+-    }
+-  },
+-  "acls": [
+-    {
+-      "accessType": "EXECUTE",
+-      "principalType": "ROLE",
+-      "principalId": "$authenticated",
+-      "permission": "ALLOW",
+-      "property": "create"
+-    },
+-    {
+-      "accessType": "WRITE",
+-      "principalType": "ROLE",
+-      "principalId": "$owner",
+-      "permission": "ALLOW"
+-    }
+-  ],
+-  "methods": {}
+-}
+diff --git a/common/models/centro.json b/common/models/centro.json
+index 9a9b6f2..79b6a31 100644
+--- a/common/models/centro.json
++++ b/common/models/centro.json
+@@ -2,16 +2,6 @@
+   "name": "Centro",
+   "base": "PersistedModel",
+   "idInjection": true,
+-  "indexes": {
+-    "codigoUnico": {
+-      "keys": {
+-        "codigo": 1
+-      },
+-      "options": {
+-        "unique": true
+-      }
+-    }
+-  },
+   "options": {
+     "validateUpsert": true
+   },
+@@ -34,6 +24,16 @@
+       "type": "boolean"
+     }
+   },
++  "indexes": {
++    "codigoUnico": {
++      "keys": {
++        "codigo": 1
++      },
++      "options": {
++        "unique": true
++      }
++    }
++  },
+   "validations": [],
+   "relations": {
+     "cursosescolares": {
+@@ -47,38 +47,32 @@
+       "foreignKey": "coordinador"
+     }
+   },
+-  "acls": [
+-    {
+-      "accessType": "*",
+-      "principalType": "ROLE",
+-      "principalId": "$everyone",
+-      "permission": "DENY"
+-    },
+-    {
+-      "accessType": "READ",
+-      "principalType": "ROLE",
+-      "principalId": "$everyone",
+-      "permission": "ALLOW"
+-    },
+-    {
+-      "accessType": "WRITE",
+-      "principalType": "ROLE",
+-      "principalId": "$owner",
+-      "permission": "ALLOW"
+-    },
+-    {
+-      "accessType": "EXECUTE",
+-      "principalType": "ROLE",
+-      "principalId": "$authenticated",
+-      "permission": "ALLOW",
+-      "property": "create"
+-    },
+-    {
+-      "accessType": "*",
+-      "principalType": "ROLE",
+-      "principalId": "admin",
+-      "permission": "ALLOW"
+-    }
+-  ],
++  "acls": [{
++    "accessType": "*",
++    "principalType": "ROLE",
++    "principalId": "$everyone",
++    "permission": "DENY"
++  }, {
++    "accessType": "READ",
++    "principalType": "ROLE",
++    "principalId": "$everyone",
++    "permission": "ALLOW"
++  }, {
++    "accessType": "WRITE",
++    "principalType": "ROLE",
++    "principalId": "$owner",
++    "permission": "ALLOW"
++  }, {
++    "accessType": "EXECUTE",
++    "principalType": "ROLE",
++    "principalId": "$authenticated",
++    "permission": "ALLOW",
++    "property": "create"
++  }, {
++    "accessType": "*",
++    "principalType": "ROLE",
++    "principalId": "admin",
++    "permission": "ALLOW"
++  }],
+   "methods": {}
+-}
++}
+\ No newline at end of file
+diff --git a/common/models/grupo.json b/common/models/grupo.json
+index 684d3dd..bb233a5 100644
+--- a/common/models/grupo.json
++++ b/common/models/grupo.json
+@@ -91,7 +91,7 @@
+       "principalId": "coordinador",
+       "permission": "ALLOW",
+       "property": "create"
+-    }
++     }
+   ],
+   "methods": {}
+ }
+diff --git a/common/models/participante.js b/common/models/participante.js
+deleted file mode 100644
+index e7a1da8..0000000
+--- a/common/models/participante.js
++++ /dev/null
+@@ -1,5 +0,0 @@
+-'use strict';
+-
+-module.exports = function(Participante) {
+-
+-};
+diff --git a/common/models/participante.json b/common/models/participante.json
+deleted file mode 100644
+index 981c14f..0000000
+--- a/common/models/participante.json
++++ /dev/null
+@@ -1,29 +0,0 @@
+-{
+-  "name": "Participante",
+-  "base": "PersistedModel",
+-  "idInjection": true,
+-  "options": {
+-    "validateUpsert": true
+-  },
+-  "properties": {
+-     "pagado": {
+-      "type": "boolean",
+-      "required": false
+-    }
+-  },
+-  "validations": [],
+-  "relations": {
+-    "actividad": {
+-      "type": "belongsTo",
+-      "model": "Actividad",
+-      "foreignKey": ""
+-    },
+-    "alumno": {
+-      "type": "belongsTo",
+-      "model": "Usuario",
+-      "foreignKey": ""
+-    }
+-  },
+-  "acls": [],
+-  "methods": {}
+-}
+diff --git a/server/boot/automigrateDB.js b/server/boot/automigrateDB.js
+index 49eca93..bfad3e2 100644
+--- a/server/boot/automigrateDB.js
++++ b/server/boot/automigrateDB.js
+@@ -4,11 +4,50 @@ module.exports = function(app) {
+     app.dataSources.db.automigrate(lbTables, function(er) {
+       if (er) throw er;
+       console.log('Loopback tables [', lbTables, '] created in ', app.dataSources.db.adapter.name);
+-      var institutosTables = ['Actividad', 'Anyoescolar', 'Centro', 'Grupo', 'Materia', 'Materiaimpartida', 'Materiamatriculada', 'Matricula', 'Nivel', 'Participante', 'Usuario', 'Tutorizado'];
++      var institutosTables = ['Anyoescolar', 'Centro', 'Grupo', 'Materia', 'Materiaimpartida', 'Materiamatriculada', 'Matricula', 'Nivel', 'Usuario', 'Tutorizado'];
+       app.dataSources.db.automigrate(institutosTables, function(er) {
+         if (er) throw er;
+         console.log('Loopback tables [', institutosTables, '] created in ', app.dataSources.db.adapter.name);
++
++        var config = require('../config.local.js');
++        var Usuario = app.models.Usuario;
++        var Role = app.models.Role;
++        var RoleMapping = app.models.RoleMapping;
++
++
++        Usuario.count(function(err, count) {
++          if (err) throw err;
++
++          if (count === 0) {
++            Usuario.create([{
++              username: 'admin',
++              apellidos: 'Plataforma',
++              nombre: 'Administrador',
++              email: config.admin.email,
++              password: config.admin.password
++            }], function(err, users) {
++              if (err) throw err;
++
++              // Create the admin role
++              Role.create({
++                name: 'admin'
++              }, function(err, role) {
++                if (err) throw err;
++                console.log(role);
++
++                // Make Bob an admin
++                role.principals.create({
++                  principalType: RoleMapping.USER,
++                  principalId: users[0].id
++                }, function(err, principal) {
++                  if (err) throw err;
++                  console.log(principal);
++                });
++              });
++            });
++          }
++        });
+       });
+     });
+   }
+-};
++};
+\ No newline at end of file
+diff --git a/server/model-config.json b/server/model-config.json
+index eb16cd8..89a23b3 100644
+--- a/server/model-config.json
++++ b/server/model-config.json
+@@ -74,13 +74,5 @@
+   "Tutorizado": {
+     "dataSource": "db",
+     "public": true
+-  },
+-  "Actividad": {
+-    "dataSource": db,
+-    "public": true
+-  },
+-  "Participante": {
+-    "dataSource": db,
+-    "public": true
+   }
+ }
