@@ -61,12 +61,15 @@ function dowload(element){
 			var file = $(element).html()
 	 		var rute =  "/api/containers/container1/download/"+file;
 
-			$.ajax(rute, {
+	 		window.open(rute); 
+      
+			/*	$.ajax(rute, {
 				success: function (data) {
 					// Data es el texto del documento seleccionado para imprimir
-					// alert(data);
-					document.write (data);
-					 window.print();
+					alert(data[0]);
+					
+				//	document.write (data);
+				//	 window.print();
 
 					/*
 				  	var win = window.open("about:blank", file);       
@@ -75,7 +78,7 @@ function dowload(element){
 			            win.print();
 
 			        }, 5000);
-                	*/
+                	
 				}
-			});
+			});*/
 }
