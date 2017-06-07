@@ -1,13 +1,13 @@
 $(document).ready(function(){
   $('#mostrarUsuario').click(function(){
+  var rutaUrl = 'api/Usuarios?filter=%7B%22where%22%3A%7B%22nombre%22%3A%22'+$('#nombre').val()+'%22%2C%20%22apellidos%22%3A%22'+$('#apellidos').val()+'%22%7D%7D&access_token='+sessionStorage.userToken;
       $.ajax({  
           method: "GET",
-          url: 'api/Usuarios/'+$('#nombre').val()+'?access_token='+sessionStorage.userToken,
+          url: rutaUrl,
       }).done(function(res){
               if(typeof(res.id) !== undefined){
-                    $('#alumnoIndicado').html("Nombre: "+res.nombre+" "+res.apellidos+"\n"+"Usuario: "+res.username+"\n"+"Tipo: "+res.tipoUsuario+"\n"+"Saldo: "+res.dinero+"€");
+                    $('#alumnoIndicado').html("Nombre: "+res[0].nombre+" "+res[0].apellidos+"\n"+"Usuario: "+res[0].username+"\n"+"Tipo: "+res[0].tipoUsuario+"\n"+"Saldo: "+res[0].dinero+"€");
               }
-              
         }).fail(function(evt){
           var msgError = "ERROR: "+evt.status+" "+evt.statusText;
           $('#messageAlerta').html('Error al actualizar datos.');
@@ -16,19 +16,18 @@ $(document).ready(function(){
    });
 
   $('#meterDinero').click(function(){
-  var nombres = $('#nombre').val();
-  var rutaUrl = 'api/Usuarios/'+nombres+'?access_token='+sessionStorage.userToken;
+  var rutaUrl = 'api/Usuarios?filter=%7B%22where%22%3A%7B%22nombre%22%3A%22'+$('#nombre').val()+'%22%2C%20%22apellidos%22%3A%22'+$('#apellidos').val()+'%22%7D%7D&access_token='+sessionStorage.userToken;  
       $.ajax({  
           method: "GET",
           url: rutaUrl,
       }).done(function(res){
               if(typeof(res.id) !== undefined){
-                  sessionStorage.username=res.username;
-                  sessionStorage.nombre=res.nombre;
-                  sessionStorage.apellidos=res.apellidos;
-                  sessionStorage.dinero=res.dinero;
-                  sessionStorage.tipo=res.tipoUsuario;
-                  	
+                  sessionStorage.username=res[0].username;
+                  sessionStorage.nombre=res[0].nombre;
+                  sessionStorage.apellidos=res[0].apellidos;
+                  sessionStorage.dinero=res[0].dinero;
+                  sessionStorage.tipo=res[0].tipoUsuario;
+                    
                   }
                   if (sessionStorage.tipo == "Alumno"){
                    var cuantia = $('#cantidad').val();
@@ -45,10 +44,10 @@ $(document).ready(function(){
                         success: function(data) {
                           $( "#mostrarUsuario" ).trigger( "click" );
                         }
-                      });
+                      });
                      }
                      } else {
-                          window.load();
+                          console.log("Cancelado");
                       }
                   } else {
                     alert("Debe ser Alumno del centro");

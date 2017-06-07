@@ -88,10 +88,10 @@ $(document).ready(function(){
 		$.ajax({
 			url: "api/Grupos/update?where=%7B%22curso%22%3A"+curso+"%2C%20%22grupo%22%3A%22"+grupo+"%22%20%7D",
 			type: "POST",
-		    data: { "archivos": archivosSinRepetir },
+		    data: { "archivos": archivosSinRepetir },
 			success: function(data) {
 				if (data != 0) {
-					var r = confirm("Adjuntar "+archivosSinRepetir+" a "+curso+grupo);
+					var r = confirm("Adjuntar a "+curso+grupo);
                       if (r == true) { 
 					$('#messageAlert').html('<h3>Exito!!!</h3>');
 					var form = $('#fileUploadForm')[0];
@@ -99,7 +99,6 @@ $(document).ready(function(){
 					/* SI se actualizar el campo array con el nombre de los archivos selecionado
 					 * ejecutamos el siguiente boton submit para mover los archivos al CONTAINER1 
 					 * que esta dentro de la carpeta STORAGE
-
 					 Falta devolver una respuesta mas amigable OK.
 					 */
 					$( "#uploadFiles" ).trigger( "click");
@@ -108,7 +107,6 @@ $(document).ready(function(){
 					 * ajax pero NO SE porque no va asique lo he dejado para subir los 
 					 * archivor mediante un formularo por metodo POST, hasta que vea si
 					 * es posible hacerlo por ajax
-
 					$.ajax({
 			            type: "POST",
 			            enctype: 'multipart/form-data',
@@ -121,21 +119,20 @@ $(document).ready(function(){
 			            success: function (data) {
 							$('#messageAlert').html(data);
 			     
-
 			            },
 			            error: function (e) {
 							$('#messageAlert').html(e.responseText);
 			             }
         			});*/
         			} else {
-        				location.reload();
+        				window.load();
         			}
 
 				}else{
 					$('#messageAlert').html('Error al actualizar datos.');
 				}
 			}
-	    });
+	    });
 
     });
 
