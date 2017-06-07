@@ -1,7 +1,0 @@
-{
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "creadorGrupo",coordinador
-      "permission": "ALLOW",
-      "property": "create" update_verificado
-    }

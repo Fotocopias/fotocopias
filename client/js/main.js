@@ -11,46 +11,12 @@ var route = "api/Grupos";
 	var archivosSinRepetir = [];
 
 $(document).ready(function(){
+
 	$('#archivo').html('');
 	/*
 	 * En el sigiente codigo hace una llamada por ajax a la ruta api/Grupos
 	 *  y devuelve todos los datos de los grupos que hay
 	 */
-
-	 /*
-	 $.ajax({  
-          method: "GET",
-          url: "api/Grupos/"+ sessionStorage.userId + '?access_token=' + sessionStorage.userToken,
-         
-      }).done(function(res){
-              if(typeof(res.id) !== undefined){
-                  sessionStorage.username=res.username;
-              } else {
-                  console.log("Error");
-              }
-        }).fail(function(evt){
-          var msgError = "ERROR: "+evt.status+" "+evt.statusText;
-          $('#messageAlerta').html('Error al actualizar datos.');
-          });  
-        var urlEsa = "/api/Grupos?filter=%7B%22where%22%3A%7B%22tutor%22%3A%22"+sessionStorage.username+"%22%7D%7D&access_token="+sessionStorage.userToken;
-	 $.ajax({  
-          method: "GET",
-          url: urlEsa,
-         
-      }).done(function(res){
-              if(typeof(res.id) !== undefined){
-                  
-                  $('#messageAlert').html(res.tutor+" "+res.grupo);
-                  alert(urlEsa);
-              } else {
-                  console.log("Error");
-              }
-        }).fail(function(evt){
-          var msgError = "ERROR: "+evt.status+" "+evt.statusText;
-          $('#messageAlerta').html('Error al actualizar datos.');
-          });  
-          */
-
 
 	    $.ajax(route, {
 			        success: function (data) {
@@ -72,7 +38,7 @@ $(document).ready(function(){
 			        	//$('#grupo').html(cadenaGrupo);
 			        	Cgrupos();
 			        	Ccursos();
-			        	Carchivos();
+			        	//Carchivos();
 			        }
       	});
 
@@ -86,12 +52,13 @@ $(document).ready(function(){
 		var grupo = $('#grupo').val();
 
 		$.ajax({
+			//url: "api/Grupos/update?where%22%3A%7B%22curso%22%3A%22"+curso+"%22%2C%22grupo%22%3A%22"+grupo+"%22%2C%22tutor%22%3A%22"+sessionStorage.username+"%22%7D%7D&access_token="+sessionStorage.userToken,
 			url: "api/Grupos/update?where=%7B%22curso%22%3A"+curso+"%2C%20%22grupo%22%3A%22"+grupo+"%22%20%7D",
 			type: "POST",
 		    data: { "archivos": archivosSinRepetir },
 			success: function(data) {
 				if (data != 0) {
-					var r = confirm("Adjuntar a "+curso+grupo);
+					var r = confirm("Adjuntar a "+curso+"º "+grupo);
                       if (r == true) { 
 					$('#messageAlert').html('<h3>Exito!!!</h3>');
 					var form = $('#fileUploadForm')[0];
@@ -215,12 +182,12 @@ function Cgrupos (){
 function mostrarGrupos(){
 	var cadena = "";
 		for(var x = 0; x < gruposSinRepetir.length; x++){
-			cadena = cadena + '<option value="'+gruposSinRepetir[x]+'">'+gruposSinRepetir[x]+'º</option>';
+			cadena = cadena + '<option value="'+gruposSinRepetir[x]+'">'+gruposSinRepetir[x]+'</option>';
 			
 		}
 	$('#grupo').html(cadena);
 }
-
+/*
 function mostrarArchivos(){
 	var cadena = "";
 		for(var x = archivosAdjuntados.length-1; x >= 0 ; x = x -1){
@@ -244,4 +211,28 @@ function Carchivos (){
 
 	}
 	mostrarArchivos();
-}
+}*/
+
+$(document).ready(function(){
+var rutaUrl = '/api/Grupos?filter=%7B%22where%22%3A%7B%22tutor%22%3A%22'+sessionStorage.username+'%22%7D%7D&access_token='+sessionStorage.userToken;
+	 $.ajax({  
+          method: "GET",
+          url: rutaUrl,
+      }).done(function(res){
+      	//alert(rutaUrl);
+              if(typeof(res.id) !== undefined){
+		        var cadena = "";
+		        //var array = [];
+		        //.archivos);
+				for(var x = res[0].archivos.length-1; x >= 0 ; x = x -1){
+					cadena = cadena + res[0].archivos[x]+"\n";
+				}
+				$('#historico').html(cadena);
+
+			 }
+              
+        }).fail(function(evt){
+          var msgError = "ERROR: "+evt.status+" "+evt.statusText;
+          $('#messageAlerta').html('Error al actualizar datos.');
+         });
+});

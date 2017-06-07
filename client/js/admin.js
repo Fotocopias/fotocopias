@@ -4,6 +4,7 @@ $(document).ready(function(){
   $( "#volver" ).attr("disabled",true);
 
   $('#mostrarUsuario').click(function(){
+    if($('#nombre').val() != "" || $('#apellidos').val() != "") {
   var rutaUrl = 'api/Usuarios?filter=%7B%22where%22%3A%7B%22nombre%22%3A%22'+$('#nombre').val()+'%22%2C%20%22apellidos%22%3A%22'+$('#apellidos').val()+'%22%7D%7D&access_token='+sessionStorage.userToken;
       $.ajax({  
           method: "GET",
@@ -16,11 +17,14 @@ $(document).ready(function(){
           var msgError = "ERROR: "+evt.status+" "+evt.statusText;
           $('#messageAlerta').html('Error al actualizar datos.');
           });
-
+      } else {
+        alert("Introduzca un nombre y apellido");
+      }
    });
 
   $('#meterDinero').click(function(){
   var rutaUrl = 'api/Usuarios?filter=%7B%22where%22%3A%7B%22nombre%22%3A%22'+$('#nombre').val()+'%22%2C%20%22apellidos%22%3A%22'+$('#apellidos').val()+'%22%7D%7D&access_token='+sessionStorage.userToken;  
+  if($('#cantidad').val() != "") {
       $.ajax({  
           method: "GET",
           url: rutaUrl,
@@ -36,7 +40,7 @@ $(document).ready(function(){
                   if (sessionStorage.tipo == "Alumno"){
                    var cuantia = $('#cantidad').val();
                    sessionStorage.guardaCuantia = cuantia;
-                    var r = confirm("Incrementar en " +cuantia+"€ el saldo de "+sessionStorage.username);
+                    var r = confirm("Incrementar en " +cuantia+"€ el saldo de "+sessionStorage.nombre +" "+sessionStorage.apellidos);
                       if (r == true) {                      
                    suma = parseInt(cuantia) + parseInt(sessionStorage.dinero);
                      if(sessionStorage.dinero <= 0 && cuantia < 0) {
@@ -64,7 +68,11 @@ $(document).ready(function(){
         }).fail(function(evt){
           var msgError = "ERROR: "+evt.status+" "+evt.statusText;
           $('#messageAlerta').html('Error al actualizar datos.');
-          });  
+          }); 
+      } else {
+        alert("Debe introducir una cantidad");
+      }
+
     });
 
     $('#volver').click(function(){
