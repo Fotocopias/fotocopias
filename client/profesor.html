@@ -4,9 +4,7 @@
 		<meta charset="utf-8">
 		<title>Profesor</title>
 		<link rel="stylesheet" href="css/bootstrap.min.css">
-		<!-- Referencia e inspiracion 
-		https://github.com/pragysha/LoopbackWebAppsharma
-		-->
+
 
 	</head>
 	<body>
@@ -23,7 +21,7 @@
 				<label>Grupo:</label>
 				<select id="grupo" ></select>
 			</div>
-			<form id="form-ajax" method="POST" onsubmit="formaction(e)" action="/api/containers/container1/upload" enctype="multipart/form-data" id="fileUploadForm" name="fileUploadForm" role="form">
+			<form id="form-ajax" method="POST" onsubmit="formaction(e)" action="/api/containers/download/upload" enctype="multipart/form-data" id="fileUploadForm" name="fileUploadForm" role="form">
 				<input name="files[]" id="archivo" type="file" multiple="multiple" />
 			
   				<button id="uploadFiles" class="btn btn-primary" hidden type="submit" style="display: none;">

@@ -1,4 +1,5 @@
-var route = "api/Grupos";
+//var route = "api/Grupos";
+var route ="/api/Grupos?filter=%7B%22tutor%22%3A%22"+sessionStorage.username+"%22%7D&access_token="+sessionStorage.userToken;
 	var cadena = "";
 	var cadenaGrupo = "";
 	var tmppath = [];
@@ -27,15 +28,8 @@ $(document).ready(function(){
 								archivos.push(data[0]['archivos'][i]);
 							}
 							cursos[x] = data[x]["curso"];
-							//var curso = data[x]["curso"];
-			        		//cadena = cadena + '<option value="'+curso+'">'+curso+'º</option>';
-
-			        		grupos[x] = data[x]["grupo"];
-			        		//var grupo = data[x]["grupo"];
-			        		//cadenaGrupo = cadenaGrupo + '<option value="'+grupo+'">'+grupo+'</option>';
+							grupos[x] = data[x]["grupo"];
 			        	}
-			        	//$('#curso').html(cadena);
-			        	//$('#grupo').html(cadenaGrupo);
 			        	Cgrupos();
 			        	Ccursos();
 			        	//Carchivos();
@@ -52,8 +46,9 @@ $(document).ready(function(){
 		var grupo = $('#grupo').val();
 
 		$.ajax({
+			
 			//url: "api/Grupos/update?where%22%3A%7B%22curso%22%3A%22"+curso+"%22%2C%22grupo%22%3A%22"+grupo+"%22%2C%22tutor%22%3A%22"+sessionStorage.username+"%22%7D%7D&access_token="+sessionStorage.userToken,
-			url: "api/Grupos/update?where=%7B%22curso%22%3A"+curso+"%2C%20%22grupo%22%3A%22"+grupo+"%22%20%7D",
+			url:"/api/Grupos/update?where=%7B%22grupo%22%3A%22"+grupo+"%22%2C%22curso%22%3A"+curso+"%2C%22tutor%22%3A%22"+sessionStorage.username+"%22%7D&access_token="+sessionStorage.userToken,
 			type: "POST",
 		    data: { "archivos": archivosSinRepetir },
 			success: function(data) {
