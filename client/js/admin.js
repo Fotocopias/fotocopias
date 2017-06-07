@@ -1,4 +1,8 @@
 $(document).ready(function(){
+  var suma = "";
+  sessionStorage.removeItem("guardaCuantia");
+  $( "#volver" ).attr("disabled",true);
+
   $('#mostrarUsuario').click(function(){
   var rutaUrl = 'api/Usuarios?filter=%7B%22where%22%3A%7B%22nombre%22%3A%22'+$('#nombre').val()+'%22%2C%20%22apellidos%22%3A%22'+$('#apellidos').val()+'%22%7D%7D&access_token='+sessionStorage.userToken;
       $.ajax({  
@@ -31,9 +35,10 @@ $(document).ready(function(){
                   }
                   if (sessionStorage.tipo == "Alumno"){
                    var cuantia = $('#cantidad').val();
+                   sessionStorage.guardaCuantia = cuantia;
                     var r = confirm("Incrementar en " +cuantia+"€ el saldo de "+sessionStorage.username);
                       if (r == true) {                      
-                   var suma = parseInt(cuantia) + parseInt(sessionStorage.dinero);
+                   suma = parseInt(cuantia) + parseInt(sessionStorage.dinero);
                      if(sessionStorage.dinero <= 0 && cuantia < 0) {
                         alert("Este alumno no puede tener menos dinero");
                        } else if(sessionStorage.dinero <= 0 && cuantia > 0 || sessionStorage.dinero > 0 && cuantia > 0){
@@ -42,7 +47,9 @@ $(document).ready(function(){
                       method: "POST",
                       data: { "dinero": suma },
                         success: function(data) {
+                          $( "#cantidad" ).val("");
                           $( "#mostrarUsuario" ).trigger( "click" );
+                          $( "#volver" ).attr("disabled",false);
                         }
                       });
                      }
@@ -60,6 +67,24 @@ $(document).ready(function(){
           });  
     });
 
+    $('#volver').click(function(){
+      var deshacer = parseInt(suma) - parseInt(sessionStorage.guardaCuantia);
+      var r = confirm("¿Deshacer los cambios?");
+      if (r == true) {      
+        $.ajax({
+        url: "api/Usuarios/update?where=%7B%22username%22%3A%22"+sessionStorage.username+"%22%7D&access_token="+ sessionStorage.userToken,
+        method: "POST",
+        data: { "dinero": deshacer },
+          success: function(data) {
+            $( "#mostrarUsuario" ).trigger( "click" );
+            sessionStorage.removeItem("guardaCuantia");
+            location.reload();
+          }
+        });
+      } else {
+        console.log("Cancelado");
+      }
+    });
     
 
 });
