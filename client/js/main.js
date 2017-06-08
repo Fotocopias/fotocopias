@@ -1,5 +1,6 @@
-//var route = "api/Grupos";
-var route ="/api/Grupos?filter=%7B%22tutor%22%3A%22"+sessionStorage.username+"%22%7D&access_token="+sessionStorage.userToken;
+
+//"/api/Grupos?filter=%7B%22tutor%22%3A%22"+sessionStorage.username+"%22%7D&access_token="+sessionStorage.userToken;
+var route ="/api/Grupos?filter=%7B%22where%22%3A%20%7B%22tutor%22%3A%20%22"+sessionStorage.username+"%22%7D%7D&access_token="+sessionStorage.userToken;
 	var cadena = "";
 	var cadenaGrupo = "";
 	var tmppath = [];
@@ -47,11 +48,12 @@ $(document).ready(function(){
 
 		$.ajax({
 			
-			//url: "api/Grupos/update?where%22%3A%7B%22curso%22%3A%22"+curso+"%22%2C%22grupo%22%3A%22"+grupo+"%22%2C%22tutor%22%3A%22"+sessionStorage.username+"%22%7D%7D&access_token="+sessionStorage.userToken,
-			url:"/api/Grupos/update?where=%7B%22grupo%22%3A%22"+grupo+"%22%2C%22curso%22%3A"+curso+"%2C%22tutor%22%3A%22"+sessionStorage.username+"%22%7D&access_token="+sessionStorage.userToken,
+			url: "/api/Grupos/update?where=%7B%22grupo%22%3A%22"+grupo+"%22%2C%22curso%22%3A"+curso+"%2C%22tutor%22%3A%22Jose%22%7D&access_token=dDaXHLl5xdsWmeduNX7eYtbdigaeg2GcV3V26h5FafQoNDQq1JN14a230aMGVxta",
+		//	url:"/api/Grupos/update?where=%7B%22grupo%22%3A%22"+grupo+"%22%2C%22curso%22%3A"+curso+"%2C%22tutor%22%3A%22"+sessionStorage.username+"%22%7D&access_token="+sessionStorage.userToken,
 			type: "POST",
 		    data: { "archivos": archivosSinRepetir },
 			success: function(data) {
+				alert(data);
 				if (data != 0) {
 					var r = confirm("Adjuntar a "+curso+"º "+grupo);
                       if (r == true) { 
@@ -87,7 +89,7 @@ $(document).ready(function(){
 			             }
         			});*/
         			} else {
-        				window.load();
+        				window.onload();
         			}
 
 				}else{
@@ -107,6 +109,7 @@ $(document).ready(function(){
 	    for (var i = 0; i < this.files.length; i++){
 	    	// Este es la nombre del archivo seleccionado
 			archivos.push(this.files[i].name);
+
 		}
 
 	   for (var i = 0; i < archivos.length; i++){
@@ -120,6 +123,7 @@ $(document).ready(function(){
 	   			archivosSinRepetir.push(archivos[i]);
 
 	    }
+
 	});
 
 
