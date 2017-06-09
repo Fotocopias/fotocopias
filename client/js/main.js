@@ -1,6 +1,7 @@
 
-//"/api/Grupos?filter=%7B%22tutor%22%3A%22"+sessionStorage.username+"%22%7D&access_token="+sessionStorage.userToken;
+
 var route ="/api/Grupos?filter=%7B%22where%22%3A%20%7B%22tutor%22%3A%20%22"+sessionStorage.username+"%22%7D%7D&access_token="+sessionStorage.userToken;
+//var route ="/api/Grupos?filter=%7B%22where%22%3A%20%7B%22tutor%22%3A%20%22Jose%22%7D%7D&access_token=dDaXHLl5xdsWmeduNX7eYtbdigaeg2GcV3V26h5FafQoNDQq1JN14a230aMGVxta";	
 	var cadena = "";
 	var cadenaGrupo = "";
 	var tmppath = [];
@@ -15,6 +16,7 @@ var route ="/api/Grupos?filter=%7B%22where%22%3A%20%7B%22tutor%22%3A%20%22"+sess
 $(document).ready(function(){
 
 	$('#archivo').html('');
+
 	/*
 	 * En el sigiente codigo hace una llamada por ajax a la ruta api/Grupos
 	 *  y devuelve todos los datos de los grupos que hay
@@ -24,16 +26,49 @@ $(document).ready(function(){
 			        success: function (data) {
 			        	
 						for (x in data) {
-
+							/*
 							for(var i = 0; i < data[0]['archivos'].length; i++){
 								archivos.push(data[0]['archivos'][i]);
-							}
+							}*/
 							cursos[x] = data[x]["curso"];
 							grupos[x] = data[x]["grupo"];
 			        	}
 			        	Cgrupos();
 			        	Ccursos();
 			        	//Carchivos();
+
+
+	        			archivos = [];
+						var group = $('#grupo').val();
+						var course = $('#curso').val();
+						var url = "/api/Grupos?filter=%7B%22where%22%3A%20%7B%22grupo%22%3A%20%22"+group+"%22%2C%20%22curso%22%3A"+course+"%7D%7D&access_token="+sessionStorage.userToken;
+							    $.ajax(url, {
+							        success: function (data) {
+							        	
+										for (x in data) {
+
+											for(var i = 0; i < data[0]['archivos'].length; i++){
+												archivos.push(data[0]['archivos'][i]);
+
+											}
+
+											
+							        	}
+							        	archivosSinRepetir = [];
+									   for (var i = 0; i < archivos.length; i++){
+									   		
+									   		var cont = 0;
+									   		for (var y = 0; y < archivosSinRepetir.length; y++){
+									   			if(archivosSinRepetir[y] != archivos[i])
+									   				cont++;
+											}
+									   		if( cont == archivosSinRepetir.length )
+									   			archivosSinRepetir.push(archivos[i]);
+
+									    }
+				
+							        }
+				      			});
 			        }
       	});
 
@@ -48,8 +83,8 @@ $(document).ready(function(){
 
 		$.ajax({
 			
-			url: "/api/Grupos/update?where=%7B%22grupo%22%3A%22"+grupo+"%22%2C%22curso%22%3A"+curso+"%2C%22tutor%22%3A%22"+sessionStorage.username+"%22%7D&access_token="+sessionStorage.userToken,
-		//	url:"/api/Grupos/update?where=%7B%22grupo%22%3A%22"+grupo+"%22%2C%22curso%22%3A"+curso+"%2C%22tutor%22%3A%22"+sessionStorage.username+"%22%7D&access_token="+sessionStorage.userToken,
+		url: "/api/Grupos/update?where=%7B%22grupo%22%3A%22"+grupo+"%22%2C%22curso%22%3A"+curso+"%2C%22tutor%22%3A%22"+sessionStorage.username+"%22%7D&access_token="+sessionStorage.userToken,
+		//url:"/api/Grupos/update?where=%7B%22grupo%22%3A%22"+grupo+"%22%2C%22curso%22%3A"+curso+"%2C%22tutor%22%3A%22Jose%22%7D&access_token=dDaXHLl5xdsWmeduNX7eYtbdigaeg2GcV3V26h5FafQoNDQq1JN14a230aMGVxta",
 			type: "POST",
 		    data: { "archivos": archivosSinRepetir },
 			success: function(data) {
@@ -106,12 +141,13 @@ $(document).ready(function(){
 	 */
 	$('#archivo').on('change', function (e){
 		e.preventDefault();
+
 	    for (var i = 0; i < this.files.length; i++){
 	    	// Este es la nombre del archivo seleccionado
 			archivos.push(this.files[i].name);
 
 		}
-
+		
 	   for (var i = 0; i < archivos.length; i++){
 	   		
 	   		var cont = 0;
@@ -124,6 +160,44 @@ $(document).ready(function(){
 
 	    }
 
+	});
+	/*
+	 * Funcion que borra el array archivos y el introduce los archivos de ese curso y grupo
+	 */
+	$('#curso, #grupo').change(function(){
+		archivos = [];
+
+		var group = $('#grupo').val();
+		var course = $('#curso').val();
+		var url = "/api/Grupos?filter=%7B%22where%22%3A%20%7B%22grupo%22%3A%20%22"+group+"%22%2C%20%22curso%22%3A"+course+"%7D%7D&access_token="+sessionStorage.userToken;
+			    $.ajax(url, {
+			        success: function (data) {
+			        	
+						for (x in data) {
+
+							for(var i = 0; i < data[0]['archivos'].length; i++){
+								archivos.push(data[0]['archivos'][i]);
+
+							}
+
+							
+			        	}
+
+			        	archivosSinRepetir = [];
+					   for (var i = 0; i < archivos.length; i++){
+					   		
+					   		var cont = 0;
+					   		for (var y = 0; y < archivosSinRepetir.length; y++){
+					   			if(archivosSinRepetir[y] != archivos[i])
+					   				cont++;
+							}
+					   		if( cont == archivosSinRepetir.length )
+					   			archivosSinRepetir.push(archivos[i]);
+
+					    }
+
+			        }
+      			});
 	});
 
 
