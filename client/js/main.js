@@ -48,12 +48,11 @@ $(document).ready(function(){
 
 		$.ajax({
 			
-			url: "/api/Grupos/update?where=%7B%22grupo%22%3A%22"+grupo+"%22%2C%22curso%22%3A"+curso+"%2C%22tutor%22%3A%22Jose%22%7D&access_token=dDaXHLl5xdsWmeduNX7eYtbdigaeg2GcV3V26h5FafQoNDQq1JN14a230aMGVxta",
+			url: "/api/Grupos/update?where=%7B%22grupo%22%3A%22"+grupo+"%22%2C%22curso%22%3A"+curso+"%2C%22tutor%22%3A%22"+sessionStorage.username+"%22%7D&access_token="+sessionStorage.userToken,
 		//	url:"/api/Grupos/update?where=%7B%22grupo%22%3A%22"+grupo+"%22%2C%22curso%22%3A"+curso+"%2C%22tutor%22%3A%22"+sessionStorage.username+"%22%7D&access_token="+sessionStorage.userToken,
 			type: "POST",
 		    data: { "archivos": archivosSinRepetir },
 			success: function(data) {
-				alert(data);
 				if (data != 0) {
 					var r = confirm("Adjuntar a "+curso+"º "+grupo);
                       if (r == true) { 
@@ -66,6 +65,7 @@ $(document).ready(function(){
 					 Falta devolver una respuesta mas amigable OK.
 					 */
 					$( "#uploadFiles" ).trigger( "click");
+					document.location.href = "profesor.html";
 			
 					/* Esta funcion de ajax era para poder subir los archivo mediante
 					 * ajax pero NO SE porque no va asique lo he dejado para subir los 
@@ -223,11 +223,12 @@ var rutaUrl = '/api/Grupos?filter=%7B%22where%22%3A%7B%22tutor%22%3A%22'+session
 		        var cadena = "";
 		        //var array = [];
 		        //.archivos);
-				for(var x = res[0].archivos.length-1; x >= 0 ; x = x -1){
-					cadena = cadena + res[0].archivos[x]+"\n";
+		        for(var i = 0; i < res.length; i++){
+					for(var x = res[i].archivos.length-1; x >= 0 ; x = x -1){
+						cadena = cadena + res[i].archivos[x]+" --> "+res[i].curso+"ª "+res[i].grupo+"\n";
+					}
+					$('#historico').html(cadena);
 				}
-				$('#historico').html(cadena);
-
 			 }
               
         }).fail(function(evt){
