@@ -196,7 +196,7 @@ DROP TABLE IF EXISTS `fotocopias`.`Matricula` ;
 CREATE TABLE IF NOT EXISTS `fotocopias`.`Matricula` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `expediente` INT(11) NULL DEFAULT NULL,
-  `grupo` INT(11) NULL DEFAULT NULL,
+  `grupo` VARCHAR(11) NULL DEFAULT NULL,
   `curso` INT(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
