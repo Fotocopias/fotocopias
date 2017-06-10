@@ -40,12 +40,20 @@ $(document).ready(function(){
               }
         }).fail(function(evt){
           if( campoContraseña == "" || campoNombre == ""){
+             $("#messageAlerta").fadeIn(50);
              $('#messageAlerta').addClass('alert alert-danger');
              $('#messageAlerta').text("Debe rellenar todos los campos del formulario");
+              setTimeout(function() {
+                  $("#messageAlerta").fadeOut(1500);
+              },3000);
           } else {
           var msgError = "ERROR: "+evt.status+" "+evt.statusText;
+             $("#messageAlerta").fadeIn(50);
              $('#messageAlerta').addClass('alert alert-danger');
              $('#messageAlerta').text("Usuario o Contraseña incorrectos");
+             setTimeout(function() {
+                  $("#messageAlerta").fadeOut(1500);
+              },3000);
           }
         });  
     

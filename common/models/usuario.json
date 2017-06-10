@@ -45,9 +45,9 @@
       "model": "Profesor",
       "foreignKey": "id"
     },
-    "alumnoides": {
+    "matriculas": {
       "type": "hasMany",
-      "model": "Alumno",
+      "model": "Matricula",
       "foreignKey": "id"
     }
   },
