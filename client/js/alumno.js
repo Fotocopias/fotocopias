@@ -8,7 +8,6 @@ $(document).ready(function(){
     }
   */
 
-
   //Este ajax recoje el id del usuario alumno y lo compara con el expediente(Matricula.expediente = Usuario.id)
   //y guarda en sessionStorage el curso y grupo.
   $.ajax({  
@@ -49,10 +48,12 @@ $(document).ready(function(){
           url: rutaUrl,
       }).done(function(res){
         var cadena = "";
-        if(typeof(res.id) !== undefined){  
+        if(typeof(res.id) !== undefined){
+            cadena = cadena + '<ul>';  
           for(var x = res[0].archivos.length-1; x >= 0 ; x = x -1){
-            cadena = cadena + res[0].archivos[x]+"\n";
+            cadena = cadena +'<li><a href="">'+ res[0].archivos[x]+'</a></li>'+"\n";
           }
+          cadena = cadena + '</ul>';
           $('#pendientes').html(cadena);
         }
        
@@ -67,3 +68,18 @@ $(document).ready(function(){
         });
 
 });
+
+//INTENTO DE UPDATE
+/*
+function mandarConserje(value) {
+  $.ajax({
+      
+    url: '/api/Grupos/update?where=%7B%22curso%22%3A%22'+sessionStorage.curso+'%22%2C%22grupo%22%3A%22'+sessionStorage.grupo+'%22%7D&access_token='+sessionStorage.userToken,
+      type: "POST",
+        data: {  "archivosDescargar": [{ ""+sessionStorage.username+"": [""+value+""] }]  },
+      success: function(data) {
+        console.log("exito");
+      }
+  });
+}
+*/
