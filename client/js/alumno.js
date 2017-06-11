@@ -2,6 +2,9 @@ var archivos = []; // archivos pendientes del campo archivos de grupos
 var archivosDescargar = []
 
 $(document).ready(function(){
+  if(location.hash == "#ini") {
+    window.location.href = "alumno.html";
+  }
   /*
   IMPORTANTE: para que funcione la vista alumno hay que inrtoducir los siguientes datos en la tabla Matricula:
     {
@@ -54,10 +57,6 @@ $(document).ready(function(){
           sessionStorage.removeItem("grupo");
         });
 
-        $('#logout').click(function(){
-          sessionStorage.removeItem("curso");
-          sessionStorage.removeItem("grupo");
-        });
 });
 
 //INTENTO DE UPDATE
@@ -71,7 +70,7 @@ function mandarConserje(obj) {
         method: "POST",
         // donde pone id no he podido poner el session storage no coge las comillas 
         // hay que solucionarlo
-          data: {  "archivosDescargar": [{ "aantonio" : [archivosDescargar] }]  },
+          data: {  "archivosDescargar": [{ "ricar14" : [archivosDescargar] }]  },
         success: function(data) {
           console.log("exito");
           actualizarArchivos(file);
@@ -107,7 +106,7 @@ $.ajax({
       success: function(data) {
         console.log("exito al actualizar archivos");
         listarArchivos();
-        $("#pendientes").after("<li>EL archivo: <a>"+element+"</a> ha sido enviado para imprimir.</li>");
+        $("#pendientes").after("<li>El archivo: <a>"+element+"</a> ha sido enviado para imprimir.</li>");
       }
   });
 

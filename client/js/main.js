@@ -15,6 +15,7 @@ var route ="/api/Grupos?filter=%7B%22where%22%3A%20%7B%22tutor%22%3A%20%22"+sess
 
 $(document).ready(function(){
 
+
 	$('#archivo').html('');
 
 	/*
@@ -285,6 +286,10 @@ function Carchivos (){
 }*/
 
 $(document).ready(function(){
+	if(location.hash == "#ini") {
+		window.location.href = "profesor.html";
+
+	}
 var rutaUrl = '/api/Grupos?filter=%7B%22where%22%3A%7B%22tutor%22%3A%22'+sessionStorage.username+'%22%7D%7D&access_token='+sessionStorage.userToken;
 	 $.ajax({  
           method: "GET",
