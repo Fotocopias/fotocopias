@@ -287,6 +287,11 @@ function Carchivos (){
 
 $(document).ready(function(){
 	if(location.hash == "#ini") {
+		var url = window.location;
+		var algo = url.toString().split("/");
+		var posicion = parseInt(algo.length)-parseInt(1);
+
+
 		window.location.href = "profesor.html";
 
 	}

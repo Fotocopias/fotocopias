@@ -3,7 +3,10 @@ var archivosDescargar = []
 
 $(document).ready(function(){
   if(location.hash == "#ini") {
+    var url = window.location.toString().split("/");
+    var posicion = parseInt(url.length)-parseInt(1);
     window.location.href = "alumno.html";
+
   }
   /*
   IMPORTANTE: para que funcione la vista alumno hay que inrtoducir los siguientes datos en la tabla Matricula:
