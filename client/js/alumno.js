@@ -1,3 +1,6 @@
+var archivos = []; // archivos pendientes del campo archivos de grupos
+var archivosDescargar = []
+
 $(document).ready(function(){
   /*
   IMPORTANTE: para que funcione la vista alumno hay que inrtoducir los siguientes datos en la tabla Matricula:
@@ -7,6 +10,7 @@ $(document).ready(function(){
     "curso": 4
     }
   */
+
 
   //Este ajax recoje el id del usuario alumno y lo compara con el expediente(Matricula.expediente = Usuario.id)
   //y guarda en sessionStorage el curso y grupo.
@@ -42,25 +46,8 @@ $(document).ready(function(){
           });  
 
   //Con el curso y grupo guardado miramos los archivos correspondientes en la tabla Grupo
-  var rutaUrl = '/api/Grupos?filter=%7B%22where%22%3A%7B%22grupo%22%3A%22'+sessionStorage.grupo+'%22%2C%20%22curso%22%3A%22'+sessionStorage.curso+'%22%7D%7D&access_token='+sessionStorage.userToken;
-   $.ajax({  
-          method: "GET",
-          url: rutaUrl,
-      }).done(function(res){
-        var cadena = "";
-        if(typeof(res.id) !== undefined){
-            cadena = cadena + '<ul>';  
-          for(var x = res[0].archivos.length-1; x >= 0 ; x = x -1){
-            cadena = cadena +'<li><a href="" onclick="mandarConserje(res[0].archivos[x])">'+ res[0].archivos[x]+'</a></li>'+"\n";
-          }
-          cadena = cadena + '</ul>';
-          $('#pendientes').html(cadena);
-        }
-       
-              
-        }).fail(function(evt){
-          var msgError = "ERROR: "+evt.status+" "+evt.statusText;
-         });
+  listarArchivos();
+
 
         $('#logout').click(function(){
           sessionStorage.removeItem("curso");
@@ -75,18 +62,81 @@ $(document).ready(function(){
 
 //INTENTO DE UPDATE
 
-function mandarConserje(value) {
-  $.ajax({
-    url: '/api/Grupos/update?where=%7B%22curso%22%3A%22'+sessionStorage.curso+'%22%2C%22grupo%22%3A%22'+sessionStorage.grupo+'%22%7D&access_token='+sessionStorage.userToken,
-      method: "POST",
-        data: {  "archivosDescargar": [{ "ricar14" : [value] }]  },
-      success: function(data) {
-        console.log("exito");
-      }
-  });
+function mandarConserje(obj) {
+  var file = $(obj).html();
+  archivosDescargar.push(file);
+  var user = sessionStorage.username.toString();
+    $.ajax({
+      url: '/api/Grupos/update?where=%7B%22curso%22%3A%22'+sessionStorage.curso+'%22%2C%22grupo%22%3A%22'+sessionStorage.grupo+'%22%7D&access_token='+sessionStorage.userToken,
+        method: "POST",
+        // donde pone id no he podido poner el session storage no coge las comillas 
+        // hay que solucionarlo
+          data: {  "archivosDescargar": [{ "aantonio" : [archivosDescargar] }]  },
+        success: function(data) {
+          console.log("exito");
+          actualizarArchivos(file);
+          
+
+        }
+    });
 }
 //{  "archivosDescargar": [{ '"'+sessionStorage.username+'"' : ['"'+value+'"'] }]  },
 
+// Funcion para borrar del campo archivos el archivo que se ha pasado a archivos Descargar
+function actualizarArchivos(element){
+
+var cont = 0;
+var arraylengt = archivos.length;
+
+    for(var i = 0; i < arraylengt; i++){
+
+        if( archivos[i] == element){
+          var removed = archivos.splice(i, 1);
+        }
+   
+    }
+
+// ********************************************************
+// Cuando hay dos archivos el splice que borra el elemento del array lo hace bien pero cuando 
+// hay un solo elemento no lo borra no tengo ni idea de porque??
+// *************************************************************   
+$.ajax({
+    url: '/api/Grupos/update?where=%7B%22curso%22%3A%22'+sessionStorage.curso+'%22%2C%22grupo%22%3A%22'+sessionStorage.grupo+'%22%7D&access_token='+sessionStorage.userToken,
+      method: "POST",
+      data:{ "archivos": archivos },
+      success: function(data) {
+        console.log("exito al actualizar archivos");
+        listarArchivos();
+        $("#pendientes").after("<li>EL archivo: <a>"+element+"</a> ha sido enviado para imprimir.</li>");
+      }
+  });
+
+
+}
+
+//Con el curso y grupo guardado miramos los archivos correspondientes en la tabla Grupo
+function listarArchivos(){
+  var rutaUrl = '/api/Grupos?filter=%7B%22where%22%3A%7B%22grupo%22%3A%22'+sessionStorage.grupo+'%22%2C%20%22curso%22%3A%22'+sessionStorage.curso+'%22%7D%7D&access_token='+sessionStorage.userToken;
+   $.ajax({  
+          method: "GET",
+          url: rutaUrl,
+      }).done(function(res){
+        var cadena = "";
+        if(typeof(res.id) !== undefined){
+            cadena = cadena + '<ul>';  
+          for(var x = res[0].archivos.length-1; x >= 0 ; x = x -1){
+            archivos.push(res[0].archivos[x]); // Meto los archivos pendientes en el array archivos
+            cadena = cadena +'<li><a onclick="mandarConserje(this)" style="cursor:pointer;">'+ res[0].archivos[x]+'</a></li>'+"\n";
+          }
+          cadena = cadena + '</ul>';
+          $('#pendientes').html(cadena);
+        }
+       
+              
+        }).fail(function(evt){
+          var msgError = "ERROR: "+evt.status+" "+evt.statusText;
+         });
+}
 
 $('#imprimir').click(function(){
 $.ajax({  
