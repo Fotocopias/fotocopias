@@ -8,22 +8,22 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema fotocopias
+-- Schema tutores
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `fotocopias` ;
+DROP SCHEMA IF EXISTS `tutores` ;
 
 -- -----------------------------------------------------
--- Schema fotocopias
+-- Schema tutores
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `fotocopias` DEFAULT CHARACTER SET latin1 ;
-USE `fotocopias` ;
+CREATE SCHEMA IF NOT EXISTS `tutores` DEFAULT CHARACTER SET latin1 ;
+USE `tutores` ;
 
 -- -----------------------------------------------------
--- Table `fotocopias`.`usuario`
+-- Table `tutores`.`usuario`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fotocopias`.`usuario` ;
+DROP TABLE IF EXISTS `tutores`.`usuario` ;
 
-CREATE TABLE IF NOT EXISTS `fotocopias`.`usuario` (
+CREATE TABLE IF NOT EXISTS `tutores`.`usuario` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `tipoUsuario` VARCHAR(1) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `apellidos` VARCHAR(50) CHARACTER SET 'utf8' NOT NULL,
@@ -39,11 +39,11 @@ COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `fotocopias`.`alumno`
+-- Table `tutores`.`alumno`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fotocopias`.`alumno` ;
+DROP TABLE IF EXISTS `tutores`.`alumno` ;
 
-CREATE TABLE IF NOT EXISTS `fotocopias`.`alumno` (
+CREATE TABLE IF NOT EXISTS `tutores`.`alumno` (
   `id` INT(11) NOT NULL,
   `dni` VARCHAR(10) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `apellido1` VARCHAR(30) CHARACTER SET 'utf8' NOT NULL,
@@ -67,18 +67,18 @@ CREATE TABLE IF NOT EXISTS `fotocopias`.`alumno` (
   INDEX `fk_alumno_usuario1_idx` (`idUsuario` ASC),
   CONSTRAINT `FK_1435D52D32DCDBAF`
     FOREIGN KEY (`idUsuario`)
-    REFERENCES `fotocopias`.`usuario` (`id`))
+    REFERENCES `tutores`.`usuario` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `fotocopias`.`profesor`
+-- Table `tutores`.`profesor`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fotocopias`.`profesor` ;
+DROP TABLE IF EXISTS `tutores`.`profesor` ;
 
-CREATE TABLE IF NOT EXISTS `fotocopias`.`profesor` (
+CREATE TABLE IF NOT EXISTS `tutores`.`profesor` (
   `id` VARCHAR(6) CHARACTER SET 'utf8' NOT NULL,
   `apellidos` VARCHAR(19) CHARACTER SET 'utf8' NOT NULL,
   `nombre` VARCHAR(19) CHARACTER SET 'utf8' NOT NULL,
@@ -92,18 +92,18 @@ CREATE TABLE IF NOT EXISTS `fotocopias`.`profesor` (
   INDEX `fk_profesor_usuario1_idx` (`idUsuario` ASC),
   CONSTRAINT `FK_5B7406D932DCDBAF`
     FOREIGN KEY (`idUsuario`)
-    REFERENCES `fotocopias`.`usuario` (`id`))
+    REFERENCES `tutores`.`usuario` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `fotocopias`.`grupo`
+-- Table `tutores`.`grupo`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fotocopias`.`grupo` ;
+DROP TABLE IF EXISTS `tutores`.`grupo` ;
 
-CREATE TABLE IF NOT EXISTS `fotocopias`.`grupo` (
+CREATE TABLE IF NOT EXISTS `tutores`.`grupo` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `tutor` VARCHAR(6) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `anyo` VARCHAR(7) CHARACTER SET 'utf8' NOT NULL,
@@ -116,18 +116,18 @@ CREATE TABLE IF NOT EXISTS `fotocopias`.`grupo` (
   INDEX `tutor` (`tutor` ASC),
   CONSTRAINT `FK_8C0E9BD399074648`
     FOREIGN KEY (`tutor`)
-    REFERENCES `fotocopias`.`profesor` (`id`))
+    REFERENCES `tutores`.`profesor` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `fotocopias`.`materia`
+-- Table `tutores`.`materia`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fotocopias`.`materia` ;
+DROP TABLE IF EXISTS `tutores`.`materia` ;
 
-CREATE TABLE IF NOT EXISTS `fotocopias`.`materia` (
+CREATE TABLE IF NOT EXISTS `tutores`.`materia` (
   `codigo` VARCHAR(6) CHARACTER SET 'utf8' NOT NULL,
   `materia` VARCHAR(100) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `ensenanza` VARCHAR(100) CHARACTER SET 'utf8' NULL DEFAULT NULL,
@@ -139,11 +139,11 @@ COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `fotocopias`.`materiaImpartida`
+-- Table `tutores`.`materiaImpartida`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fotocopias`.`materiaImpartida` ;
+DROP TABLE IF EXISTS `tutores`.`materiaImpartida` ;
 
-CREATE TABLE IF NOT EXISTS `fotocopias`.`materiaImpartida` (
+CREATE TABLE IF NOT EXISTS `tutores`.`materiaImpartida` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `materia` VARCHAR(6) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `profesor` VARCHAR(6) CHARACTER SET 'utf8' NULL DEFAULT NULL,
@@ -155,24 +155,24 @@ CREATE TABLE IF NOT EXISTS `fotocopias`.`materiaImpartida` (
   INDEX `fk_materiaImpartida_grupo1_idx` (`grupo` ASC),
   CONSTRAINT `FK_17D5104F5B7406D9`
     FOREIGN KEY (`profesor`)
-    REFERENCES `fotocopias`.`profesor` (`id`),
+    REFERENCES `tutores`.`profesor` (`id`),
   CONSTRAINT `FK_17D5104F6DF05284`
     FOREIGN KEY (`materia`)
-    REFERENCES `fotocopias`.`materia` (`codigo`),
+    REFERENCES `tutores`.`materia` (`codigo`),
   CONSTRAINT `FK_17D5104F8C0E9BD3`
     FOREIGN KEY (`grupo`)
-    REFERENCES `fotocopias`.`grupo` (`id`))
+    REFERENCES `tutores`.`grupo` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `fotocopias`.`materiaMatriculada`
+-- Table `tutores`.`materiaMatriculada`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fotocopias`.`materiaMatriculada` ;
+DROP TABLE IF EXISTS `tutores`.`materiaMatriculada` ;
 
-CREATE TABLE IF NOT EXISTS `fotocopias`.`materiaMatriculada` (
+CREATE TABLE IF NOT EXISTS `tutores`.`materiaMatriculada` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `expediente` INT(11) NULL DEFAULT NULL,
   `materia` VARCHAR(6) CHARACTER SET 'utf8' NULL DEFAULT NULL,
@@ -185,24 +185,24 @@ CREATE TABLE IF NOT EXISTS `fotocopias`.`materiaMatriculada` (
   INDEX `fk_MateriasMatriculadas_Profesores1_idx` (`profesor` ASC),
   CONSTRAINT `FK_E38E55A5B7406D9`
     FOREIGN KEY (`profesor`)
-    REFERENCES `fotocopias`.`profesor` (`id`),
+    REFERENCES `tutores`.`profesor` (`id`),
   CONSTRAINT `FK_E38E55A6DF05284`
     FOREIGN KEY (`materia`)
-    REFERENCES `fotocopias`.`materia` (`codigo`),
+    REFERENCES `tutores`.`materia` (`codigo`),
   CONSTRAINT `FK_E38E55AD59CA413`
     FOREIGN KEY (`expediente`)
-    REFERENCES `fotocopias`.`alumno` (`id`))
+    REFERENCES `tutores`.`alumno` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `fotocopias`.`matricula`
+-- Table `tutores`.`matricula`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fotocopias`.`matricula` ;
+DROP TABLE IF EXISTS `tutores`.`matricula` ;
 
-CREATE TABLE IF NOT EXISTS `fotocopias`.`matricula` (
+CREATE TABLE IF NOT EXISTS `tutores`.`matricula` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `expediente` INT(11) NULL DEFAULT NULL,
   `grupo` INT(11) NULL DEFAULT NULL,
@@ -211,10 +211,10 @@ CREATE TABLE IF NOT EXISTS `fotocopias`.`matricula` (
   INDEX `fk_matricula_grupo1_idx` (`grupo` ASC),
   CONSTRAINT `FK_15DF18858C0E9BD3`
     FOREIGN KEY (`grupo`)
-    REFERENCES `fotocopias`.`grupo` (`id`),
+    REFERENCES `tutores`.`grupo` (`id`),
   CONSTRAINT `FK_15DF1885D59CA413`
     FOREIGN KEY (`expediente`)
-    REFERENCES `fotocopias`.`alumno` (`id`))
+    REFERENCES `tutores`.`alumno` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;

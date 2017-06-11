@@ -178,9 +178,7 @@ $(document).ready(function(){
 							for(var i = 0; i < data[0]['archivos'].length; i++){
 								archivos.push(data[0]['archivos'][i]);
 
-							}
-
-							
+							}					
 			        	}
 
 			        	archivosSinRepetir = [];
@@ -295,11 +293,9 @@ var rutaUrl = '/api/Grupos?filter=%7B%22where%22%3A%7B%22tutor%22%3A%22'+session
       	//alert(rutaUrl);
               if(typeof(res.id) !== undefined){
 		        var cadena = "";
-		        //var array = [];
-		        //.archivos);
 		        for(var i = 0; i < res.length; i++){
 					for(var x = res[i].archivos.length-1; x >= 0 ; x = x -1){
-						cadena = cadena + res[i].archivos[x]+" --> "+res[i].curso+"ª "+res[i].grupo+"\n";
+						cadena = cadena +'<option id="selectDesplegable" value="'+res[i].archivos[x]+'">'+" - "+res[i].archivos[x]+" --> "+res[i].curso+"ª "+res[i].grupo+'</option>';
 					}
 					$('#historico').html(cadena);
 				}

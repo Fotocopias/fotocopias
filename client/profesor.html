@@ -4,37 +4,73 @@
 		<meta charset="utf-8">
 		<title>Profesor</title>
 		<link rel="stylesheet" href="css/bootstrap.min.css">
-
-
+		<link rel="icon" href="imagenes/logo2.png" type="image/png" sizes="32x32">
 	</head>
-	<body>
+	<body id="vistaProfesor">
 			<div>
 				<span id="nombreUsuario"></span>
 				<button id="logout">Logout</button>
 			</div>
-		<h1>Vista del Profesor</h1>
-		
-			
-			<div class="form-group">    
-				<label>Curso:</label>
-				<select id="curso"></select>
-				<label>Grupo:</label>
-				<select id="grupo" ></select>
+
+		<div class="container-fluid">
+			<div class="row" id="alturaFormularioProfesor">
 			</div>
-			<form id="form-ajax" method="POST" onsubmit="formaction(e)" action="/api/containers/download/upload" enctype="multipart/form-data" id="fileUploadForm" name="fileUploadForm" role="form">
-				<input name="files[]" id="archivo" type="file" multiple="multiple" />
+			<div class="row">
+				<div class="col-md-4">
+				</div>
+
+				<div class="col-md-4">
+
+				<div class="panel panel-default" id="profesor">
+				    <div class="panel-heading"><h3><strong>Últimos adjuntados</strong></h3></div>
+				    <select size="8" class="panel-body" id="historico"></select>
+				    <div class="panel-footer">
+						<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Añadir archivos</button>
+				    </div>
+				</div>
+
+						
+
+
+					<div class="modal fade" id="myModal" role="dialog">
+					    <div class="modal-dialog">
+					    
+						      <div class="modal-content" id="cajaModal">
+							        <div class="modal-header">
+							          <button type="button" class="close" data-dismiss="modal">&times;</button>
+							          <h4 class="modal-title">Selector de archivos</h4>
+							        </div>
+
+							        <div class="modal-body" id="contenidoModal">
+							          	<div class="form-group" id="selectores">    
+											<label>Curso:</label>
+											<select id="curso"></select>
+											<label>Grupo:</label>
+											<select id="grupo" ></select>
+										</div>
+										<form id="form-ajax" method="POST" onsubmit="formaction(e)" action="/api/containers/download/upload" enctype="multipart/form-data" id="fileUploadForm" name="fileUploadForm" role="form">
+											<input name="files[]" id="archivo" type="file" multiple="multiple" />
+										
+							  				<button id="uploadFiles" class="btn btn-primary" hidden type="submit" style="display: none;">
+							  				</button>
+										</form>
+										<button id="btn-subir" class="btn btn-primary btn-lg">Subir este archivo</button>
+							        </div>
+						      </div>
+					    </div>
+					</div>
+						
+				</div>
 			
-  				<button id="uploadFiles" class="btn btn-primary" hidden type="submit" style="display: none;">
-  					
-  				</button>
-			</form>
-		<button id="btn-subir" class="btn btn-primary">Subir</button>
-		<div id="messageAlert"></div>
-		<textarea id="historico" rows="10"></textarea>
+				<div class="col-md-4">
+				</div>
+			</div>
+		</div>
 		
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 		<script type="text/javascript" src="js/logout.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/index.css">
 	</body>
 </html>

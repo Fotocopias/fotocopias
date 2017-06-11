@@ -49,3 +49,45 @@ img {
 #campoNombre {
 	margin-top: 20px;
 }
+
+/*Vista Profesor*/
+
+#historico {
+	
+}
+
+#profesor {
+	text-align: center;
+}
+
+#cajaModal {
+	text-align: center;
+}
+
+#alturaFormularioProfesor {
+	height: 12vh;
+}
+
+#selectores{
+	padding-top: 4vh;
+	margin-left: 10%;
+	text-align: left;
+}
+#btn-subir {
+	margin-top: 5vh;
+}
+#form-ajax {
+	margin-top: 3vh;
+	margin-left: 10%;
+}
+/*
+#vistaProfesor {
+	background-image: url("../imagenes/ies_dosmares_resized.jpg");
+	background-repeat: no-repeat;
+}*/
+
+#selectDesplegable {
+	border: none;
+	padding-right: 20%;
+	padding-left: 28%;
+}
