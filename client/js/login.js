@@ -1,6 +1,6 @@
 $(document).ready(function(){
-
-  $('#loginSubmit').click(function(){
+    
+    $('#loginSubmit').click(function(){
     var campoNombre = $('#username').val();
     var campoContraseña = $('#password').val();
 
@@ -8,24 +8,13 @@ $(document).ready(function(){
           method: "POST",
           url: "api/Usuarios/login",  // Envia el login
           data: $("#UsrLogin").serialize(),           
-      }).done(function(res)
-      {
+      }).done(function(res) {
         
-        /*try{
-          var aJS = $.parseJSON(res);
-          console.log(aJS);
-        }catch(err)
-        {
-          // error al parsear el objeto json
-          console.log("ERROR");
-          console.log(err);
-        }*/
-              if(typeof(res.id) !== undefined){
+            if(typeof(res.id) !== undefined){
                   sessionStorage.userId=res.userId;
                   sessionStorage.userToken=res.id;
                   sessionStorage.userTtl=res.ttl;
                   sessionStorage.userCreated=res.created;
-                  
                   
                     $.ajax({  
                       method: "GET",
@@ -41,10 +30,10 @@ $(document).ready(function(){
                                 reload = "alumno.html";
                                 break;
                             case "Conserje" :
-                                reload = "conserje.html";
+                                window.location.href = "conserje.html";
                                 break;
                             case "Administrador" :
-                                reload = "admin.html";
+                                window.location.href = "admin.html";
                                 break;
                         }
                         window.location.href= reload+"#ini";

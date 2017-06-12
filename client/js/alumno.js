@@ -7,7 +7,7 @@ $(document).ready(function(){
   if(location.hash == "#ini") {
     var url = window.location.toString().split("/");
     var posicion = parseInt(url.length)-parseInt(1);
-    window.location.href = "alumno.html";
+    setTimeout(function(){ window.location.href = "alumno.html"; }, 500);
 
   }
   /*
