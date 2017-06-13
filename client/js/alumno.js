@@ -145,22 +145,38 @@ function listarArchivos(){
 
 
 $('#imprimir').click(function(){
-$.ajax({  
+var alumnos = "";
+
+  var rutaUrl = '/api/Grupos?filter=%7B%22where%22%3A%7B%22curso%22%3A%22'+sessionStorage.curso+'%22%2C%22grupo%22%3A%22'+sessionStorage.grupo+'%22%7D%7D&access_token='+sessionStorage.userToken;
+   $.ajax({  
           method: "GET",
-          url: '/api/Grupos?filter=%7B%22where%22%3A%7B%22grupo%22%3A%22'+sessionStorage.grupo+'%22%2C%20%22curso%22%3A%22'+sessionStorage.curso+'%22%7D%7D&access_token='+sessionStorage.userToken,
-      }).done(function(res){
-        var cadena = "";
-        if(typeof(res.id) !== undefined){
-            cadena = cadena + '<ul>';  
-          for(var x = res[0].archivosDescargar.length-1; x >= 0 ; x = x -1){
-            cadena = cadena +'<li><a href="">'+ res[0].archivosDescargar[x]+'</a></li>'+"\n";
-          }
-          cadena = cadena + '</ul>';
-          $('#pendientes').html(cadena);
-        }
-       
+          url: rutaUrl,
+      success: function (res) {
+          var grupos ='';
+          for (y in res[0].archivosDescargar) {
+            //alert(data[x]["grupo"]);
+            //console.log(data[x]["archivosDescargar"][0]);
+            for (idalumno in res[0].archivosDescargar[y]) {
+              var listaArchivos= "<ul>";
+              for(z in res[0].archivosDescargar[y][idalumno]){
+                var file = res[0].archivosDescargar[y][idalumno][z];
+                listaArchivos = listaArchivos + 
+                '<li><a data-action="file" style="cursor: pointer;" id="'+idalumno+'" onclick="dowload(this)" data-id="'+file+'">'+res[0].archivosDescargar[y][idalumno][z]+'</a></li>';
+              }
+              listaArchivos = listaArchivos + '</ul>';
               
-        }).fail(function(evt){
-          var msgError = "ERROR: "+evt.status+" "+evt.statusText;
-         });
+            }
+
+            /*var curso = data[x]["curso"]+'º '+data[x]["grupo"]
+              grupos = grupos+'<li>'+
+              '<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#curso'+curso+'">Curso: '+curso+'</button>'+
+                '<div id="curso'+curso+'" class="collapse">'+alumnos+'</div></li>';*/
+          }
+          //grupos = grupos + "</ul>";
+
+        $('#pendientes').html(listaArchivos);
+
+      }
+
+        });
 });

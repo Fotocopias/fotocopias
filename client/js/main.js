@@ -1,3 +1,5 @@
+
+
 var route ="/api/Grupos?filter=%7B%22where%22%3A%20%7B%22tutor%22%3A%20%22"+sessionStorage.username+"%22%7D%7D&access_token="+sessionStorage.userToken;
 //var route ="/api/Grupos?filter=%7B%22where%22%3A%20%7B%22tutor%22%3A%20%22Jose%22%7D%7D&access_token=dDaXHLl5xdsWmeduNX7eYtbdigaeg2GcV3V26h5FafQoNDQq1JN14a230aMGVxta";	
 	var cadena = "";
@@ -13,15 +15,7 @@ var route ="/api/Grupos?filter=%7B%22where%22%3A%20%7B%22tutor%22%3A%20%22"+sess
 
 $(document).ready(function(){
 
-	if(location.hash == "#ini") {
-		var url = window.location;
-		var algo = url.toString().split("/");
-		var posicion = parseInt(algo.length)-parseInt(1);
 
-		setTimeout(function(){ window.location.href = "profesor.html"; }, 500);
-		 
-
-	}
 	$('#archivo').html('');
 
 	/*
@@ -274,7 +268,6 @@ function mostrarArchivos(){
 		}
 	$('#historico').html(cadena);
 }
-
 function Carchivos (){
 	for(var i = 0; i < archivos.length; i++){
 		if(i == 0)
@@ -286,12 +279,20 @@ function Carchivos (){
 		}
 		if(cont == archivosAdjuntados.length)
 			archivosAdjuntados.push(archivos[i]);
-
 	}
 	mostrarArchivos();
 }*/
 
 $(document).ready(function(){
+	if(location.hash == "#ini") {
+		var url = window.location;
+		var algo = url.toString().split("/");
+		var posicion = parseInt(algo.length)-parseInt(1);
+
+
+		window.location.href = "profesor.html";
+
+	}
 var rutaUrl = '/api/Grupos?filter=%7B%22where%22%3A%7B%22tutor%22%3A%22'+sessionStorage.username+'%22%7D%7D&access_token='+sessionStorage.userToken;
 	 $.ajax({  
           method: "GET",
@@ -302,7 +303,7 @@ var rutaUrl = '/api/Grupos?filter=%7B%22where%22%3A%7B%22tutor%22%3A%22'+session
 		        var cadena = "";
 		        for(var i = 0; i < res.length; i++){
 					for(var x = res[i].archivos.length-1; x >= 0 ; x = x -1){
-						cadena = cadena +'<option id="selectDesplegable" value="'+res[i].archivos[x]+'">'+" - "+res[i].archivos[x]+" --> "+res[i].curso+"ª "+res[i].grupo+'</option>';
+						cadena = cadena +'<option ondblclick="dowload(this)" id="selectDesplegable" value="'+res[i].archivos[x]+'">'+res[i].archivos[x]+'</option>';
 					}
 					$('#historico').html(cadena);
 				}
@@ -313,3 +314,12 @@ var rutaUrl = '/api/Grupos?filter=%7B%22where%22%3A%7B%22tutor%22%3A%22'+session
           $('#messageAlerta').html('Error al actualizar datos.');
          });
 });
+
+//Abre el fichero seleccionado de historico
+function dowload(element){
+			var file = $(element).html()
+	 		var rute =  "/api/containers/download/download/"+file;
+
+	 		window.open(rute); 
+     
+}

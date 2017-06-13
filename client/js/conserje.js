@@ -56,7 +56,7 @@ $(document).ready(function(){
 
 function dowload(element){
 			var file = $(element).html()
-	 		var rute =  "/api/containers/container1/download/"+file;
+	 		var rute =  "/api/containers/download/download/"+file;
 
 	 		window.open(rute); 
       
