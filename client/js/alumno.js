@@ -55,37 +55,6 @@ $(document).ready(function(){
 
   //Con el curso y grupo guardado miramos los archivos correspondientes en la tabla Grupo
  
-   var rutaUrl = '/api/Grupos?filter=%7B%22where%22%3A%7B%22grupo%22%3A%22'+sessionStorage.grupo+'%22%2C%20%22curso%22%3A%22'+sessionStorage.curso+'%22%7D%7D&access_token='+sessionStorage.userToken;
-   $.ajax({  
-          method: "GET",
-          url: rutaUrl,
-      }).done(function(res){
-        var cadena = "";
-        if(typeof(res.id) !== undefined){
-            cadena = cadena + '<ul>';  
-            var cont = 0;
-          
-              for(var x = res[0].archivos.length-1; x >= 0 ; x = x -1){
-                archivos.push(res[0].archivos[x]); // Meto los archivos pendientes en el array archivos
-              
-                cadena = cadena +'<li><a onclick="mandarConserje(this)" style="cursor:pointer;">'+ res[0].archivos[x]+'</a></li>'+"\n";
-               
-              }
-
-            if(cont == archivos.length){
-             archivos = [];
-            }
-         
-
-          cadena = cadena + '</ul>';
-          $('#pendientes').html(cadena);
-        }
-       
-              
-        }).fail(function(evt){
-          var msgError = "ERROR: "+evt.status+" "+evt.statusText;
-    });
-
 
         $('#logout').click(function(){
           sessionStorage.removeItem("curso");
@@ -130,7 +99,7 @@ function actualizarArchivos(element){
 
 
 }
-
+muestraArchivos();
 
 function listarArchivos(){
   var cadena = "";
@@ -180,3 +149,40 @@ var alumnos = "";
 
         });
 });
+
+$('#muestrame').click(function(){
+  muestraArchivos();
+});
+
+function muestraArchivos() {
+   var rutaUrl = '/api/Grupos?filter=%7B%22where%22%3A%7B%22grupo%22%3A%22'+sessionStorage.grupo+'%22%2C%20%22curso%22%3A%22'+sessionStorage.curso+'%22%7D%7D&access_token='+sessionStorage.userToken;
+   $.ajax({  
+          method: "GET",
+          url: rutaUrl,
+      }).done(function(res){
+        var cadena = "";
+        if(typeof(res.id) !== undefined){
+            cadena = cadena + '<ul>';  
+            var cont = 0;
+          
+              for(var x = res[0].archivos.length-1; x >= 0 ; x = x -1){
+                archivos.push(res[0].archivos[x]); // Meto los archivos pendientes en el array archivos
+              
+                cadena = cadena +'<li><a onclick="mandarConserje(this)" style="cursor:pointer;">'+ res[0].archivos[x]+'</a></li>'+"\n";
+               
+              }
+
+            if(cont == archivos.length){
+             archivos = [];
+            }
+         
+
+          cadena = cadena + '</ul>';
+          $('#pendientes').html(cadena);
+        }
+       
+              
+        }).fail(function(evt){
+          var msgError = "ERROR: "+evt.status+" "+evt.statusText;
+    });
+}

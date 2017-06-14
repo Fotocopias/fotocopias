@@ -23,6 +23,9 @@ $(document).ready(function(){
    });
 
   $('#meterDinero').click(function(){
+    if(sessionStorage.tipoUser != "Administrador") {
+      alert("Usted no puede modificar");
+    } else {
   var rutaUrl = 'api/Usuarios?filter=%7B%22where%22%3A%7B%22nombre%22%3A%22'+$('#nombre').val()+'%22%2C%20%22apellidos%22%3A%22'+$('#apellidos').val()+'%22%7D%7D&access_token='+sessionStorage.userToken;  
   if($('#cantidad').val() != "") {
       $.ajax({  
@@ -73,6 +76,7 @@ $(document).ready(function(){
         alert("Debe introducir una cantidad");
       }
 
+    }
     });
 
     $('#volver').click(function(){
