@@ -81,7 +81,8 @@ $(document).ready(function(){
 		var archivo = $('#archivo').val();
 		var curso = $('#curso').val();
 		var grupo = $('#grupo').val();
-
+		//var extensiones_permitidas = [];
+		//extensiones_permitidas = new Array(".pdf"); 
 		$.ajax({
 			
 		url: "/api/Grupos/update?where=%7B%22grupo%22%3A%22"+grupo+"%22%2C%22curso%22%3A"+curso+"%2C%22tutor%22%3A%22"+sessionStorage.username+"%22%7D&access_token="+sessionStorage.userToken,
@@ -90,6 +91,7 @@ $(document).ready(function(){
 		    data: { "archivos": archivosSinRepetir },
 			success: function(data) {
 				if (data != 0) {
+				if (".pdf" == (archivo.substring(archivo.lastIndexOf("."))).toLowerCase()) { 
 					var r = confirm("Adjuntar a "+curso+"º "+grupo);
                       if (r == true) { 
 					$('#messageAlert').html('<h3>Exito!!!</h3>');
@@ -127,9 +129,12 @@ $(document).ready(function(){
         			} else {
         				window.onload();
         			}
+        		} else {
+        			alert("Comprueba la extensión de los archivos a subir. \nSólo se pueden subir archivos con extension pdf ");
+        		}
 
-				}else{
-					$('#messageAlert').html('Error al actualizar datos.');
+				} else{
+					alert("Selecciona un archivo");
 				}
 			}
 	    });
@@ -259,29 +264,7 @@ function mostrarGrupos(){
 		}
 	$('#grupo').html(cadena);
 }
-/*
-function mostrarArchivos(){
-	var cadena = "";
-		for(var x = archivosAdjuntados.length-1; x >= 0 ; x = x -1){
-			cadena = cadena + archivosAdjuntados[x] + "\n";
-			
-		}
-	$('#historico').html(cadena);
-}
-function Carchivos (){
-	for(var i = 0; i < archivos.length; i++){
-		if(i == 0)
-			archivosAdjuntados[i] = archivos[i];
-		var cont = 0;
-		for(var x = 0; x < archivosAdjuntados.length; x++){
-			if(archivosAdjuntados[x] != archivos[i])
-				cont++;
-		}
-		if(cont == archivosAdjuntados.length)
-			archivosAdjuntados.push(archivos[i]);
-	}
-	mostrarArchivos();
-}*/
+
 
 $(document).ready(function(){
 	if(location.hash == "#ini") {
@@ -289,8 +272,8 @@ $(document).ready(function(){
 		var algo = url.toString().split("/");
 		var posicion = parseInt(algo.length)-parseInt(1);
 
-
-		window.location.href = "profesor.html";
+		setTimeout(function(){ window.location.href = "profesor.html"; }, 500);
+		
 
 	}
 var rutaUrl = '/api/Grupos?filter=%7B%22where%22%3A%7B%22tutor%22%3A%22'+sessionStorage.username+'%22%7D%7D&access_token='+sessionStorage.userToken;
