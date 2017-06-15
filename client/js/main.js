@@ -81,15 +81,17 @@ $(document).ready(function(){
 		var grupo = $('#grupo').val();
 		//var extensiones_permitidas = [];
 		//extensiones_permitidas = new Array(".pdf"); 
+	if (".pdf" != (archivo.substring(archivo.lastIndexOf("."))).toLowerCase()) { 
+		alert("Sólo se pueden subir archivos con extension pdf ");
+	} else {			
 		$.ajax({
-			
 		url: "/api/Grupos/update?where=%7B%22grupo%22%3A%22"+grupo+"%22%2C%22curso%22%3A"+curso+"%2C%22tutor%22%3A%22"+sessionStorage.username+"%22%7D&access_token="+sessionStorage.userToken,
 		//url:"/api/Grupos/update?where=%7B%22grupo%22%3A%22"+grupo+"%22%2C%22curso%22%3A"+curso+"%2C%22tutor%22%3A%22Jose%22%7D&access_token=dDaXHLl5xdsWmeduNX7eYtbdigaeg2GcV3V26h5FafQoNDQq1JN14a230aMGVxta",
 			type: "POST",
 		    data: { "archivos": archivosSinRepetir },
 			success: function(data) {
 				if (data != 0) {
-				if (".pdf" == (archivo.substring(archivo.lastIndexOf("."))).toLowerCase()) { 
+				
 					var r = confirm("Adjuntar a "+curso+"º "+grupo);
                       if (r == true) { 
 					$('#messageAlert').html('<h3>Exito!!!</h3>');
@@ -101,43 +103,18 @@ $(document).ready(function(){
 					 Falta devolver una respuesta mas amigable OK.
 					 */
 					$( "#uploadFiles" ).trigger( "click");
-					document.location.href = "profesor.html";
-			
-					/* Esta funcion de ajax era para poder subir los archivo mediante
-					 * ajax pero NO SE porque no va asique lo he dejado para subir los 
-					 * archivor mediante un formularo por metodo POST, hasta que vea si
-					 * es posible hacerlo por ajax
-					$.ajax({
-			            type: "POST",
-			            enctype: 'multipart/form-data',
-			            url: "/api/containers/container1/upload",
-			            data: ficheros,
-			            processData: false,
-			            contentType: false,
-			            cache: false,
-			            timeout: 600000,
-			            success: function (data) {
-							$('#messageAlert').html(data);
-			     
-			            },
-			            error: function (e) {
-							$('#messageAlert').html(e.responseText);
-			             }
-        			});*/
+						document.location.href = "profesor.html";
         			} else {
         				window.onload();
         			}
-        		} else {
-        			alert("Comprueba la extensión de los archivos a subir. \nSólo se pueden subir archivos con extension pdf ");
-        		}
 
 				} else{
 					alert("Selecciona un archivo");
 				}
 			}
 	    });
-
-    });
+	}
+   });
 
 	/*
 	 * En el siguiente evento, cuando eligo los archivo que subir 
