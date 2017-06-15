@@ -1,4 +1,20 @@
 $(document).ready(function(){
+$('#content').html('<div><img src="imagenes/ajax-loader(1).gif"/></div>');
+$('#content').hide();
+
+  if(location.hash == "#ini") {
+    var url = window.location;
+    var algo = url.toString().split("/");
+    var posicion = parseInt(algo.length)-parseInt(1);
+
+    $('#administrador').hide();
+    $('#content').show();
+      setTimeout(function(){  $('#content').hide(); }, 1500);
+    setTimeout(function(){ window.location.href = "admin.html"; }, 1500);
+    
+
+  }
+
   var suma = "";
   sessionStorage.removeItem("guardaCuantia");
   $( "#volver" ).attr("disabled",true);
@@ -100,3 +116,9 @@ $(document).ready(function(){
     
 
 });
+
+$('#logout').click(function(){
+          sessionStorage.removeItem("tipoUser");
+          sessionStorage.removeItem("username");
+
+        });

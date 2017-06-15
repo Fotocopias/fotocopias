@@ -91,3 +91,10 @@ img {
 	padding-right: 20%;
 	padding-left: 28%;
 }
+#content {
+	position: absolute;
+	width: 2%;
+	margin-left: 48%;
+	margin-top: 30vh; 
+	text-align: center;
+}

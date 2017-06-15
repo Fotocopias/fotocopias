@@ -3,11 +3,16 @@ var archivosDescargar = []
 
 
 $(document).ready(function(){
+$('#content').html('<div><img src="imagenes/ajax-loader(1).gif"/></div>');
+   $('#content').hide();
 
   if(location.hash == "#ini") {
     var url = window.location.toString().split("/");
     var posicion = parseInt(url.length)-parseInt(1);
-    setTimeout(function(){ window.location.href = "alumno.html"; }, 500);
+    $('#alumno').hide();
+    $('#content').show();
+      setTimeout(function(){  $('#content').hide(); }, 1500);
+    setTimeout(function(){ window.location.href = "alumno.html"; }, 1500);
 
   }
   /*
@@ -59,6 +64,7 @@ $(document).ready(function(){
         $('#logout').click(function(){
           sessionStorage.removeItem("curso");
           sessionStorage.removeItem("grupo");
+          sessionStorage.removeItem("tipoUser");
         });
 
 });
@@ -130,7 +136,7 @@ var alumnos = "";
               for(z in res[0].archivosDescargar[y][idalumno]){
                 var file = res[0].archivosDescargar[y][idalumno][z];
                 listaArchivos = listaArchivos + 
-                '<li><a data-action="file" style="cursor: pointer;" id="'+idalumno+'" onclick="dowload(this)" data-id="'+file+'">'+res[0].archivosDescargar[y][idalumno][z]+'</a></li>';
+                '<li><a data-action="file" style="cursor: pointer;" id="'+idalumno+'" onclick="dowload(this)" data-id="'+file+'">'+file+'</a></li>'+"\n";
               }
               listaArchivos = listaArchivos + '</ul>';
               

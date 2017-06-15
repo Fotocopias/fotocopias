@@ -30,10 +30,10 @@ $(document).ready(function(){
                                 reload = "alumno.html";
                                 break;
                             case "Conserje" :
-                                window.location.href = "conserje.html";
+                                reload = "conserje.html";
                                 break;
                             case "Administrador" :
-                                window.location.href = "admin.html";
+                                reload = "admin.html";
                                 break;
                         }
                         window.location.href= reload+"#ini";

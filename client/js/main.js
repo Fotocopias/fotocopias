@@ -1,5 +1,3 @@
-
-
 var route ="/api/Grupos?filter=%7B%22where%22%3A%20%7B%22tutor%22%3A%20%22"+sessionStorage.username+"%22%7D%7D&access_token="+sessionStorage.userToken;
 //var route ="/api/Grupos?filter=%7B%22where%22%3A%20%7B%22tutor%22%3A%20%22Jose%22%7D%7D&access_token=dDaXHLl5xdsWmeduNX7eYtbdigaeg2GcV3V26h5FafQoNDQq1JN14a230aMGVxta";	
 	var cadena = "";
@@ -14,8 +12,8 @@ var route ="/api/Grupos?filter=%7B%22where%22%3A%20%7B%22tutor%22%3A%20%22"+sess
 	var archivosSinRepetir = [];
 
 $(document).ready(function(){
-
-
+   $('#content').html('<div><img src="imagenes/ajax-loader(1).gif"/></div>');
+   $('#content').hide();
 	$('#archivo').html('');
 
 	/*
@@ -272,7 +270,10 @@ $(document).ready(function(){
 		var algo = url.toString().split("/");
 		var posicion = parseInt(algo.length)-parseInt(1);
 
-		setTimeout(function(){ window.location.href = "profesor.html"; }, 500);
+		$('#profesor').hide();
+		$('#content').show();
+	    setTimeout(function(){  $('#content').hide(); }, 1500);
+		setTimeout(function(){ window.location.href = "profesor.html"; }, 1500);
 		
 
 	}
@@ -306,6 +307,13 @@ function dowload(element){
 	 		window.open(rute); 
      
 }
+
+$('#logout').click(function(){
+          sessionStorage.removeItem("tipoUser");
+
+        });
+
+
 /*
 function comprueba_extension(formulario, archivo) { 
    extensiones_permitidas = new Array(".pdf"); 
