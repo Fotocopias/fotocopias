@@ -31,7 +31,11 @@
     "horarioVisita": {
       "type": "string"
     },
-    "archivos": {
+    "archivosProfesor": {
+      "type": "array",
+      "default": []
+    },
+    "archivosAlumno": {
       "type": "array",
       "default": []
     },

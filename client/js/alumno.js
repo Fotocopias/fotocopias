@@ -1,4 +1,4 @@
-var archivos = []; // archivos pendientes del campo archivos de grupos
+var archivosAlumno = []; // archivos pendientes del campo archivos de grupos
 var archivosDescargar = []
 
 
@@ -95,9 +95,9 @@ function mandarConserje(obj) {
 
 // Funcion para borrar del campo archivos el archivo que se ha pasado a archivos Descargar
 function actualizarArchivos(element){ 
-    for(var i = 0; i < archivos.length; i++){
-      if( archivos[i] == element){
-          archivos[i] = "";
+    for(var i = 0; i < archivosAlumno.length; i++){
+      if( archivosAlumno[i] == element){
+          archivosAlumno[i] = "";
         }
     }
     listarArchivos();
@@ -110,9 +110,9 @@ muestraArchivos();
 function listarArchivos(){
   var cadena = "";
   cadena = cadena + '<ul>'; 
-     for(var i = 0; i < archivos.length; i++){
-        if(archivos[i] != "")
-        cadena = cadena +'<li><a onclick="mandarConserje(this)" style="cursor:pointer;">'+ archivos[i]+'</a></li>'+"\n";
+     for(var i = 0; i < archivosAlumno.length; i++){
+        if(archivosAlumno[i] != "")
+        cadena = cadena +'<li><a onclick="mandarConserje(this)" style="cursor:pointer;">'+ archivosAlumno[i]+'</a></li>'+"\n";
     }
     cadena = cadena + '</ul>';
     $('#pendientes').html(cadena);
@@ -171,15 +171,15 @@ function muestraArchivos() {
             cadena = cadena + '<ul>';  
             var cont = 0;
           
-              for(var x = res[0].archivos.length-1; x >= 0 ; x = x -1){
-                archivos.push(res[0].archivos[x]); // Meto los archivos pendientes en el array archivos
+              for(var x = res[0].archivosAlumno.length-1; x >= 0 ; x = x -1){
+                archivosAlumno.push(res[0].archivosAlumno[x]); // Meto los archivos pendientes en el array archivos
               
-                cadena = cadena +'<li><a onclick="mandarConserje(this)" style="cursor:pointer;">'+ res[0].archivos[x]+'</a></li>'+"\n";
+                cadena = cadena +'<li><a onclick="mandarConserje(this)" style="cursor:pointer;">'+ res[0].archivosAlumno[x]+'</a></li>'+"\n";
                
               }
 
-            if(cont == archivos.length){
-             archivos = [];
+            if(cont == archivosAlumno.length){
+             archivosAlumno = [];
             }
          
 

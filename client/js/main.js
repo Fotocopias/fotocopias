@@ -3,13 +3,15 @@ var route ="/api/Grupos?filter=%7B%22where%22%3A%20%7B%22tutor%22%3A%20%22"+sess
 	var cadena = "";
 	var cadenaGrupo = "";
 	var tmppath = [];
-	var archivos = [];
+	var archivosProfesor = [];
+	var archivosAlumno = [];
 	var cursos = [];
 	var grupos = [];
 	var cursosSinRepetir = [];
 	var gruposSinRepetir = [];
 	var archivosAdjuntados = [];
-	var archivosSinRepetir = [];
+	var archivosSinRepetirProfesor = [];
+	var archivosSinRepetirAlumno = [];
 
 $(document).ready(function(){
    $('#content').html('<div><img src="imagenes/ajax-loader(1).gif"/></div>');
@@ -37,7 +39,8 @@ $(document).ready(function(){
 			        	//Carchivos();
 
 
-	        			archivos = [];
+	        			archivosProfesor = [];
+	        			archivosAlumno = [];
 						var group = $('#grupo').val();
 						var course = $('#curso').val();
 						var url = "/api/Grupos?filter=%7B%22where%22%3A%20%7B%22grupo%22%3A%20%22"+group+"%22%2C%20%22curso%22%3A"+course+"%7D%7D&access_token="+sessionStorage.userToken;
@@ -46,23 +49,38 @@ $(document).ready(function(){
 							        	
 										for (x in data) {
 
-											for(var i = 0; i < data[0]['archivos'].length; i++){
-												archivos.push(data[0]['archivos'][i]);
+											for(var i = 0; i < data[0]['archivosProfesor'].length; i++){
+												archivosProfesor.push(data[0]['archivosProfesor'][i]);
 
+											}
+											for(var y = 0; y < data[0]['archivosAlumno'].length; y++){
+												archivosAlumno.push(data[0]['archivosAlumno'][y]);
 											}
 
 											
 							        	}
-							        	archivosSinRepetir = [];
-									   for (var i = 0; i < archivos.length; i++){
+							        	archivosSinRepetirProfesor = [];
+							        	archivosSinRepetirAlumno = [];
+									   for (var i = 0; i < archivosProfesor.length; i++){
 									   		
 									   		var cont = 0;
-									   		for (var y = 0; y < archivosSinRepetir.length; y++){
-									   			if(archivosSinRepetir[y] != archivos[i])
+									   		for (var y = 0; y < archivosSinRepetirProfesor.length; y++){
+									   			if(archivosSinRepetirProfesor[y] != archivosProfesor[i])
 									   				cont++;
 											}
-									   		if( cont == archivosSinRepetir.length )
-									   			archivosSinRepetir.push(archivos[i]);
+									   		if( cont == archivosSinRepetirProfesor.length )
+									   			archivosSinRepetirProfesor.push(archivosProfesor[i]);
+
+									    }
+									    for (var i = 0; i < archivosAlumno.length; i++){
+									   		
+									   		var cont = 0;
+									   		for (var y = 0; y < archivosSinRepetirAlumno.length; y++){
+									   			if(archivosSinRepetirAlumno[y] != archivosAlumno[i])
+									   				cont++;
+											}
+									   		if( cont == archivosSinRepetirAlumno.length )
+									   			archivosSinRepetirAlumno.push(archivosAlumno[i]);
 
 									    }
 				
@@ -82,13 +100,16 @@ $(document).ready(function(){
 		//var extensiones_permitidas = [];
 		//extensiones_permitidas = new Array(".pdf"); 
 	if (".pdf" != (archivo.substring(archivo.lastIndexOf("."))).toLowerCase()) { 
-		alert("Sólo se pueden subir archivos con extension pdf ");
+		alert("Sólo se pueden subir archivos con extension pdf");
+		$('#archivo').val("");
+		archivosProfesor = [];
+		archivosSinRepetirProfesor = [];
 	} else {			
 		$.ajax({
 		url: "/api/Grupos/update?where=%7B%22grupo%22%3A%22"+grupo+"%22%2C%22curso%22%3A"+curso+"%2C%22tutor%22%3A%22"+sessionStorage.username+"%22%7D&access_token="+sessionStorage.userToken,
 		//url:"/api/Grupos/update?where=%7B%22grupo%22%3A%22"+grupo+"%22%2C%22curso%22%3A"+curso+"%2C%22tutor%22%3A%22Jose%22%7D&access_token=dDaXHLl5xdsWmeduNX7eYtbdigaeg2GcV3V26h5FafQoNDQq1JN14a230aMGVxta",
 			type: "POST",
-		    data: { "archivos": archivosSinRepetir },
+		    data: { "archivosProfesor": archivosSinRepetirProfesor },
 			success: function(data) {
 				if (data != 0) {
 				
@@ -102,8 +123,16 @@ $(document).ready(function(){
 					 * que esta dentro de la carpeta STORAGE
 					 Falta devolver una respuesta mas amigable OK.
 					 */
-					$( "#uploadFiles" ).trigger( "click");
+					 $.ajax({
+					    url: "/api/Grupos/update?where=%7B%22grupo%22%3A%22"+grupo+"%22%2C%22curso%22%3A"+curso+"%2C%22tutor%22%3A%22"+sessionStorage.username+"%22%7D&access_token="+sessionStorage.userToken,
+					      type: "POST",
+					        data: { "archivosAlumno": archivosSinRepetirAlumno },
+					      success: function(data) {
+					        $( "#uploadFiles" ).trigger( "click");
 						document.location.href = "profesor.html";
+					      }
+					});
+					
         			} else {
         				window.onload();
         			}
@@ -125,19 +154,31 @@ $(document).ready(function(){
 
 	    for (var i = 0; i < this.files.length; i++){
 	    	// Este es la nombre del archivo seleccionado
-			archivos.push(this.files[i].name);
-
+			archivosProfesor.push(this.files[i].name);
+			archivosAlumno.push(this.files[i].name);
 		}
+
 		
-	   for (var i = 0; i < archivos.length; i++){
+	   for (var i = 0; i < archivosProfesor.length; i++){
 	   		
 	   		var cont = 0;
-	   		for (var y = 0; y < archivosSinRepetir.length; y++){
-	   			if(archivosSinRepetir[y] != archivos[i])
+	   		for (var y = 0; y < archivosSinRepetirProfesor.length; y++){
+	   			if(archivosSinRepetirProfesor[y] != archivosProfesor[i])
 	   				cont++;
 			}
-	   		if( cont == archivosSinRepetir.length )
-	   			archivosSinRepetir.push(archivos[i]);
+	   		if( cont == archivosSinRepetirProfesor.length )
+	   			archivosSinRepetirProfesor.push(archivosProfesor[i]);
+
+	    }
+	    for (var i = 0; i < archivosAlumno.length; i++){
+	   		
+	   		var cont = 0;
+	   		for (var y = 0; y < archivosSinRepetirAlumno.length; y++){
+	   			if(archivosSinRepetirAlumno[y] != archivosAlumno[i])
+	   				cont++;
+			}
+	   		if( cont == archivosSinRepetirAlumno.length )
+	   			archivosSinRepetirAlumno.push(archivosAlumno[i]);
 
 	    }
 
@@ -146,7 +187,8 @@ $(document).ready(function(){
 	 * Funcion que borra el array archivos y el introduce los archivos de ese curso y grupo
 	 */
 	$('#curso, #grupo').change(function(){
-		archivos = [];
+		archivosProfesor = [];
+		archivosAlumno = [];
 
 		var group = $('#grupo').val();
 		var course = $('#curso').val();
@@ -156,22 +198,38 @@ $(document).ready(function(){
 			        	
 						for (x in data) {
 
-							for(var i = 0; i < data[0]['archivos'].length; i++){
-								archivos.push(data[0]['archivos'][i]);
+							for(var i = 0; i < data[0]['archivosProfesor'].length; i++){
+								archivosProfesor.push(data[0]['archivosProfesor'][i]);
 
-							}					
+							}			
+							for(var i = 0; i < data[0]['archivosAlumno'].length; i++){
+								archivosAlumno.push(data[0]['archivosAlumno'][i]);
+
+							}			
 			        	}
 
-			        	archivosSinRepetir = [];
-					   for (var i = 0; i < archivos.length; i++){
+			        	archivosSinRepetirProfesor = [];
+			        	archivosSinRepetirAlumno = [];
+					   for (var i = 0; i < archivosProfesor.length; i++){
 					   		
 					   		var cont = 0;
-					   		for (var y = 0; y < archivosSinRepetir.length; y++){
-					   			if(archivosSinRepetir[y] != archivos[i])
+					   		for (var y = 0; y < archivosSinRepetirProfesor.length; y++){
+					   			if(archivosSinRepetirProfesor[y] != archivosProfesor[i])
 					   				cont++;
 							}
-					   		if( cont == archivosSinRepetir.length )
-					   			archivosSinRepetir.push(archivos[i]);
+					   		if( cont == archivosSinRepetirProfesor.length )
+					   			archivosSinRepetirProfesor.push(archivosProfesor[i]);
+
+					    }
+					    for (var i = 0; i < archivosAlumno.length; i++){
+					   		
+					   		var cont = 0;
+					   		for (var y = 0; y < archivosSinRepetirAlumno.length; y++){
+					   			if(archivosSinRepetirAlumno[y] != archivosAlumno[i])
+					   				cont++;
+							}
+					   		if( cont == archivosSinRepetirAlumno.length )
+					   			archivosSinRepetirAlumno.push(archivosAlumno[i]);
 
 					    }
 
@@ -263,8 +321,8 @@ var rutaUrl = '/api/Grupos?filter=%7B%22where%22%3A%7B%22tutor%22%3A%22'+session
               if(typeof(res.id) !== undefined){
 		        var cadena = "";
 		        for(var i = 0; i < res.length; i++){
-					for(var x = res[i].archivos.length-1; x >= 0 ; x = x -1){
-						cadena = cadena +'<option ondblclick="dowload(this)" id="selectDesplegable" value="'+res[i].archivos[x]+'">'+res[i].archivos[x]+'</option>';
+					for(var x = res[i].archivosProfesor.length-1; x >= 0 ; x = x -1){
+						cadena = cadena +'<option ondblclick="dowload(this)" id="selectDesplegable" value="'+res[i].archivosProfesor[x]+'">'+res[i].archivosProfesor[x]+'</option>';
 					}
 					$('#historico').html(cadena);
 				}
@@ -286,39 +344,5 @@ function dowload(element){
 }
 
 $('#logout').click(function(){
-          sessionStorage.removeItem("tipoUser");
-
-        });
-
-
-/*
-function comprueba_extension(formulario, archivo) { 
-   extensiones_permitidas = new Array(".pdf"); 
-   mierror = ""; 
-   if (!archivo) { 
-      //Si no tengo archivo, es que no se ha seleccionado un archivo en el formulario 
-      	mierror = "No has seleccionado ningún archivo"; 
-   }else{ 
-      //recupero la extensión de este nombre de archivo 
-      extension = (archivo.substring(archivo.lastIndexOf("."))).toLowerCase(); 
-      //alert (extension); 
-      //compruebo si la extensión está entre las permitidas 
-      permitida = false; 
-      for (var i = 0; i < extensiones_permitidas.length; i++) { 
-         if (extensiones_permitidas[i] == extension) { 
-         permitida = true; 
-         break; 
-         } 
-      } 
-      if (!permitida) { 
-         mierror = "Comprueba la extensión de los archivos a subir. \nSólo se pueden subir archivos con extensiones: " + extensiones_permitidas.join(); 
-      	}else{ 
-         	//submito! 
-         alert ("Todo correcto. Voy a submitir el formulario."); 
-         formulario.submit(); 
-         return 1; 
-      	} 
-   } 
-   //si estoy aqui es que no se ha podido submitir 
-   alert (mierror); 
-}*/
+    sessionStorage.removeItem("tipoUser");
+});
