@@ -1,6 +1,8 @@
 var archivosAlumno = []; // archivos pendientes del campo archivos de grupos
 var archivosDescargar = []
-
+var numPdf = "";
+var total = "";
+var restaFotocopia = "";
 
 $(document).ready(function(){
 
@@ -73,19 +75,52 @@ $('#content').html('<div><img src="imagenes/ajax-loader(1).gif"/></div>');
 //INTENTO DE UPDATE
 
 function mandarConserje(obj) {
-  var file = $(obj).html();
-  archivosDescargar.push(file);
-  $.ajax({
-      url: '/api/Grupos/update?where=%7B%22curso%22%3A%22'+sessionStorage.curso+'%22%2C%22grupo%22%3A%22'+sessionStorage.grupo+'%22%7D&access_token='+sessionStorage.userToken,
-        method: "POST",
-        // donde pone id no he podido poner el session storage no coge las comillas 
-        // hay que solucionarlo
+$(document).on("click", ".pdf-file", function(e){
+      e.preventDefault();
+      var cPdf = $(this).attr("href");
+      console.log("Se ha hecho click en el enlace del pdf -> "+cPdf);
+      PDFJS.getDocument(cPdf).then(function(pdf) {
+        //numPdf = pdf.numPages;
+        total = parseInt(pdf.numPages) * 0.05;
+        //sessionStorage.guardaPrecioFotocopia = total;
+        //alert( pdf.numPages+ " *0.05 = " + total);
+        var cuantia = sessionStorage.dinero;
+        restaFotocopia = parseFloat(cuantia) - parseFloat(total).toFixed(2);
+        //alert(parseInt(sessionStorage.dinero) +"-"+ parseInt(total));
+        //alert("Dinero restante: "+ restaFotocopia);
+        //sessionStorage.guardaRestante = restaFotocopia;
+      
 
-        data: {  "archivosDescargar": [{ [sessionStorage.username] : [archivosDescargar] }]  },
+var r = confirm("Fotocopias: "+pdf.numPages+"\n"+"Coste de Fotocopias: " +total.toFixed(2)+"€. \nSu saldo restante será: "+parseFloat(restaFotocopia).toFixed(2)+"€");
+  if (r == true) { 
+    $.ajax({
+      url: "api/Usuarios/update?where=%7B%22username%22%3A%22"+sessionStorage.username+"%22%7D&access_token="+ sessionStorage.userToken,
+      method: "POST",
+      data: { "dinero": parseFloat(restaFotocopia) },
         success: function(data) {
-          actualizarArchivos(file);
+          var file = $(obj).html();
+          archivosDescargar.push(file);
+          $.ajax({
+              url: '/api/Grupos/update?where=%7B%22curso%22%3A%22'+sessionStorage.curso+'%22%2C%22grupo%22%3A%22'+sessionStorage.grupo+'%22%7D&access_token='+sessionStorage.userToken,
+                method: "POST",
+                // donde pone id no he podido poner el session storage no coge las comillas 
+                // hay que solucionarlo
+
+                data: {  "archivosDescargar": [{ [sessionStorage.username] : [archivosDescargar] }]  },
+                success: function(data) {
+                  actualizarArchivos(file);
+                  location.reload();
+                }
+            });
+
         }
-    });
+      });
+  } else {
+    document.location.href = "alumno.html";
+  }
+  });
+      //console.log(numPdf);
+  });
 }
 
 // Funcion para borrar del campo archivos el archivo que se ha pasado a archivos Descargar
@@ -208,11 +243,11 @@ function muestraArchivos() {
         if(typeof(res.id) !== undefined){
             cadena = cadena + '<ul>';  
             var cont = 0;
-          
+          var rute =  "/api/containers/download/download/";
               for(var x = res[0].archivosAlumno.length-1; x >= 0 ; x = x -1){
                 archivosAlumno.push(res[0].archivosAlumno[x]); // Meto los archivos pendientes en el array archivos
                 if ( res[0].archivosAlumno[x] != ""){
-                 cadena = cadena +'<li><a onclick="mandarConserje(this)" style="cursor:pointer;">'+ res[0].archivosAlumno[x]+'</a>'+"\n"+'</li>';
+                 cadena = cadena +'<li><a href="'+rute+res[0].archivosAlumno[x]+'" class="pdf-file" onclick="mandarConserje(this)" style="cursor:pointer;">'+ res[0].archivosAlumno[x]+'</a>'+"\n"+'</li>';
                }
               }
           cadena = cadena + '</ul>';
@@ -232,5 +267,7 @@ function muestraArchivos() {
         }).fail(function(evt){
           var msgError = "ERROR: "+evt.status+" "+evt.statusText;
     });
-}
 
+    
+
+}

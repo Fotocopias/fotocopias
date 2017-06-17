@@ -1,0 +1,404 @@
+[33mcommit 73def32cffa4d105e6d5e617c908d81068b0eff3[m
+Author: antoniosf597 <antoniosf597@gmail.com>
+Date:   Sat Jun 17 19:44:48 2017 +0200
+
+    Borrando archos del campo archivosDescargar una vez le haya dado el conserje a imprimir
+
+[33mcommit 413b60978b8ba33790c0befe1e3c4357712d280e[m
+Author: antoniosf597 <antoniosf597@gmail.com>
+Date:   Sat Jun 17 18:55:45 2017 +0200
+
+    Correcion de la vista conserje
+
+[33mcommit 50bfc2ff1140fb7e1acedf54d2802768f22823d1[m
+Author: antoniosf597 <antoniosf597@gmail.com>
+Date:   Sat Jun 17 17:59:15 2017 +0200
+
+    Correcion del borrado y maquetacion vista alumno
+
+[33mcommit d8d2dd7aa7a8b5d460fe9df9ba0b1c7facfc3dff[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sat Jun 17 13:52:22 2017 +0200
+
+    Solucionado updatear a conserje con nombre de alumno
+
+[33mcommit d68e0238315e8025c56eb50bf51e1fddfd5218b6[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sat Jun 17 10:59:21 2017 +0200
+
+    Inserta en 2 arrays cada pdf
+
+[33mcommit 6a6c082d23cfbaca32647e330a860164b01aed6b[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Thu Jun 15 20:02:20 2017 +0200
+
+    Correcion subida pdf
+
+[33mcommit 5e5a87727a520c7cff09dd936512bf6044eb3a00[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Thu Jun 15 17:38:15 2017 +0200
+
+    Efecto cargando al entrar
+
+[33mcommit e213c14692f07fa52f9814640cee211e7791a33e[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Wed Jun 14 17:49:15 2017 +0200
+
+    Limitar subida de archivos a solo pdf
+
+[33mcommit fc4dd17a0cda4509647d9d17d69c4b43a124aad1[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Wed Jun 14 13:15:36 2017 +0200
+
+    Vista Alumno boton ver pendientes, cambio permisos usuarios autenticados
+
+[33mcommit 245162ff93d579f8731ca101cc6b44e6bd9c58f7[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Tue Jun 13 15:21:13 2017 +0200
+
+    Dobleclick profesor para mostrar archivo y mostrar en Alumno fotocopias enviadas a imprimir
+
+[33mcommit fbcfd58935abb03b392ce1815578979d32ff6a23[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Mon Jun 12 19:57:19 2017 +0200
+
+    Mejoras
+
+[33mcommit cc57010d7872a81ce1f938cbb2b27a063859cdce[m
+Author: antoniosf597 <antoniosf597@gmail.com>
+Date:   Sun Jun 11 19:47:06 2017 +0200
+
+    ActualizacionV2 vista alumno
+
+[33mcommit fdcd1d5420b9a1f46538907d8f41e6122ba2ec95[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sun Jun 11 17:50:59 2017 +0200
+
+    Correcion carga ajax_v2
+
+[33mcommit 7231c64a62bbce6b55a9686b725c9beaeec9b9d0[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sun Jun 11 17:02:46 2017 +0200
+
+    Solucionado error no cargaba ajax hasta recargar
+
+[33mcommit bef1ec02bef7d8f77f30b6e5ce0a520ff1dc59d8[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sun Jun 11 13:34:56 2017 +0200
+
+    Favicon y mejora visualizacion Vista Profesor
+
+[33mcommit 60f5c5cb4772990f94429e1cc656ec8272141294[m
+Author: antoniosf597 <antoniosf597@gmail.com>
+Date:   Sun Jun 11 13:22:35 2017 +0200
+
+    Actualizacion del js alumno
+
+[33mcommit ed84dfecd5e3590a9680d73dccbcd99795dadfdf[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sat Jun 10 18:48:46 2017 +0200
+
+    Comienzo de boton para mostrar enviados a imprimir
+
+[33mcommit 55340d45aa5d46033b09cb89539c7f291069788a[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sat Jun 10 13:34:30 2017 +0200
+
+    Intento de updatear para enviar fotocopias a conserje
+
+[33mcommit 63aa6fa56dee29022d301acc78f24f10d3dbdf67[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sat Jun 10 12:29:16 2017 +0200
+
+    Correcion sql
+
+[33mcommit c9087122d18988842bd3aa5713cc147489841992[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sat Jun 10 12:26:03 2017 +0200
+
+    Vista Alumno muestra fotocopias pendientes(Hacer AUTOMIGRATE)
+
+[33mcommit c0750334ddde87f562a93f06b2bbaba7a875f2ec[m
+Author: antoniosf597 <antoniosf597@gmail.com>
+Date:   Fri Jun 9 21:45:53 2017 +0200
+
+    Correcion Definitiva o eso espero Profesor
+
+[33mcommit e9b0adc6ca06fd9bfa484065cc0f6481dd42f669[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Fri Jun 9 19:23:16 2017 +0200
+
+    Correcion url profesor, historico muestra todo, SIGUE ADJUNTANDO MAL, UPDATEA Y BORRA EL ANTERIOR
+
+[33mcommit f7f66a0334e216b9f9a7ebf2f060c858fb34111d[m
+Author: antoniosf597 <antoniosf597@gmail.com>
+Date:   Thu Jun 8 21:51:27 2017 +0200
+
+    Correcion del filtro de grupos por tutor
+
+[33mcommit dd1a411f4ae70e4bac2a1a3729a5bee6b4715c53[m
+Author: antoniosf597 <antoniosf597@gmail.com>
+Date:   Wed Jun 7 22:20:05 2017 +0200
+
+    Correcion de vista profesor
+
+[33mcommit 56c9675827c9d6ec78f6c32cd6bd5aaac7aca8e5[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Wed Jun 7 20:39:14 2017 +0200
+
+    Muestra historico de cada profesor logeado
+
+[33mcommit 4fb804c0a5df375bb031fb7d9185c5edd6781b1b[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Wed Jun 7 15:45:39 2017 +0200
+
+    Boton deshacer cambios administrador
+
+[33mcommit 08ee4ab4073c1794c39b0039023fb2b5f896bbd9[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Wed Jun 7 14:02:30 2017 +0200
+
+    Administrador filtra por nombre y apellidos para incrementar saldo
+
+[33mcommit a06dc8697b890a64fa176dcd43d53f58b5ed4dae[m
+Author: antoniosf597 <antoniosf597@gmail.com>
+Date:   Mon Jun 5 21:28:29 2017 +0200
+
+    Imprimir, habre el archivo en un anueva pestaña
+
+[33mcommit 54a46aef60649b5d6ae2c1e6da9cd4a682f3519e[m
+Author: antoniosf597 <antoniosf597@gmail.com>
+Date:   Mon Jun 5 21:25:43 2017 +0200
+
+    Imprimir, habre el archivo en otra pentaña
+
+[33mcommit 7828685b5027d5a40a8f460e4a7971ae1827d62c[m
+Author: antoniosf597 <antoniosf597@gmail.com>
+Date:   Sun Jun 4 20:21:14 2017 +0200
+
+    Correcion del error de archivos repetidos en bd
+
+[33mcommit d853fb2fec5af8703974ac49f9caa164a618a4fd[m
+Author: antoniosf597 <antoniosf597@gmail.com>
+Date:   Sun Jun 4 18:44:48 2017 +0200
+
+    Intento de imprimir vista conserje
+
+[33mcommit 31da461d29fae3ea8415e21b55e7729f33d5b932[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sun Jun 4 18:12:14 2017 +0200
+
+    Comfirmacion cambios en profesor y admin
+
+[33mcommit af0a4b67db3d097f45d7ba859a583435a569a440[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sun Jun 4 12:50:10 2017 +0200
+
+    Muestra historico archivos profesor y monedero virtual alumno
+
+[33mcommit ed3d881533d32f9c2942dad3b1228dd15725f2be[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sat Jun 3 20:07:45 2017 +0200
+
+    Correccion cuantía negativa administrador
+
+[33mcommit 20310bd793f4a162793e8154dbcae75989672950[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sat Jun 3 18:20:49 2017 +0200
+
+    Optimizacion vista administrador
+
+[33mcommit 7b72941e3f8764e7614df2bd4291ebe07f722de4[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sat Jun 3 13:02:59 2017 +0200
+
+    Validacion y bootstrap de Login
+
+[33mcommit 6dba5be3dfde446ffa66f9e103fd02ff769b0ce1[m
+Merge: 3fcc5dc f76eec2
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sun May 28 20:31:28 2017 +0200
+
+    vista conserje hecha por Antonio
+
+[33mcommit 3fcc5dc287875f28bf0a2f78e3a8697d9b675d59[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sun May 28 20:11:01 2017 +0200
+
+    Solucion ya incrementa saldo, pero pasando id
+
+[33mcommit f76eec2016e84386d006abdccc2a3e235f1bb512[m
+Merge: 4e47353 4ebe47e
+Author: antoniosf597 <antoniosf597@gmail.com>
+Date:   Sun May 28 17:50:25 2017 +0200
+
+    Merge branch 'master' of https://github.com/Fotocopias/fotocopias
+
+[33mcommit 4e47353b0602aa752df146beb3a4ddd5e9688cb3[m
+Author: antoniosf597 <antoniosf597@gmail.com>
+Date:   Sun May 28 17:50:08 2017 +0200
+
+    Vista Conserje falta imprimir archivos y retocar alguna cosa
+
+[33mcommit 4ebe47e4f471ca71e84e1843ad50ca6c06a98496[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sun May 28 13:09:27 2017 +0200
+
+    Admin updatea dinero, falta cambiarlo para que incremente
+
+[33mcommit b5fab919e6017f09fc3dcb36dfa3bfe466ed37af[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sun May 28 12:31:55 2017 +0200
+
+    Dinero añadido vista admin por terminar
+
+[33mcommit 429df9297be69a44a2f298e92afb1285bc4131ab[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sat May 27 19:16:35 2017 +0200
+
+    solucion pedia autorizacion en usuario y comiezo de vista Admin
+
+[33mcommit 6b4c8380700f4871664a7c0a9624f9bc2acd0521[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sat May 27 13:13:58 2017 +0200
+
+    Switch para login tipoUsuario
+
+[33mcommit 4a84518c93c019b91979965828485efcd82a0fa1[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sat May 27 12:46:49 2017 +0200
+
+    Guardado Sesiones, Logout y acceso segun tipoUsuario
+
+[33mcommit 5d21659c09baa99a4bbf6c93da2040308ba3ebc8[m
+Author: antoniosf597 <antoniosf597@gmail.com>
+Date:   Tue May 23 23:03:37 2017 +0200
+
+    Solucionado error de curso y grupo duplicado y solucionado array archivos añade nuevos archivos
+
+[33mcommit 93cc4a53320bec360293aae6fd72d6a7c8ad267a[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sun May 21 18:42:38 2017 +0200
+
+    Login Usuario a vista profesor EXITO
+
+[33mcommit 2ff2837f20b98da470b7af9026da156e41502cdf[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sat May 20 18:34:53 2017 +0200
+
+    Logeo falta fallo autorizacion
+
+[33mcommit 968131b8d61e444cd76f39c5827be4dc006d0d3d[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Tue May 9 16:59:12 2017 +0200
+
+    Modificado fotocopias.sql para POST y GET
+
+[33mcommit 1d6ea0e53f40796342d020c721ac803ee1c9d887[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sun May 7 18:58:07 2017 +0200
+
+    Correcion error model-config
+
+[33mcommit 1ba33f69ce95b87a17775d221fa8bd5d177dc1af[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sun May 7 18:49:33 2017 +0200
+
+    Correccion datasource
+
+[33mcommit 4b6275bae74a4d1b03f12febadd24e32429cdb1c[m
+Merge: 0cb5cc0 750aef7
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sun May 7 18:45:08 2017 +0200
+
+    Borrado datos mysql en datasource
+
+[33mcommit 0cb5cc091e42af9477a2e923171a00f692d5f462[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Sun May 7 18:40:08 2017 +0200
+
+    Error mysql solucionado
+
+[33mcommit 750aef7fcbfdcc815f8fe7dbe42f0e525865ef39[m
+Author: antoniosf597 <1784443@alu.murciaeduca.es>
+Date:   Sun May 7 13:53:53 2017 +0200
+
+    Subiendo archivos al contenedor CONTAINER1 que esta en la carpeta STORAGE, vista profesor aabada la funcionalidad
+
+[33mcommit 3f8721b2b2a6abdf6c00269d06f14c27bff71b92[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Fri May 5 13:30:42 2017 +0200
+
+    Añadido Conserje y Admin Modelo MySQLv2
+
+[33mcommit 8bf01cd5715d8934613036bc8a0350fdebecbbb1[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Fri May 5 13:04:37 2017 +0200
+
+    Añadido Conserje y Admin en Modelo MySQL
+
+[33mcommit 840c2d33a02f0a55852de09411d6a3f541e73aea[m
+Author: Mariano <1784443@alu.murciaeduca.es>
+Date:   Tue May 2 20:13:53 2017 +0200
+
+    Modelo mysql
+
+[33mcommit ea0d62a53046e13973dd4242f878648f78015f0d[m
+Author: antoniosf597 <antoniosf597@gmail.com>
+Date:   Sun Apr 30 15:35:07 2017 +0200
+
+    Solucionado aztualizar campo archivos que es un array e introduciendo en este el nombre de los archivo seleccionados,, falta mover los archivos al contenedor
+
+[33mcommit d4dc3c3b65ca17c7a019502a92966ed97347269e[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Fri Apr 28 13:47:14 2017 +0200
+
+    Intento solucion guardado BBDD fotocopias con automigrate
+
+[33mcommit 3bd1bf5b32ac42a93b809c13904032622ceba834[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Thu Apr 27 15:19:03 2017 +0200
+
+    Optimizacion select conserje y admin
+
+[33mcommit 4376fcf478e959bd0b19ad79508b65896210ac12[m
+Author: ricar14 <ricar.gomez55@gmail.com>
+Date:   Thu Apr 27 12:29:51 2017 +0200
+
+    Añadido tabla Administrador y Conserje
+
+[33mcommit b68659be753b7fc200d9159774974a37d596b097[m
+Author: antoniosf597 <antoniosf597@gmail.com>
+Date:   Sun Apr 23 20:08:48 2017 +0200
+
+    Intento de subir un archivo
+
+[33mcommit 6523db29675a1544a7ac59db36b2b9535d3d8542[m
+Author: antoniosf597 <antoniosf597@gmail.com>
+Date:   Sun Apr 23 13:08:58 2017 +0200
+
+    Mostrando el curso y el grupo en la vista profesor
+
+[33mcommit 39e594e6d05f1a91a25d5c6c3e2ab97bd11d8c7b[m
+Author: Mariano <1784443@alu.murciaeduca.es>
+Date:   Thu Apr 20 19:54:11 2017 +0200
+
+    Inicio fotocopias
+
+[33mcommit 21e72f73cf256023d9bc23e60e5541e9dbecc4be[m
+Author: antonio sánchez fernández <antoniosf597@gmail.com>
+Date:   Tue Apr 11 10:21:03 2017 +0200
+
+    Delete _config.yml
+
+[33mcommit 492f2ec39d5723f524e1fde168f75ccbf6f7fc4c[m
+Author: antonio sánchez fernández <antoniosf597@gmail.com>
+Date:   Tue Apr 11 10:20:53 2017 +0200
+
+    Delete index.md
+
+[33mcommit e7a6870c8e8e2386f0575db31953af896a1b1d52[m
+Author: antonio sánchez fernández <antoniosf597@gmail.com>
+Date:   Tue Apr 11 10:19:05 2017 +0200
+
+    Set theme jekyll-theme-cayman
