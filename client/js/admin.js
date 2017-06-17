@@ -3,11 +3,11 @@ $('#content').html('<div><img src="imagenes/ajax-loader(1).gif"/></div>');
 $('#content').hide();
 
   if(location.hash == "#ini") {
+    $('#administrador').hide();
     var url = window.location;
     var algo = url.toString().split("/");
     var posicion = parseInt(algo.length)-parseInt(1);
 
-    $('#administrador').hide();
     $('#content').show();
       setTimeout(function(){  $('#content').hide(); }, 1500);
     setTimeout(function(){ window.location.href = "admin.html"; }, 1500);

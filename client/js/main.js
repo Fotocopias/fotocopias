@@ -301,11 +301,11 @@ function mostrarGrupos(){
 
 $(document).ready(function(){
 	if(location.hash == "#ini") {
+		$('#profesor').hide();
 		var url = window.location;
 		var algo = url.toString().split("/");
 		var posicion = parseInt(algo.length)-parseInt(1);
 
-		$('#profesor').hide();
 		$('#content').show();
 	    setTimeout(function(){  $('#content').hide(); }, 1500);
 		setTimeout(function(){ window.location.href = "profesor.html"; }, 1500);
@@ -322,7 +322,7 @@ var rutaUrl = '/api/Grupos?filter=%7B%22where%22%3A%7B%22tutor%22%3A%22'+session
 		        var cadena = "";
 		        for(var i = 0; i < res.length; i++){
 					for(var x = res[i].archivosProfesor.length-1; x >= 0 ; x = x -1){
-						cadena = cadena +'<option ondblclick="dowload(this)" id="selectDesplegable" value="'+res[i].archivosProfesor[x]+'">'+res[i].archivosProfesor[x]+'</option>';
+						cadena = cadena +'<option id="selectDesplegable" value="'+res[i].archivosProfesor[x]+'">'+res[i].archivosProfesor[x]+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+res[i].curso+"º"+res[i].grupo+'</option>';
 					}
 					$('#historico').html(cadena);
 				}
@@ -334,14 +334,6 @@ var rutaUrl = '/api/Grupos?filter=%7B%22where%22%3A%7B%22tutor%22%3A%22'+session
          });
 });
 
-//Abre el fichero seleccionado de historico
-function dowload(element){
-			var file = $(element).html()
-	 		var rute =  "/api/containers/download/download/"+file;
-
-	 		window.open(rute); 
-     
-}
 
 $('#logout').click(function(){
     sessionStorage.removeItem("tipoUser");

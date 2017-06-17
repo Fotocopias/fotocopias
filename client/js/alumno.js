@@ -3,13 +3,14 @@ var archivosDescargar = []
 
 
 $(document).ready(function(){
+
 $('#content').html('<div><img src="imagenes/ajax-loader(1).gif"/></div>');
    $('#content').hide();
 
   if(location.hash == "#ini") {
+    $('#alumno').hide();
     var url = window.location.toString().split("/");
     var posicion = parseInt(url.length)-parseInt(1);
-    $('#alumno').hide();
     $('#content').show();
       setTimeout(function(){  $('#content').hide(); }, 1500);
     setTimeout(function(){ window.location.href = "alumno.html"; }, 1500);
@@ -82,7 +83,7 @@ function mandarConserje(obj) {
         // donde pone id no he podido poner el session storage no coge las comillas 
         // hay que solucionarlo
 
-          data: {  "archivosDescargar": [{ "ricar14" : [archivosDescargar] }]  },
+          data: {  "archivosDescargar": [{ [sessionStorage.username] : [archivosDescargar] }]  },
         success: function(data) {
           console.log("exito");
           actualizarArchivos(file);
@@ -174,7 +175,7 @@ function muestraArchivos() {
               for(var x = res[0].archivosAlumno.length-1; x >= 0 ; x = x -1){
                 archivosAlumno.push(res[0].archivosAlumno[x]); // Meto los archivos pendientes en el array archivos
               
-                cadena = cadena +'<li><a onclick="mandarConserje(this)" style="cursor:pointer;">'+ res[0].archivosAlumno[x]+'</a></li>'+"\n";
+                cadena = cadena +'<li><a onclick="mandarConserje(this)" style="cursor:pointer;">'+ res[0].archivosAlumno[x]+'</a>'+"\n"+'</li>';
                
               }
 
@@ -192,3 +193,4 @@ function muestraArchivos() {
           var msgError = "ERROR: "+evt.status+" "+evt.statusText;
     });
 }
+

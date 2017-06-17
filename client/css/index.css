@@ -89,12 +89,12 @@ img {
 #selectDesplegable {
 	border: none;
 	padding-right: 20%;
-	padding-left: 28%;
+	padding-left: 34%;
 }
 #content {
 	position: absolute;
-	width: 3%;
+	width: 3.5%;
 	margin-left: 48.5%;
-	margin-top: 30vh; 
+	margin-top: 48vh; 
 	text-align: center;
 }
