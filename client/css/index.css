@@ -98,3 +98,6 @@ img {
 	margin-top: 48vh; 
 	text-align: center;
 }
+#conserje #container{
+	list-style:none!important;
+}

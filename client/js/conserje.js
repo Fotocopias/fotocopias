@@ -19,6 +19,7 @@ $('#content').html('<div><img src="imagenes/ajax-loader(1).gif"/></div>');
 			success: function (data) {
 				for (x in data) {
 					var grupos ='';
+
 					for (y in data[x]["archivosDescargar"]) {
 						//alert(data[x]["grupo"]);
 						//console.log(data[x]["archivosDescargar"][0]);
@@ -26,20 +27,23 @@ $('#content').html('<div><img src="imagenes/ajax-loader(1).gif"/></div>');
 							var listaArchivos= "<ul>";
 							for(z in data[x]["archivosDescargar"][y][idalumno]){
 								var file = data[x]["archivosDescargar"][y][idalumno][z];
-								listaArchivos = listaArchivos + 
-								'<li><a data-action="file" style="cursor: pointer;" id="'+idalumno+'" onclick="dowload(this)" data-id="'+file+'">'+data[x]["archivosDescargar"][y][idalumno][z]+'</a></li>';
+								file = file.toString().split(',');
+								for(var i = 0; i < file.length; i++){
+									listaArchivos = listaArchivos + 
+								'<li><a data-action="file" style="cursor: pointer;" id="'+idalumno+'" onclick="dowload(this)" data-id="'+file[i]+'">'+file[i]+'</a></li>';
 							
+								}
+								
 							}
 							listaArchivos = listaArchivos + '</ul>';
+							var curso = data[x]["curso"]+'º '+data[x]["grupo"]
 							alumnos = alumnos+'<li>'+
-							'<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#alumno'+idalumno+'">Alumno - '+idalumno+'</button>'+
+							'<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#alumno'+idalumno+'">Alumno - '+idalumno+' - '+curso+'</button>'+
 						  	'<div id="alumno'+idalumno+'" class="collapse">'+listaArchivos+'</div></li>';
 						}
-
-						var curso = data[x]["curso"]+'º '+data[x]["grupo"]
-							grupos = grupos+'<li>'+
-							'<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#curso'+curso+'">Curso: '+curso+'</button>'+
-						  	'<div id="curso'+curso+'" class="collapse">'+alumnos+'</div></li>';
+						alumnos = alumnos+ "</li>";
+						
+							grupos = grupos+'<li>'+alumnos+'</li>';
 					}
 					grupos = grupos + "</ul>";
 
