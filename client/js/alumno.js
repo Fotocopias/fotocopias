@@ -75,36 +75,65 @@ $('#content').html('<div><img src="imagenes/ajax-loader(1).gif"/></div>');
 function mandarConserje(obj) {
   var file = $(obj).html();
   archivosDescargar.push(file);
-
-
-    $.ajax({
+  $.ajax({
       url: '/api/Grupos/update?where=%7B%22curso%22%3A%22'+sessionStorage.curso+'%22%2C%22grupo%22%3A%22'+sessionStorage.grupo+'%22%7D&access_token='+sessionStorage.userToken,
         method: "POST",
         // donde pone id no he podido poner el session storage no coge las comillas 
         // hay que solucionarlo
 
-          data: {  "archivosDescargar": [{ [sessionStorage.username] : [archivosDescargar] }]  },
+        data: {  "archivosDescargar": [{ [sessionStorage.username] : [archivosDescargar] }]  },
         success: function(data) {
-          console.log("exito");
           actualizarArchivos(file);
-          
-
         }
     });
 }
-//{  "archivosDescargar": [{ '"'+sessionStorage.username+'"' : ['"'+value+'"'] }]  },
 
 // Funcion para borrar del campo archivos el archivo que se ha pasado a archivos Descargar
 function actualizarArchivos(element){ 
-    for(var i = 0; i < archivosAlumno.length; i++){
-      if( archivosAlumno[i] == element){
+
+var cont = 0;
+var arraylengt = archivosAlumno.length;
+
+    for(var i = 0; i < arraylengt; i++){
+
+        if( archivosAlumno[i] == element){
           archivosAlumno[i] = "";
         }
     }
-    listarArchivos();
-    $("#pendientes").after("<li>El archivo: <a>"+element+"</a> ha sido enviado para imprimir.</li>");
+  
+$.ajax({
+    url: '/api/Grupos/update?where=%7B%22curso%22%3A%22'+sessionStorage.curso+'%22%2C%22grupo%22%3A%22'+sessionStorage.grupo+'%22%7D&access_token='+sessionStorage.userToken,
+      method: "POST",
+      data:{ "archivosAlumno": archivosAlumno },
+      success: function(data) {
+        console.log("exito al actualizar archivos");
+        vaciarArchivosAlumno();
+        listarArchivos();
+        $("#pendientes").append('<div class="alert alert-success alert-dismissable"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> EL archivo: <a>'+element+'</a> ha sido enviado para imprimir.</div> ');
 
 
+      }
+  });
+
+
+}
+function vaciarArchivosAlumno(){
+var cont = 0;
+  for(var i = 0; i < archivosAlumno.length; i++){
+    if(archivosAlumno[i] == ""){
+      cont++;
+    }
+  }       
+  if(cont == archivosAlumno.length){
+   
+  $.ajax({
+      url: '/api/Grupos/update?where=%7B%22curso%22%3A%22'+sessionStorage.curso+'%22%2C%22grupo%22%3A%22'+sessionStorage.grupo+'%22%7D&access_token='+sessionStorage.userToken,
+      method: "POST",
+      data:{ "archivosAlumno": "[]"},
+      success: function(data) {
+      }
+    });
+  }
 }
 muestraArchivos();
 
@@ -113,14 +142,14 @@ function listarArchivos(){
   cadena = cadena + '<ul>'; 
      for(var i = 0; i < archivosAlumno.length; i++){
         if(archivosAlumno[i] != "")
-        cadena = cadena +'<li><a onclick="mandarConserje(this)" style="cursor:pointer;">'+ archivosAlumno[i]+'</a></li>'+"\n";
+          cadena = cadena +'<li><a onclick="mandarConserje(this)" style="cursor:pointer;">'+ archivosAlumno[i]+'</a></li>'+"\n";
     }
     cadena = cadena + '</ul>';
     $('#pendientes').html(cadena);
 }
 
 
-$('#imprimir').click(function(){
+$('ul li [href="#imprimir"]').click(function(){
 var alumnos = "";
 
   var rutaUrl = '/api/Grupos?filter=%7B%22where%22%3A%7B%22curso%22%3A%22'+sessionStorage.curso+'%22%2C%22grupo%22%3A%22'+sessionStorage.grupo+'%22%7D%7D&access_token='+sessionStorage.userToken;
@@ -129,17 +158,25 @@ var alumnos = "";
           url: rutaUrl,
       success: function (res) {
           var grupos ='';
+          
           for (y in res[0].archivosDescargar) {
             //alert(data[x]["grupo"]);
             //console.log(data[x]["archivosDescargar"][0]);
             for (idalumno in res[0].archivosDescargar[y]) {
-              var listaArchivos= "<ul>";
+             
               for(z in res[0].archivosDescargar[y][idalumno]){
                 var file = res[0].archivosDescargar[y][idalumno][z];
-                listaArchivos = listaArchivos + 
-                '<li><a data-action="file" style="cursor: pointer;" id="'+idalumno+'" onclick="dowload(this)" data-id="'+file+'">'+file+'</a></li>'+"\n";
+                var file = file.toString().split(',')
+                 var listaArchivos= "<ul>";
+                for(var i = 0; i < file.length ; i++){
+                  listaArchivos = listaArchivos + 
+                '<li><a>'+file[i]+'</a></li>';
+                }
+                 listaArchivos = listaArchivos + '</ul>';
+
+           
               }
-              listaArchivos = listaArchivos + '</ul>';
+             
               
             }
 
@@ -150,7 +187,7 @@ var alumnos = "";
           }
           //grupos = grupos + "</ul>";
 
-        $('#pendientes').html(listaArchivos);
+        $('#imprimir').html(listaArchivos);
 
       }
 
@@ -174,18 +211,21 @@ function muestraArchivos() {
           
               for(var x = res[0].archivosAlumno.length-1; x >= 0 ; x = x -1){
                 archivosAlumno.push(res[0].archivosAlumno[x]); // Meto los archivos pendientes en el array archivos
-              
-                cadena = cadena +'<li><a onclick="mandarConserje(this)" style="cursor:pointer;">'+ res[0].archivosAlumno[x]+'</a>'+"\n"+'</li>';
-               
+                if ( res[0].archivosAlumno[x] != ""){
+                 cadena = cadena +'<li><a onclick="mandarConserje(this)" style="cursor:pointer;">'+ res[0].archivosAlumno[x]+'</a>'+"\n"+'</li>';
+               }
               }
-
-            if(cont == archivosAlumno.length){
-             archivosAlumno = [];
-            }
-         
-
           cadena = cadena + '</ul>';
           $('#pendientes').html(cadena);
+          //El seguiente codio es para recoger los valores del campo archivosDescargar
+          for(var x = res[0].archivosDescargar.length-1; x >= 0 ; x = x -1){
+            if(res[0].archivosDescargar[x][sessionStorage.username] != ""){
+              var arrayDesgargar = res[0].archivosDescargar[x][sessionStorage.username];
+              archivosDescargar = arrayDesgargar.toString().split(',');
+            }
+
+          }
+        
         }
        
               
