@@ -1,3 +1,5 @@
+var archivosDescargar = [];
+
 $(document).ready(function(){
 $('#content').html('<div><img src="imagenes/ajax-loader(1).gif"/></div>');
   $('#content').hide();
@@ -13,6 +15,24 @@ $('#content').html('<div><img src="imagenes/ajax-loader(1).gif"/></div>');
 		
 
 	}
+cargarCollapsables();
+
+/* EJEMPLO DE COMO HAY QUE ACTUALIZAR EL CAMPO DE GRUPO: archivosDescargar
+ {
+  "tutor": "Alb3",
+  "anyo": "string",
+  "grupo": "B",
+  "subgrupo": "ensenanza",
+  "ensenanza": "string",
+  "curso": 1,
+  "horarioVisita": "string",
+  "archivos": [],
+  "archivosDescargar": [{ "2433566": ["nuevo", "comandos.txt"] }]   ****IMPORTANTE******
+}
+*/
+
+});
+function cargarCollapsables(){
 	var alumnos = "";
 
 	    $.ajax("api/Grupos", {
@@ -21,17 +41,17 @@ $('#content').html('<div><img src="imagenes/ajax-loader(1).gif"/></div>');
 					var grupos ='';
 
 					for (y in data[x]["archivosDescargar"]) {
-						//alert(data[x]["grupo"]);
-						//console.log(data[x]["archivosDescargar"][0]);
+
 						for (idalumno in data[x]["archivosDescargar"][y]) {
 							var listaArchivos= "<ul>";
 							for(z in data[x]["archivosDescargar"][y][idalumno]){
 								var file = data[x]["archivosDescargar"][y][idalumno][z];
 								file = file.toString().split(',');
 								for(var i = 0; i < file.length; i++){
-									listaArchivos = listaArchivos + 
-								'<li><a data-action="file" style="cursor: pointer;" id="'+idalumno+'" onclick="dowload(this)" data-id="'+file[i]+'">'+file[i]+'</a></li>';
-							
+									if( file[i] != ""){
+										listaArchivos = listaArchivos + 
+										'<li><a data-action="file" style="cursor: pointer;" id="'+idalumno+'" onclick="dowload(this)" data-id="'+file[i]+'" data-curso="'+data[x]["curso"]+'" data-grupo="'+data[x]["grupo"]+'" data-username="'+idalumno+'">'+file[i]+'</a></li>';
+									}
 								}
 								
 							}
@@ -53,29 +73,18 @@ $('#content').html('<div><img src="imagenes/ajax-loader(1).gif"/></div>');
 			}
 
       	});
-	
 
-/* EJEMPLO DE COMO HAY QUE ACTUALIZAR EL CAMPO DE GRUPO: archivosDescargar
- {
-  "tutor": "Alb3",
-  "anyo": "string",
-  "grupo": "B",
-  "subgrupo": "ensenanza",
-  "ensenanza": "string",
-  "curso": 1,
-  "horarioVisita": "string",
-  "archivos": [],
-  "archivosDescargar": [{ "2433566": ["nuevo", "comandos.txt"] }]   ****IMPORTANTE******
-}
-*/
-
-});
-
+	}
 function dowload(element){
 			var file = $(element).html()
 	 		var rute =  "/api/containers/download/download/"+file;
+			var curso = $(element).attr('data-curso');
+			var grupo = $(element).attr('data-grupo');
+			var username = $(element).attr('data-username');
+			actualizarArchivosDescargar(file, curso, grupo, username, rute);
 
-	 		window.open(rute); 
+
+	 		
       
 			/*	$.ajax(rute, {
 				success: function (data) {
@@ -100,3 +109,48 @@ $('#logout').click(function(){
           sessionStorage.removeItem("tipoUser");
 
         });
+
+
+
+function actualizarArchivosDescargar(archivo, curso, grupo, username, rute){
+	var rutaUrl = '/api/Grupos?filter=%7B%22where%22%3A%7B%22curso%22%3A%22'+curso+'%22%2C%22grupo%22%3A%22'+grupo+'%22%7D%7D&access_token='+sessionStorage.userToken;
+   	$.ajax({  
+		method: "GET",
+		url: rutaUrl,
+		success: function (res) {
+			cargarArrayArchivosDescargar(res);
+			for( var i = 0; i < archivosDescargar.length; i++){
+				if (archivosDescargar[i] == archivo)
+					archivosDescargar[i] = "";
+			}
+			$.ajax({
+		      url: '/api/Grupos/update?where=%7B%22curso%22%3A%22'+curso+'%22%2C%22grupo%22%3A%22'+grupo+'%22%7D&access_token='+sessionStorage.userToken,
+		        method: "POST",
+		        data: {  "archivosDescargar": [{ [username] : [archivosDescargar] }]  },
+		        success: function(data) {
+		        	//Recargo los collapsables 
+		        	cargarCollapsables();
+		        	// Abro el enlace para imprimir
+		        	window.open(rute); 
+		         
+		        }
+		    });
+
+		 }
+	}); 
+
+}
+
+function cargarArrayArchivosDescargar(res){
+	for (y in res[0].archivosDescargar) {
+				for (idalumno in res[0].archivosDescargar[y]) {
+					for(z in res[0].archivosDescargar[y][idalumno]){
+						var file = res[0].archivosDescargar[y][idalumno][z];
+						var file = file.toString().split(',')
+						for(var i = 0; i < file.length ; i++){
+							archivosDescargar.push(file[i]);
+						}
+					}
+				}
+			}
+}
