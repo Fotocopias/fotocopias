@@ -62,7 +62,7 @@ $('#content').hide();
                    sessionStorage.guardaCuantia = cuantia;
                     var r = confirm("Incrementar en " +cuantia+"€ el saldo de "+sessionStorage.nombre +" "+sessionStorage.apellidos);
                       if (r == true) {                      
-                   suma = parseInt(cuantia) + parseInt(sessionStorage.dinero);
+                   suma = parseFloat(cuantia) + parseFloat(sessionStorage.dinero);
                      if(sessionStorage.dinero <= 0 && cuantia < 0) {
                         alert("Este alumno no puede tener menos dinero");
                        } else if(sessionStorage.dinero <= 0 && cuantia > 0 || sessionStorage.dinero > 0 && cuantia > 0){
@@ -71,12 +71,18 @@ $('#content').hide();
                       method: "POST",
                       data: { "dinero": suma },
                         success: function(data) {
-                          $('#myModal').modal('toggle');
-                          $( "#mostrarUsuario" ).trigger( "click" );
+                          //$( "#mostrarUsuario" ).trigger( "click" );
                           $( "#cantidad" ).val("");
                           $( "#volver" ).attr("disabled",false);
+						  $( "#mostrarUsuario" ).trigger( "click" );
+						 	//$('#myModal').modal('dismiss');
                         }
-                      });
+                     	 //}).done(function() {
+				            //$('#myModal').modal('toggle');
+						   //$( "#mostrarUsuario" ).trigger( "click" );
+				            //$('#myModal').modal('show');
+
+						});
                      }
                      } else {
                           console.log("Cancelado");
@@ -106,13 +112,17 @@ $('#content').hide();
         method: "POST",
         data: { "dinero": deshacer },
           success: function(data) {
-            $('#myModal').modal('toggle');
-            $( "#mostrarUsuario" ).trigger( "click" );
             sessionStorage.removeItem("guardaCuantia");
             $( "#volver" ).attr("disabled",true);
-            
+		    $( "#mostrarUsuario" ).trigger( "click" );
           }
-        });
+        //}).done(function() {
+        	//$('#modal').modal('hide');
+						  
+           // $('#myModal').modal('toggle');
+           // $('#myModal').modal('show');
+
+		});
       } else {
         console.log("Cancelado");
       }
