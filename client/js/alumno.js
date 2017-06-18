@@ -90,7 +90,7 @@ $(document).on("click", ".pdf-file", function(e){
         //alert("Dinero restante: "+ restaFotocopia);
         //sessionStorage.guardaRestante = restaFotocopia;
       
-
+if((parseFloat(total).toFixed(2)) <= parseFloat(cuantia)) {
 var r = confirm("Fotocopias: "+pdf.numPages+"\n"+"Coste de Fotocopias: " +total.toFixed(2)+"€. \nSu saldo restante será: "+parseFloat(restaFotocopia).toFixed(2)+"€");
   if (r == true) { 
     $.ajax({
@@ -118,6 +118,9 @@ var r = confirm("Fotocopias: "+pdf.numPages+"\n"+"Coste de Fotocopias: " +total.
   } else {
     document.location.href = "alumno.html";
   }
+} else {
+  alert("No tienes suficiente dinero");
+}
   });
       //console.log(numPdf);
   });
