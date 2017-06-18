@@ -6,13 +6,17 @@ var restaFotocopia = "";
 
 $(document).ready(function(){
 
+   $("body").addClass("vistasAlumno");
 $('#content').html('<div><img src="imagenes/ajax-loader(1).gif"/></div>');
    $('#content').hide();
+    
 
   if(location.hash == "#ini") {
     $('#alumno').hide();
     var url = window.location.toString().split("/");
     var posicion = parseInt(url.length)-parseInt(1);
+    $("body").removeClass("vistasAlumno");
+    
     $('#content').show();
       setTimeout(function(){  $('#content').hide(); }, 1500);
     setTimeout(function(){ window.location.href = "alumno.html"; }, 1500);
@@ -91,7 +95,7 @@ $(document).on("click", ".pdf-file", function(e){
         //sessionStorage.guardaRestante = restaFotocopia;
       
 if((parseFloat(total).toFixed(2)) <= parseFloat(cuantia)) {
-var r = confirm("Fotocopias: "+pdf.numPages+"\n"+"Coste de Fotocopias: " +total.toFixed(2)+"€. \nSu saldo restante será: "+parseFloat(restaFotocopia).toFixed(2)+"€");
+var r = confirm("Nº de fotocopias: "+pdf.numPages+"\n"+"Coste de Fotocopias: " +total.toFixed(2)+"€. \nSu saldo restante será: "+parseFloat(restaFotocopia).toFixed(2)+"€");
   if (r == true) { 
     $.ajax({
       url: "api/Usuarios/update?where=%7B%22username%22%3A%22"+sessionStorage.username+"%22%7D&access_token="+ sessionStorage.userToken,
@@ -177,10 +181,10 @@ muestraArchivos();
 
 function listarArchivos(){
   var cadena = "";
-  cadena = cadena + '<ul>'; 
+  cadena = cadena + '<ul style="list-style: none">'; 
      for(var i = 0; i < archivosAlumno.length; i++){
         if(archivosAlumno[i] != "")
-          cadena = cadena +'<li><a onclick="mandarConserje(this)" style="cursor:pointer;">'+ archivosAlumno[i]+'</a></li>'+"\n";
+          cadena = cadena +'<li ><a onclick="mandarConserje(this)" style="cursor:pointer;">'+ archivosAlumno[i]+'</a></li>'+"\n";
     }
     cadena = cadena + '</ul>';
     $('#pendientes').html(cadena);
@@ -205,7 +209,7 @@ var alumnos = "";
               for(z in res[0].archivosDescargar[y][idalumno]){
                 var file = res[0].archivosDescargar[y][idalumno][z];
                 var file = file.toString().split(',')
-                 var listaArchivos= "<ul>";
+                 var listaArchivos= "<ul style='list-style: none'>";
                 for(var i = 0; i < file.length ; i++){
                   if(file[i] != ""){
                      listaArchivos = listaArchivos + 
@@ -247,7 +251,7 @@ function muestraArchivos() {
       }).done(function(res){
         var cadena = "";
         if(typeof(res.id) !== undefined){
-            cadena = cadena + '<ul>';  
+            cadena = cadena + '<ul style="list-style: none">';  
             var cont = 0;
           var rute =  "/api/containers/download/download/";
               for(var x = res[0].archivosAlumno.length-1; x >= 0 ; x = x -1){

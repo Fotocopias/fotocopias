@@ -105,27 +105,22 @@ img {
 #conserje #container{
 	list-style:none!important;
 }
-/*
-#vistaProfesor {
-	background-image: url("../imagenes/ies_dosmares.jpg");
+
+.vistas {
+	background-image: url("../imagenes/fondo.jpg");
 	background-repeat: no-repeat;
 	background-size: 100% 150%;
 }
-#vistaAlumno {
-	background-image: url("../imagenes/ies_dosmares.jpg");
+.vistasAlumno {
+	background-image: url("../imagenes/fondo.jpg");
 	background-repeat: no-repeat;
-	background-size: 100% 500%;
+	background-size: 100% 210%;
 }
-#vistaConserje {
-	background-image: url("../imagenes/ies_dosmares.jpg");
+.vistasConserje {
+	background-image: url("../imagenes/fondo.jpg");
 	background-repeat: no-repeat;
-	background-size: 100% 550%;
+	background-size: 100% 400%;
 }
-#vistaAdministrador {
-	background-image: url("../imagenes/ies_dosmares.jpg");
-	background-repeat: no-repeat;
-	background-size: 100% 250%;
-}*/
 
 #meterDinero {
 	width: 100%;

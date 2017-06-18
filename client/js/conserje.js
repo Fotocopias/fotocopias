@@ -1,7 +1,8 @@
 var archivosDescargar = [];
 
 $(document).ready(function(){
-
+$("body").addClass("vistasConserje");
+		
 if ( sessionStorage.username != "" ){
 	$('#nombreUsuario').html(sessionStorage.username);
 }
@@ -13,7 +14,8 @@ $('#content').html('<div><img src="imagenes/ajax-loader(1).gif"/></div>');
 		var url = window.location;
 		var algo = url.toString().split("/");
 		var posicion = parseInt(algo.length)-parseInt(1);
-
+		$("body").removeClass("vistasConserje");
+		
 		$('#content').show();
 	    setTimeout(function(){  $('#content').hide(); }, 1500);
 		setTimeout(function(){ window.location.href = "conserje.html"; }, 1500);

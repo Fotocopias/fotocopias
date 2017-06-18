@@ -14,6 +14,7 @@ var route ="/api/Grupos?filter=%7B%22where%22%3A%20%7B%22tutor%22%3A%20%22"+sess
 	var archivosSinRepetirAlumno = [];
 
 $(document).ready(function(){
+	$("body").addClass("vistas");
    $('#content').html('<div><img src="imagenes/ajax-loader(1).gif"/></div>');
    $('#content').hide();
 	$('#archivo').html('');
@@ -306,12 +307,16 @@ $(document).ready(function(){
 		var algo = url.toString().split("/");
 		var posicion = parseInt(algo.length)-parseInt(1);
 
+		$("body").removeClass("vistas");
 		$('#content').show();
+
 	    setTimeout(function(){  $('#content').hide(); }, 1500);
 		setTimeout(function(){ window.location.href = "profesor.html"; }, 1500);
 		
 
 	}
+		
+	
 var rutaUrl = '/api/Grupos?filter=%7B%22where%22%3A%7B%22tutor%22%3A%22'+sessionStorage.username+'%22%7D%7D&access_token='+sessionStorage.userToken;
 	 $.ajax({  
           method: "GET",
