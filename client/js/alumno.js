@@ -207,8 +207,11 @@ var alumnos = "";
                 var file = file.toString().split(',')
                  var listaArchivos= "<ul>";
                 for(var i = 0; i < file.length ; i++){
-                  listaArchivos = listaArchivos + 
-                '<li><a>'+file[i]+'</a></li>';
+                  if(file[i] != ""){
+                     listaArchivos = listaArchivos + 
+                    '<li><a>'+file[i]+'</a></li>';
+                  }
+                 
                 }
                  listaArchivos = listaArchivos + '</ul>';
 

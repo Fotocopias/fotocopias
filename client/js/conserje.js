@@ -1,6 +1,11 @@
 var archivosDescargar = [];
 
 $(document).ready(function(){
+
+if ( sessionStorage.username != "" ){
+	$('#nombreUsuario').html(sessionStorage.username);
+}
+
 $('#content').html('<div><img src="imagenes/ajax-loader(1).gif"/></div>');
   $('#content').hide();
 	if(location.hash == "#ini") {
@@ -61,7 +66,7 @@ function cargarCollapsables(){
 							'<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#alumno'+idalumno+'">Alumno - '+idalumno+' - '+curso+'</button>'+
 						  	'<div id="alumno'+idalumno+'" class="collapse">'+listaArchivos+'</div></li>';
 						}
-						alumnos = alumnos+ "</li>";
+						alumnos = alumnos+ "</li><br>";
 						
 							grupos = grupos+'<li>'+alumnos+'</li>';
 					}
@@ -128,10 +133,12 @@ function actualizarArchivosDescargar(archivo, curso, grupo, username, rute){
 		        method: "POST",
 		        data: {  "archivosDescargar": [{ [username] : [archivosDescargar] }]  },
 		        success: function(data) {
-		        	//Recargo los collapsables 
-		        	cargarCollapsables();
+
+		        	vaciarArchivosDescargar(curso, grupo);
+		        	
 		        	// Abro el enlace para imprimir
 		        	window.open(rute); 
+		        	//deleteItem(archivo);
 		         
 		        }
 		    });
@@ -140,7 +147,37 @@ function actualizarArchivosDescargar(archivo, curso, grupo, username, rute){
 	}); 
 
 }
+function vaciarArchivosDescargar(curso, grupo){
+	var cont = 0;
+  for(var i = 0; i < archivosDescargar.length; i++){
+    if(archivosDescargar[i] == ""){
+      cont++;
+    }
+  }       
+  if(cont == archivosDescargar.length){
+   
+  $.ajax({
+      url: '/api/Grupos/update?where=%7B%22curso%22%3A%22'+curso+'%22%2C%22grupo%22%3A%22'+grupo+'%22%7D&access_token='+sessionStorage.userToken,
+      method: "POST",
+      data:{ "archivosDescargar": "[]"},
+      success: function(data) {
+      	//Recargo los collapsables 
+      	cargarCollapsables();
+      }
+    });
+  }
+}
 
+function deleteItem(element){
+	$.ajax({
+      url: '/api/containers/download/files/'+element+'?access_token='+sessionStorage.userToken,
+      method: "DELETE",
+      success: function(data) {
+      	
+      }
+    });
+
+}
 function cargarArrayArchivosDescargar(res){
 	for (y in res[0].archivosDescargar) {
 				for (idalumno in res[0].archivosDescargar[y]) {
