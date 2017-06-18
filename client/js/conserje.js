@@ -45,15 +45,19 @@ function cargarCollapsables(){
 				for (x in data) {
 					var grupos ='';
 
+
 					for (y in data[x]["archivosDescargar"]) {
 
 						for (idalumno in data[x]["archivosDescargar"][y]) {
+
 							var listaArchivos= "<ul>";
 							for(z in data[x]["archivosDescargar"][y][idalumno]){
 								var file = data[x]["archivosDescargar"][y][idalumno][z];
+
 								file = file.toString().split(',');
 								for(var i = 0; i < file.length; i++){
 									if( file[i] != ""){
+
 										listaArchivos = listaArchivos + 
 										'<li><a data-action="file" style="cursor: pointer;" id="'+idalumno+'" onclick="dowload(this)" data-id="'+file[i]+'" data-curso="'+data[x]["curso"]+'" data-grupo="'+data[x]["grupo"]+'" data-username="'+idalumno+'">'+file[i]+'</a></li>';
 									}
@@ -67,10 +71,10 @@ function cargarCollapsables(){
 						  	'<div id="alumno'+idalumno+'" class="collapse">'+listaArchivos+'</div></li>';
 						}
 						alumnos = alumnos+ "</li><br>";
-						
-							grupos = grupos+'<li>'+alumnos+'</li>';
+						grupos = grupos+'<li>'+alumnos+'</li>';
 					}
 					grupos = grupos + "</ul>";
+					
 
 				}
 				$('#container').html(grupos);
@@ -134,10 +138,12 @@ function actualizarArchivosDescargar(archivo, curso, grupo, username, rute){
 		        data: {  "archivosDescargar": [{ [username] : [archivosDescargar] }]  },
 		        success: function(data) {
 
-		        	vaciarArchivosDescargar(curso, grupo);
-		        	
-		        	// Abro el enlace para imprimir
-		        	window.open(rute); 
+		        	//vaciarArchivosDescargar(curso, grupo, rute);
+			    	//Recargo los collapsables 
+					cargarCollapsables();
+				    // Abro el enlace para imprimir
+			    	window.open(rute); 
+
 		        	//deleteItem(archivo);
 		         
 		        }
@@ -147,7 +153,8 @@ function actualizarArchivosDescargar(archivo, curso, grupo, username, rute){
 	}); 
 
 }
-function vaciarArchivosDescargar(curso, grupo){
+/*
+function vaciarArchivosDescargar(curso, grupo, rute){
 	var cont = 0;
   for(var i = 0; i < archivosDescargar.length; i++){
     if(archivosDescargar[i] == ""){
@@ -156,18 +163,25 @@ function vaciarArchivosDescargar(curso, grupo){
   }       
   if(cont == archivosDescargar.length){
    
-  $.ajax({
-      url: '/api/Grupos/update?where=%7B%22curso%22%3A%22'+curso+'%22%2C%22grupo%22%3A%22'+grupo+'%22%7D&access_token='+sessionStorage.userToken,
-      method: "POST",
-      data:{ "archivosDescargar": "[]"},
-      success: function(data) {
-      	//Recargo los collapsables 
-      	cargarCollapsables();
-      }
-    });
+	  $.ajax({
+	      url: '/api/Grupos/update?where=%7B%22curso%22%3A%22'+curso+'%22%2C%22grupo%22%3A%22'+grupo+'%22%7D&access_token='+sessionStorage.userToken,
+	      method: "POST",
+	      data:{ "archivosDescargar": "[]"},
+	      success: function(data) {
+	    	//Recargo los collapsables 
+			cargarCollapsables();
+		    // Abro el enlace para imprimir
+	    	window.open(rute); 
+	      }
+	    });
+  }else{
+	//Recargo los collapsables 
+	cargarCollapsables();
+    // Abro el enlace para imprimir
+	window.open(rute); 
   }
 }
-
+*/
 function deleteItem(element){
 	$.ajax({
       url: '/api/containers/download/files/'+element+'?access_token='+sessionStorage.userToken,
@@ -183,6 +197,7 @@ function cargarArrayArchivosDescargar(res){
 				for (idalumno in res[0].archivosDescargar[y]) {
 					for(z in res[0].archivosDescargar[y][idalumno]){
 						var file = res[0].archivosDescargar[y][idalumno][z];
+
 						var file = file.toString().split(',')
 						for(var i = 0; i < file.length ; i++){
 							archivosDescargar.push(file[i]);
