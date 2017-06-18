@@ -8,12 +8,33 @@
 	</head>
 	<body id="vistaAdministrador">
 			<div id="content"></div>
+		<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
 
-		<div>
-					<span id="nombreUsuario"></span>
-					<button id="logout">Logout</button>
-		</div>
-		
+					<a class="navbar-brand" href="http://iesdosmares.com/">
+						<img src="imagenes/logo.png" rel="icon" width="40" height="30" alt="Logo " style="position:relative;top: -10px;">
+
+					</a>
+					<a class="navbar-brand" href="http://iesdosmares.com/">
+					IES Dos Mares
+					</a>
+				</div>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a href="#">
+							<span id="saldo"></span>
+						</a>
+					</li>
+					<li>
+						<a href="#" ><span class="glyphicon glyphicon-user"></span> <span id="nombreUsuario"></span></a>
+					</li>
+					<li>
+						<a href="#" id="logout"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
 		<div class="container-fluid" id="administrador">
 
 			<div class="row" id="alturaFormularioProfesor">
