@@ -55,7 +55,11 @@ img {
 #historico {
 	width: 100%;
 }
-
+#alumnoIndicado {
+	width: 100%;
+	text-align: left;
+	list-style: none;
+}
 #profesor {
 	text-align: center;
 }
@@ -93,11 +97,86 @@ img {
 }
 #content {
 	position: absolute;
-	width: 3.5%;
+	width: 3.1%;
 	margin-left: 48.5%;
 	margin-top: 48vh; 
 	text-align: center;
 }
 #conserje #container{
 	list-style:none!important;
+}
+/*
+#vistaProfesor {
+	background-image: url("../imagenes/ies_dosmares.jpg");
+	background-repeat: no-repeat;
+	background-size: 100% 150%;
+}
+#vistaAlumno {
+	background-image: url("../imagenes/ies_dosmares.jpg");
+	background-repeat: no-repeat;
+	background-size: 100% 500%;
+}
+#vistaConserje {
+	background-image: url("../imagenes/ies_dosmares.jpg");
+	background-repeat: no-repeat;
+	background-size: 100% 550%;
+}
+#vistaAdministrador {
+	background-image: url("../imagenes/ies_dosmares.jpg");
+	background-repeat: no-repeat;
+	background-size: 100% 250%;
+}*/
+
+#meterDinero {
+	width: 100%;
+}
+#cantidad {
+	width: 80%;
+	margin-left: 10%;
+}
+#labelCantidad {
+	margin-left: 10%;
+}
+
+#atras {
+	display: inline-block;
+}
+#tituloAdmin {
+	display: inline-block;
+	font-weight: bold;
+	padding-left: 10%;
+	font-size: 1.4em;
+}
+
+.labelAdmin {
+	font-size: 0.8em;
+}
+
+.panel-footer {
+	text-align: center;
+}
+.panel-heading {
+	text-align: center;
+}
+
+#nombre {
+	margin-left: 18%;
+}
+#apellidos {
+	margin-left: 18%;
+}
+
+#labelNombre {
+	text-align: left;
+	margin-top: 2vh;
+	margin-left: 18%;
+}
+
+#labelApellido {
+	margin-top: 2vh;
+	text-align: left;
+	margin-left: 18%;
+}
+.panel-body {
+	padding-bottom: 4vh;
 }

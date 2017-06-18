@@ -1,7 +1,6 @@
 $(document).ready(function(){
 $('#content').html('<div><img src="imagenes/ajax-loader(1).gif"/></div>');
 $('#content').hide();
-
   if(location.hash == "#ini") {
     $('#administrador').hide();
     var url = window.location;
@@ -10,7 +9,7 @@ $('#content').hide();
 
     $('#content').show();
       setTimeout(function(){  $('#content').hide(); }, 1500);
-    setTimeout(function(){ window.location.href = "admin.html"; }, 1500);
+      setTimeout(function(){ window.location.href = "admin.html"; }, 1500);
     
 
   }
@@ -27,7 +26,8 @@ $('#content').hide();
           url: rutaUrl,
       }).done(function(res){
               if(typeof(res.id) !== undefined){
-                    $('#alumnoIndicado').html("Nombre: "+res[0].nombre+" "+res[0].apellidos+"\n"+"Usuario: "+res[0].username+"\n"+"Tipo: "+res[0].tipoUsuario+"\n"+"Saldo: "+res[0].dinero+"€");
+                    $('#alumnoIndicado').html("<ul style='list-style: none'><li><strong>Alumno: </strong>"+res[0].nombre+" "+res[0].apellidos+"</li><li><strong>Email: </strong>"+res[0].email+"<li><strong>Usuario: </strong>"+res[0].username+"</li><li><strong>Saldo: </strong>"+res[0].dinero+"€</li><ul>");
+                    
               }
         }).fail(function(evt){
           var msgError = "ERROR: "+evt.status+" "+evt.statusText;
@@ -35,6 +35,7 @@ $('#content').hide();
           });
       } else {
         alert("Introduzca un nombre y apellido");
+        location.reload();
       }
    });
 
@@ -70,8 +71,9 @@ $('#content').hide();
                       method: "POST",
                       data: { "dinero": suma },
                         success: function(data) {
-                          $( "#cantidad" ).val("");
+                          $('#myModal').modal('toggle');
                           $( "#mostrarUsuario" ).trigger( "click" );
+                          $( "#cantidad" ).val("");
                           $( "#volver" ).attr("disabled",false);
                         }
                       });
@@ -104,9 +106,11 @@ $('#content').hide();
         method: "POST",
         data: { "dinero": deshacer },
           success: function(data) {
+            $('#myModal').modal('toggle');
             $( "#mostrarUsuario" ).trigger( "click" );
             sessionStorage.removeItem("guardaCuantia");
-            location.reload();
+            $( "#volver" ).attr("disabled",true);
+            
           }
         });
       } else {
