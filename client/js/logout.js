@@ -6,7 +6,7 @@ $(document).ready(function(){
       }).done(function(res){
               if(typeof(res.id) !== undefined){
                   sessionStorage.username=res.username;
-                  $('#nombreUsuario').html(sessionStorage.username);
+                  $('#nombreUsuario').html(res.nombre +" "+res.apellidos);
               } else {
                   console.log("Error");
               }

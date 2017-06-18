@@ -115,6 +115,7 @@ $('#content').hide();
             sessionStorage.removeItem("guardaCuantia");
             $( "#volver" ).attr("disabled",true);
 		    $( "#mostrarUsuario" ).trigger( "click" );
+		    location.reload();
           }
         //}).done(function() {
         	//$('#modal').modal('hide');
