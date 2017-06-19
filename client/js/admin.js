@@ -107,7 +107,7 @@ $('#content').hide();
     });
 
     $('#volver').click(function(){
-      var deshacer = parseInt(suma) - parseInt(sessionStorage.guardaCuantia);
+      var deshacer = parseFloat(suma) - parseFloat(sessionStorage.guardaCuantia);
       var r = confirm("¿Deshacer los cambios?");
       if (r == true) {      
         $.ajax({

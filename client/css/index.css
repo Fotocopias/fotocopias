@@ -102,7 +102,7 @@ img {
 	margin-top: 48vh; 
 	text-align: center;
 }
-#conserje #container{
+#conserje #container2{
 	list-style:none!important;
 }
 
@@ -110,16 +110,19 @@ img {
 	background-image: url("../imagenes/fondo.jpg");
 	background-repeat: no-repeat;
 	background-size: 100% 150%;
+	background-attachment: fixed;
 }
 .vistasAlumno {
 	background-image: url("../imagenes/fondo.jpg");
 	background-repeat: no-repeat;
 	background-size: 100% 210%;
+	background-attachment: fixed;
 }
 .vistasConserje {
 	background-image: url("../imagenes/fondo.jpg");
 	background-repeat: no-repeat;
 	background-size: 100% 400%;
+	background-attachment: fixed;
 }
 
 #meterDinero {

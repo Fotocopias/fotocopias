@@ -105,6 +105,8 @@ $(document).ready(function(){
 		$('#archivo').val("");
 		archivosProfesor = [];
 		archivosSinRepetirProfesor = [];
+		archivosAlumno = [];
+		archivosSinRepetirAlumno = [];
 	} else {			
 		$.ajax({
 		url: "/api/Grupos/update?where=%7B%22grupo%22%3A%22"+grupo+"%22%2C%22curso%22%3A"+curso+"%2C%22tutor%22%3A%22"+sessionStorage.username+"%22%7D&access_token="+sessionStorage.userToken,
