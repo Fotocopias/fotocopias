@@ -46,7 +46,7 @@ function cargarCollapsables(){
 			success: function (data) {
 				for (x in data) {
 					var grupos ='';
-
+					var alumnnoVacio = false;
 
 					for (y in data[x]["archivosDescargar"]) {
 
@@ -57,23 +57,33 @@ function cargarCollapsables(){
 								var file = data[x]["archivosDescargar"][y][idalumno][z];
 
 								file = file.toString().split(',');
+								var contEspacios = 0;
 								for(var i = 0; i < file.length; i++){
 									if( file[i] != ""){
 
 										listaArchivos = listaArchivos + 
 										'<li><a data-action="file" style="cursor: pointer;" id="'+idalumno+'" onclick="dowload(this)" data-id="'+file[i]+'" data-curso="'+data[x]["curso"]+'" data-grupo="'+data[x]["grupo"]+'" data-username="'+idalumno+'">'+file[i]+'</a></li>';
+									}else{
+										contEspacios++;
 									}
+								}
+								if( contEspacios == file.length){
+									alumnnoVacio = true;
 								}
 								
 							}
 							listaArchivos = listaArchivos + '</ul>';
 							var curso = data[x]["curso"]+'º '+data[x]["grupo"]
-							alumnos = alumnos+'<li>'+
-							'<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#alumno'+idalumno+'">Alumno - '+idalumno+' - '+curso+'</button>'+
-						  	'<div id="alumno'+idalumno+'" class="collapse">'+listaArchivos+'</div></li>';
+							if( alumnnoVacio != true){
+								alumnos = alumnos+'<li>'+
+								'<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#alumno'+idalumno+'">Alumno - '+idalumno+' - '+curso+'</button>'+
+							  	'<div id="alumno'+idalumno+'" class="collapse">'+listaArchivos+'</div></li>';
+							}
 						}
 						alumnos = alumnos+ "</li><br>";
+						
 						grupos = grupos+'<li>'+alumnos+'</li>';
+						
 					}
 					grupos = grupos + "</ul>";
 					
