@@ -102,7 +102,7 @@ img {
 	margin-top: 48vh; 
 	text-align: center;
 }
-#conserje #container2{
+#conserje #container{
 	list-style:none!important;
 }
 
@@ -110,19 +110,16 @@ img {
 	background-image: url("../imagenes/fondo.jpg");
 	background-repeat: no-repeat;
 	background-size: 100% 150%;
-	background-attachment: fixed;
 }
 .vistasAlumno {
 	background-image: url("../imagenes/fondo.jpg");
 	background-repeat: no-repeat;
 	background-size: 100% 210%;
-	background-attachment: fixed;
 }
 .vistasConserje {
 	background-image: url("../imagenes/fondo.jpg");
 	background-repeat: no-repeat;
 	background-size: 100% 400%;
-	background-attachment: fixed;
 }
 
 #meterDinero {
@@ -179,3 +176,15 @@ img {
 	padding-bottom: 4vh;
 }
 
+/* Color del menu 
+.navbar-inverse{
+	background-color:  #008B96!important;
+	border-color: #008B96!important;
+}
+.navbar-inverse .navbar-brand{
+	color: white!important;
+}
+.navbar-right li a{
+	color: white!important;
+}
+*/
